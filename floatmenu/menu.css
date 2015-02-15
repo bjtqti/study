@@ -1,0 +1,63 @@
+ul {
+	list-style-type: none;
+}
+a {
+	text-decoration: none;
+}
+/*文章内容区*/
+#content {
+	width:400px;
+	margin: 0 auto;
+	font-size: 2em;
+}
+/*悬浮菜单*/
+.menu {
+	position: fixed;
+	top:20%;
+	right: 0;
+	width:200px;
+	border: 1px solid gray;
+	border-radius: 5px;
+}
+
+.menu li {
+	height: 2em;
+	line-height: 2em;
+}
+
+.red {
+	color : red;
+}
+
+.hide {
+	display: none;
+}
+
+/*隐藏悬浮菜单*/
+.slideIn {
+	transform : translate3d(202px, 0, 0);
+	transition-duration : .5s;
+}
+
+/*显示悬浮菜单*/
+.slideOut {
+	transform : translate3d(0, 0, 0);
+	transition-duration : .5s;
+}
+
+.static {
+	color:#007aff;
+	text-align: center;
+}
+
+/*显示悬浮球*/
+.toShow {
+	display: block;
+		width: 4.8em;
+		height: 2em;
+		line-height: 2em;
+		border-radius: .5em;
+	border:1px solid gray;
+	transform : translate3d(-5em, 0, 0);
+	transition-duration : 1s;
+}
