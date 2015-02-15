@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="table.css">
+	<script src="table.js"></script>
+</head>
+<body>
+	<table id="sales1">
+		<caption>Quarterly sales 可以排序的单元格*</caption>
+		<thead>
+			<tr>
+				<th>Companies</th>
+				<th>Q1</th>
+				<th>Q2</th>
+				<th>Q3</th>
+				<th>Q4</th>
+			</tr>
+		</thead>
+		<tbody contenteditable="true">
+			<tr>
+				<th>Company A</th>
+				<th>$621</th>
+				<th>$942</th>
+				<th>$224</th>
+				<th>$486</th>
+			</tr>
+			<tr>
+				<th>Company B</th>
+				<th>$147</th>
+				<th>$1,325</th>
+				<th>$683</th>
+				<th>$524</th>
+			</tr>
+			<tr>
+				<th>Company C</th>
+				<th>$135</th>
+				<th>$2,342</th>
+				<th>$33</th>
+				<th>$464</th>
+			</tr>
+			<tr>
+				<th>Company D</th>
+				<th>$164</th>
+				<th>$332</th>
+				<th>$331</th>
+				<th>$438</th>
+			</tr>
+			<tr>
+				<th>Company E</th>
+				<th>$199</th>
+				<th>$902</th>
+				<th>$336</th>
+				<th>$1,427</th>
+			</tr>
+		</tbody>
+	</table>
+
+	<table id="sales2">
+		<caption>Quarterly sales 可以拖动的列*</caption>
+		<thead>
+			<tr>
+				<th>Companies</th>
+				<th>Q1</th>
+				<th>Q2</th>
+				<th>Q3</th>
+				<th>Q4</th>
+			</tr>
+		</thead>
+		<tbody contenteditable="true">
+			<tr>
+				<th>Company A</th>
+				<th>$621</th>
+				<th>$942</th>
+				<th>$224</th>
+				<th>$486</th>
+			</tr>
+			<tr>
+				<th>Company B</th>
+				<th>$147</th>
+				<th>$1,325</th>
+				<th>$683</th>
+				<th>$524</th>
+			</tr>
+			<tr>
+				<th>Company C</th>
+				<th>$135</th>
+				<th>$2,342</th>
+				<th>$33</th>
+				<th>$464</th>
+			</tr>
+			<tr>
+				<th>Company D</th>
+				<th>$164</th>
+				<th>$332</th>
+				<th>$331</th>
+				<th>$438</th>
+			</tr>
+			<tr>
+				<th>Company E</th>
+				<th>$199</th>
+				<th>$902</th>
+				<th>$336</th>
+				<th>$1,427</th>
+			</tr>
+		</tbody>
+	</table>
+	<i>支持键盘操作,Tab选中,左右方向键移动</i>
+ 	<script>
+ 	var table1 = new TableSort('sales1');
+ 	var table2 = new ColumnDrag('sales2')
+ 	</script>
+ 
+ 
+</body>
+</html>

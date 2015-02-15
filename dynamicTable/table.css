@@ -1,0 +1,26 @@
+
+table {
+	font-family: verdana,arial,sans-serif;
+	color:#333333;
+	border-width: 1px;
+	border-collapse: collapse;
+}
+
+th {
+	border:1px solid #98bf21;
+		padding:8px;
+		border-width: 1px;
+		border-style: solid;
+}
+
+tbody tr {
+	color:#000000;
+		background-color:#EAF2D3;
+}
+
+thead tr {
+	background-color:#A7C942;
+		color:#ffffff;
+}
+
+ 
