@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="lib/core/require.js"></script>
+    <script src="lib/main.js"></script>
+    <script src="lib/config.js"></script>
+    <script src="lib/init.js"></script>
+    <title>mini require/define</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+
+//调用main主模块
+require('main');
+
+//执行配置文件
+require('config',function(c){
+    console.log(c.name,c.version);
+});
+
+//进行初始化
+require('init',function(init) {
+    console.log(init)
+});
+
+//同时调用多个模块
+require(['config','init'],function(c,i){
+    console.log(c,i)
+})
+</script>
+</html>
