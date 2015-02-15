@@ -5,12 +5,13 @@
  */
 
 
-function Game2048(id){
+function Game2048(options){
 	this.board = [];
-	this.height = 100;
-	this.width = 100;
-	this.blank = 20;
-	this.id = id;
+	this.height = options.height||100;
+	this.width = options.width ||100;
+	this.blank = options.blank ||20;
+	this.id = options.boardId;
+	this.scoreId = options.scoreId;
 	this.init();
 }
 
@@ -18,9 +19,13 @@ function Game2048(id){
 //初始化数据
 Game2048.prototype.init = function(){
 	var board = this.board;
+	var container = document.getElementById(this.id);
+	var score = document.getElementById(this.scoreId);
 	var i,j;
-
+	this.container = container;
+	this.$score = score;
 	this.getCells();
+	this.score = 0;
 
 	for(i=0;i<4;i++){
 		board[i] = [];
@@ -30,8 +35,37 @@ Game2048.prototype.init = function(){
 		}
 	}
 
+	this.start();
+}
+
+//开始游戏
+Game2048.prototype.start = function(){
+	this.clearGrid();
+	this.setScore(this.score);
 	this.randomCell();
 	this.randomCell();
+}
+
+//清理格子
+Game2048.prototype.clearGrid = function(){
+	var board = this.board;
+	var container = this.container;
+	
+	for(var i=0;i<4;i++){
+		for(var j =0;j<4;j++){
+			if(board[i][j]){
+				container.removeChild(board[i][j]);
+				board[i][j] = null;
+			}
+		}
+	}
+}
+
+//设置得分
+Game2048.prototype.setScore = function(score){
+	var $score = this.$score;
+	var old = Number($score.innerHTML)||0;
+	this.$score.innerHTML = old+score;
 }
 
 //初始化界面
@@ -55,10 +89,8 @@ Game2048.prototype.getTop = function(i,j){
 
 //获取所有格子
 Game2048.prototype.getCells = function(){
-	var container = document.getElementById(this.id);
-	var cells = container.children;
+	var cells = this.container.children;
 	this.cells = cells;
-	this.container = container;
 }
 
 //获取格式的id
@@ -100,12 +132,18 @@ Game2048.prototype.addCell = function(i,j){
 
 
 window.onload = function(){
-	var game = new Game2048('grid-container');
+	var game = new Game2048({
+		boardId : 'grid-container',
+		scoreId : 'grid-score',
+		width : 100,
+		height : 100,
+		blank : 20
+	});
 	var body = document.body;
 	body.onclick = function(e){
 		var target = e.target || e.srcElement;
 		if(target.className == 'start'){
-			//game.init();
+			game.start();
 			return false;
 		}
 	}
