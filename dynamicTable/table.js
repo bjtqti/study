@@ -1,4 +1,4 @@
-function TableSort(id){
+	function TableSort(id){
  		this.tbl = document.getElementById(id);
  		if(this.tbl && this.tbl.nodeName == 'TABLE'){
  			this.makeSortable();
@@ -117,6 +117,7 @@ function TableSort(id){
  			this.state = null;
  			this.prevX = null;
  			//this.cols = this.tbl.getElementsByTagName('col');
+ 			TableSort.prototype.makeZebra.call(this);
  			this.makeDraggable();
  		}
  	}
@@ -259,3 +260,70 @@ function TableSort(id){
  					break;
  		}
  	}
+
+ 	function TableEdit(id){
+ 		this.tbl = document.getElementById(id);
+ 		if(this.tbl && this.tbl.nodeName == 'TABLE'){
+ 			TableSort.prototype.makeZebra.call(this);
+ 			this.addEvent();
+ 		}
+ 	}
+ 
+ 	TableEdit.prototype.addTR = function(){
+ 		var cells = this.tbl.tHead.rows[0].cells;
+ 		var TR = document.createElement('tr');
+ 		var ths = [];
+ 		for(var i=0;cells[i];i++){
+ 			ths.push('<th></th>');
+ 		}
+ 		ths[--i] = '<th><button data-opt="del">del</button></th>';
+ 		TR.innerHTML = ths.join('');
+ 		this.tbl.tBodies[0].appendChild(TR);
+ 		TableSort.prototype.makeZebra.call(this);
+ 	}
+
+ 	TableEdit.prototype.delTR = function(target){
+		var tr = target.parentNode.parentNode;
+		tr.parentNode.removeChild(tr);
+ 	}
+ 
+ 	//监听事件
+ 	TableEdit.prototype.addEvent = function(){
+ 		var self = this;
+ 		//单击
+ 		this.tbl.onclick = function(e){
+ 			var target = e.target || e.srcElement;
+ 			var opt = target.dataset ? target.dataset.opt : target.getAttribute('data-opt');
+ 			//添加/删除行
+ 			if(target.nodeName == 'BUTTON'){
+ 				switch(opt){
+ 					case 'del':
+ 						self.delTR(target);
+ 						break;
+ 					case 'add':
+ 						self.addTR();
+ 						break;
+ 				}
+ 				return false;
+ 			}
+
+ 			if(self.editableTR && target.parentNode !==self.editableTR) {
+ 				self.editableTR.removeAttribute('contenteditable');
+ 				self.editableTR = null;
+ 			}
+ 		}
+
+ 		//双击可修改单元格
+ 		this.tbl.tBodies[0].ondblclick=function(e){
+ 			var target = e.target || e.srcElement;
+ 			if(target.nodeName == 'TH'){
+ 				var TR = target.parentNode;
+ 				var len = TR.cells.length-1;
+ 				TR.setAttribute('contenteditable',true);
+ 				//排除操作单元格
+ 				TR.cells[len].setAttribute('contenteditable',false);
+ 				self.editableTR = TR;
+ 			}
+ 		}
+ 	}
+
