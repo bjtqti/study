@@ -65,3 +65,7 @@ a.start:hover {
 	line-height: 100px;
 	text-align: center;
 }
+
+.center {
+	text-align: center;
+}
