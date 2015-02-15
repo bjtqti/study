@@ -1,0 +1,56 @@
+body,ul,li { 
+	margin:0; 
+	padding:0; 
+	font-size:14px;
+}
+
+ul,li {
+	list-style:none;
+}
+
+#divselect{
+	width:186px; 
+	margin:80px auto; 
+	position:relative; 
+	z-index:10000;
+}
+
+#divselect cite {
+	width:150px; 
+	height:24px;
+	line-height:24px; 
+	display:block; 
+	color:#807a62;
+	cursor:pointer;
+	font-style:normal;
+	padding-left:4px; 
+	padding-right:30px; 
+	border:1px solid; 
+	background:url(xjt.png) no-repeat right center;
+}
+
+#divselect ul {
+	width:184px;
+	border:1px solid #333333;
+	background-color:#ffffff; 
+	position:absolute; 
+	z-index:20000; 
+	margin-top:-1px; 
+	display:none;
+}
+
+#divselect ul li {
+	height:24px; 
+	line-height:24px;
+}
+
+#divselect ul li a {
+	display:block; 
+	height:24px; 
+	color:#333333; 
+	text-decoration:none; 
+	padding-left:10px; 
+	padding-right:10px;
+}
+
+p {text-align:center;color:green}
