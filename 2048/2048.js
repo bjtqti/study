@@ -2,6 +2,7 @@
  * 2048 游戏
  * Created by 它山之石 on 14-4-11.
  * email <278500368@qq.com>
+ * @param options 
  */
 
 
@@ -25,8 +26,8 @@ Game2048.prototype.init = function(){
 	this.container = container;
 	this.$score = score;
 	this.getCells();
-	this.score = 0;
 
+	//生成4 X 4的棋盘格子
 	for(i=0;i<4;i++){
 		board[i] = [];
 		for(j=0;j<4;j++){
@@ -35,30 +36,37 @@ Game2048.prototype.init = function(){
 		}
 	}
 
+	this.status = 'init';
 	this.start();
 }
 
 //开始游戏
 Game2048.prototype.start = function(){
-	this.clearGrid();
+	this.score = 0;
+	this.cleanGrid();
 	this.setScore(this.score);
 	this.randomCell();
 	this.randomCell();
 }
 
-//清理格子
-Game2048.prototype.clearGrid = function(){
+//清理棋盘
+Game2048.prototype.cleanGrid = function(){
+	if(this.status !== 'dirty') {
+		return;
+	}
 	var board = this.board;
 	var container = this.container;
 	
 	for(var i=0;i<4;i++){
 		for(var j =0;j<4;j++){
 			if(board[i][j]){
-				container.removeChild(board[i][j]);
+				container.removeChild(board[i][j].cell);
 				board[i][j] = null;
 			}
 		}
 	}
+
+	this.status = 'clean';
 }
 
 //设置得分
@@ -111,6 +119,11 @@ Game2048.prototype.randomCell = function(){
 		}
 	}
     var len = cells.length-1;
+
+    if(len < 0) {
+    	this.status = 'over';
+    	return false;
+    }
 	//随机第一个格子
 	var n = Math.round(Math.random() * len);
 	this.addCell(cells[n][0],cells[n][1]);
@@ -127,7 +140,8 @@ Game2048.prototype.addCell = function(i,j){
 	cell.innerHTML = randNumber;
 	cell.style.cssText = "left:"+left+"px;top:"+top+"px";
 	this.container.appendChild(cell); 
-	this.board[i][j] = cell;
+	this.board[i][j] = {"cell":cell,"num":randNumber};
+	this.status = 'dirty';
 }
 
 

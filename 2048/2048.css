@@ -36,6 +36,10 @@ a.start:hover {
 	background-color: #D7A354;
 }
 
+a.start:active {
+	background-color: gray;
+}
+
 .score {
 	color:#CA8544;
 	font-size: 2em;
