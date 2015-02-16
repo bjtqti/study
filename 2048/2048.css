@@ -55,7 +55,7 @@ a.start:active {
 	margin: 0 auto;
 }
 
-.cell {
+.grid-cell {
 	position: absolute;
 	width:100px;
 	height: 100px;
@@ -63,8 +63,12 @@ a.start:active {
 	border-radius: 6px;
 }
 
-.numberCell{
+.number-cell{
+	position: absolute;
+	width:100px;
+	height: 100px;
 	background-color: #F0E3D4;
+	border-radius: 6px;
 	color:#9D6121;
 	line-height: 100px;
 	text-align: center;
