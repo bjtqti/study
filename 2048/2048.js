@@ -54,18 +54,17 @@ Game2048.prototype.start = function(){
 Game2048.prototype.layerout = function(i,j,grids){
 	var index = 4 * i + j;
 	var grid = grids[index];
-	grid.style.cssText = this.getGirdPosition(i,j);
+	grid.style.cssText = this.getGirdStyle(i,j);
 }
  
 
 //清理棋盘
 Game2048.prototype.cleanGrid = function(){
-	if(this.status !== 'dirty') {
-		return;
-	}
 	var board = this.board;
 	var container = this.container;
-	
+
+	if(this.status=='init') return false;
+
 	for(var i=0;i<4;i++){
 		for(var j =0;j<4;j++){
 			if(board[i][j]){
@@ -87,10 +86,11 @@ Game2048.prototype.updateScore = function(score){
 //刷新格子
 Game2048.prototype.updateGirdView = function(i,j){
 	var cell = this.board[i][j].cell;
-	cell.style.cssText = this.getGirdPosition(i,j);
+	cell.style.cssText = this.getGirdStyle(i,j);
 }
 
-Game2048.prototype.getGirdPosition = function(i,j){
+//获取格子的定位样式
+Game2048.prototype.getGirdStyle = function(i,j){
 	var left = this.getLeft(i,j);
 	var top = this.getTop(i,j);
 	return "left:"+left+"px;top:"+top+"px";
@@ -150,9 +150,29 @@ Game2048.prototype.addCell = function(i,j){
 
 //移除一个格子
 Game2048.prototype.delCell = function(i,j){
-	var cell = this.board[i][j];
+	var cell = this.board[i][j].cell;
 	this.container.removeChild(cell);
 	this.board[i][j] = null;
+}
+
+//判断水平方向是否有格子阻挡
+Game2048.prototype.noBlockHorizontal=function( row , col1 , col2 , board ){
+    for( var i = col1 + 1 ; i < col2 ; i ++ ){
+        if( board[row][i] ){
+            return false;
+        }
+    }
+    return true;
+}
+
+//判断竖直方向是否有格子阻挡
+Game2048.prototype.noBlockVertical=function( row , col1 , col2 , board ){
+    for( var i = col1 + 1 ; i < col2 ; i ++ ){
+        if( board[i][row] ){
+            return false;
+        }
+    }
+    return true;
 }
 
 //游戏结束
@@ -170,27 +190,11 @@ Game2048.prototype.moveLeft = function(){
 			//能移动的格子必须要有数字
 			if(board[i][j]){
 				//遍历待移动的数字之前的格子
-				var k = j;
-				while(k--){
-					//如果有数字
-					if(board[i][k]){
-						//如果相同的数字
-						if(board[i][k].num == board[i][j].num){
-							//合并
-							board[i][k].num += board[i][j].num;
-							this.delCell(i,j);
-							this.updateScore(board[i][k].num);
-						}else{
-							//不相同
-							break;
-						}
-					}else{
-						//空格子
-						board[i][k] = board[i][j];
-						this.updateGirdView(i,k)
-					}
+
+				for(var k=0;k<j;k++){
+
 				}
- 
+				
 			} 
 		}
 	}
