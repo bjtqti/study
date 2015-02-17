@@ -177,7 +177,7 @@ Game2048.prototype.noBlockVertical=function( row , col1 , col2 , board ){
 
 //游戏结束
 Game2048.prototype.gameOver = function(){
-	 
+	alert('game over');
 }
 
 //左移
@@ -193,27 +193,36 @@ Game2048.prototype.moveLeft = function(){
 
 				for(var k=0;k<j;k++){
 
+					
 				}
 				
 			} 
 		}
 	}
+
+	this.randomCell();
+	this.randomCell();
 }
 
 Game2048.prototype.moveRight = function(){
 	var board = this.board;
 
- 
+ 	this.randomCell();
+	this.randomCell();
 }
 
 Game2048.prototype.moveUp = function(){
+	var board = this.board;
 	
+	this.randomCell();
+	this.randomCell();
 }
 
 Game2048.prototype.moveDown = function(){
 	var board = this.board;
 
- 
+ 	this.randomCell();
+	this.randomCell();
 }
 
 //监听事件
