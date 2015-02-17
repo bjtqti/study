@@ -52,8 +52,9 @@ Game2048.prototype.start = function(){
 
 //初始化视图
 Game2048.prototype.layerout = function(i,j,grids){
-	var index = this.getCellId(i,j);
-	this.updateGirdView(i,j,grids[index]);
+	var index = 4 * i + j;
+	var grid = grids[index];
+	grid.style.cssText = this.getGirdPosition(i,j);
 }
  
 
@@ -83,23 +84,16 @@ Game2048.prototype.updateScore = function(score){
 	this.$score.innerHTML = this.score;
 }
 
-//局部刷新视图
-Game2048.prototype.updateGirdView = function(i,j,grid){
-	var left = this.getLeft(i,j);
-	var top = this.getTop(i,j);
-	grid.style.cssText = "left:"+left+"px;top:"+top+"px";
+//刷新格子
+Game2048.prototype.updateGirdView = function(i,j){
+	var cell = this.board[i][j].cell;
+	cell.style.cssText = this.getGirdPosition(i,j);
 }
 
-//全局刷新视图
-Game2048.prototype.updateBoardView =function(){
-	var board = this.board;
-	for(var i=0;i<4;i++){
-		for(var j=0;j<4;j++){
-			if(board[i][j]){
-				this.updateGirdView(i,j,board[i][j].cell);
-			}
-		}
-	}
+Game2048.prototype.getGirdPosition = function(i,j){
+	var left = this.getLeft(i,j);
+	var top = this.getTop(i,j);
+	return "left:"+left+"px;top:"+top+"px";
 }
 
 //获取left的值
@@ -111,11 +105,7 @@ Game2048.prototype.getLeft = function(i,j){
 Game2048.prototype.getTop = function(i,j){
 	return this.blank+(this.height+this.blank) * i;
 }
-
-//获取格式的id
-Game2048.prototype.getCellId = function(i,j){
-	return 4 * i + j;
-}
+ 
 
 //随机生成一个格子
 Game2048.prototype.randomCell = function(){
@@ -152,36 +142,17 @@ Game2048.prototype.addCell = function(i,j){
 	cell.innerHTML = randNumber;
 	this.container.appendChild(cell); 
  	//保存格子
-	this.board[i][j] = {"cell":cell,"num":randNumber,"axis":[i,j]};
+	this.board[i][j] = {"cell":cell,"num":randNumber};
 	//更新视图
-	this.updateGirdView(i,j,cell);
+	this.updateGirdView(i,j);
 	this.status = 'dirty';
 }
 
-//判断是否在水平方向有阻挡
-Game2048.prototype.noBlockHorizontal = function(row , col1 , col2){
-	var board = this.board;
-	for(var i=col1+1;i<col2;i++){
-		if(board[row][i]){
-			return true;
-		}
-	}
-	return false;
-}
-
-Game2048.prototype.noBlockVertical = function(col , row1 , row2){
-	var board = this.board;
-	for( var i = row1 + 1 ; i < row2 ; i ++ ){
-        if( board[i][col]){
-            return true;
-        }
-	}
-    return false;
-}
-
 //移除一个格子
-Game2048.prototype.delCell = function(cell){
+Game2048.prototype.delCell = function(i,j){
+	var cell = this.board[i][j];
 	this.container.removeChild(cell);
+	this.board[i][j] = null;
 }
 
 //游戏结束
@@ -194,31 +165,32 @@ Game2048.prototype.moveLeft = function(){
 	var board = this.board;
 
 	for(var i = 0;i<4;i++){
-		//左边第1列肯定是不能再往左移动的 
+		//左边第1列不移动
 		for(var j = 1;j<4;j++){
-			//左边第2列起，能移动的格子必须要有数字
+			//能移动的格子必须要有数字
 			if(board[i][j]){
-				//遍历待移动的数字之前的格子,检测是否可以移动
-				for(var k=0;k<j;k++){
- 					if(!this.noBlockHorizontal(i,k,j) && !board[i][k]){
- 						// 1.没有阻挡并且前面为空
- 						//move
- 						board[i][k] = board[i][j];
- 						this.updateGirdView(i,k,board[i][k].cell);
- 						board[i][j] = null;
- 						break;
- 					}else if(!this.noBlockHorizontal(i,k,j) && board[i][k]==board[i][j]){
-						// 2.没有阻挡并且与之相等
-						//move  , 合并 , 加分
-						var grid = board[i][k];
+				//遍历待移动的数字之前的格子
+				var k = j;
+				while(k--){
+					//如果有数字
+					if(board[i][k]){
+						//如果相同的数字
+						if(board[i][k].num == board[i][j].num){
+							//合并
+							board[i][k].num += board[i][j].num;
+							this.delCell(i,j);
+							this.updateScore(board[i][k].num);
+						}else{
+							//不相同
+							break;
+						}
+					}else{
+						//空格子
 						board[i][k] = board[i][j];
-						board[i][j] = null;
-						this.updateGirdView(i,k,board[i][k].cell);
-						this.delCell(grid.cell);
-						this.updateScore(board[i][k].num);
-						break;
- 					}
+						this.updateGirdView(i,k)
+					}
 				}
+ 
 			} 
 		}
 	}
@@ -227,30 +199,7 @@ Game2048.prototype.moveLeft = function(){
 Game2048.prototype.moveRight = function(){
 	var board = this.board;
 
-	for(var i = 0;i<4;i++){
-		//右边第1列肯定是不能再往右移动的 
-		for(var j = 2;j>-1;j--){
-			if(board[i][j]){
-				//遍历待移动的数字之前的格子,检测是否可以移动
-				for(var k=3;k>j;k--){
- 					if(!this.noBlockHorizontal(i,j,k) && !board[i][k]){
- 						board[i][k] = board[i][j];
- 						this.updateGirdView(i,k,board[i][k].cell);
- 						board[i][j] = null;
- 						break;
- 					}else if(!this.noBlockHorizontal(i,j,k) && board[i][k]==board[i][j]){
-						var grid = board[i][k];
-						board[i][k] = board[i][j];
-						board[i][j] = null;
-						this.updateGirdView(i,k,board[i][k].cell);
-						this.delCell(grid.cell);
-						this.updateScore(board[i][k].num);
-						break;
- 					}
-				}
-			} 
-		}
-	}
+ 
 }
 
 Game2048.prototype.moveUp = function(){
@@ -260,29 +209,7 @@ Game2048.prototype.moveUp = function(){
 Game2048.prototype.moveDown = function(){
 	var board = this.board;
 
-	//最一面一行是不能移动的
-	for(var j=0;j<4;j++){
-		for(var i=2;i>-1;i--){
-			if(board[i][j]){
-				for( var k = 3 ; k > i ; k -- ){
-					if( !board[k][j] && !this.noBlockVertical( j , i , k)){
-						board[k][j] = board[i][j];
-						board[i][j] = null;
-						this.updateGirdView(k,j,board[k][j].cell);
-						break;
-					}else if(!this.noBlockVertical( j , i , k) && board[k][j]==board[i][j]){
-						var grid = board[k][j];
-						board[k][j] = board[i][j];
-						board[i][j] = null;
-						this.updateGirdView(k,j,board[k][j].cell);
-						this.delCell(grid.cell);
-						this.updateScore(board[k][j].num);
-						break;
-					}
-				}
-			}
-		}
-	}
+ 
 }
 
 //监听事件
