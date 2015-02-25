@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body {
+			margin: 0;
+		}
+
+		#view {
+			background-color: gold;
+			position: relative;
+			
+		}
+
+		#page {
+			background-color: green;
+			position: absolute;
+
+		}
+
+	</style>
+</head>
+<body>
+ 
+	<div id="view">
+		<div id="page">
+ 			<img src="pic.jpg" id="pic">
+		</div>	
+	</div>
+	
+</body>
+<script>
+	var page = document.getElementById('page');
+
+ 	var view = document.getElementById('view');
+ 
+	//Sh屏幕高--由设备决定
+	var Sh = window.innerHeight;
+	//Sh屏幕宽
+	var Sw = window.innerWidth;
+	//Dw设计宽--来源于数据库
+	var Dw = 1024;
+	//Dh设计高--来源于数据库
+	var Dh = 768;
+
+	var data = {
+		w : 234,
+		h : 309
+	}
+
+	function proportion(){
+
+	  //    Dw       Sw - 2 * left 
+	  //   ----  =  ----------------
+	  //    Dh       Sh - 2 * top 
+		
+		var Vw,Vh,left,top,scaleX,scaleY;
+
+		var horizontal = function(){
+			Vw = Dw * Sh / Dh;
+			left = (Sw - Vw) / 2;
+			top = 0;
+			Vh = Sh;
+		}
+
+		var vertical = function(){
+			Vh = Dh * Sw / Dw;
+			top = (Sh - Vh ) / 2;
+			left = 0;
+			Vw = Sw;
+		}
+ 
+		if(Sw > Sh){
+			//如果是横屏，页面的高度就是设备的高度,top =0
+			horizontal();
+			//如果宽度溢出则换成竖屏处理
+			if(Vw > Sw){
+				vertical();
+			}
+		}else {
+			//如果是竖屏，页面的宽度就是设备的宽度,left = 0;
+			vertical();
+			//如果高度溢出则换成横屏处理
+			if(Vh > Sh){
+				horizontal();
+			}
+		}
+
+		scaleX = Vw / Dw;
+		scaleY = Vh / Dh;
+
+ 		return {
+ 			left : left,
+ 			top  : top,
+ 			width : Vw,
+ 			height : Vh,
+ 			scaleX : scaleX,
+ 			scaleY : scaleY
+ 		}
+	}
+
+	var pop = proportion();
+
+	//演示
+	page.style.width = Math.round(pop.width)+ 'px';
+	page.style.height = pop.height+'px';
+	page.style.left = pop.left + 'px';
+	page.style.top = pop.top + 'px';
+
+	var img = document.getElementById('pic');
+	img.style.width = pop.scaleX * data.w + 'px';
+	img.style.height = pop.scaleY * data.h + 'px';
+
+	view.style.width = Sw + 'px';
+	view.style.height = Sh + 'px'
+
+</script>
+</html>

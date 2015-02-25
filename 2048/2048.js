@@ -181,7 +181,7 @@ Game2048.prototype.delayCreateCell=function(){
 	var self = this;
 	setTimeout(function(){
 		self.randomCell();
-	},1000)
+	},500)
 }
 
 
