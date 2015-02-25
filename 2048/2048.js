@@ -36,7 +36,6 @@ Game2048.prototype.init = function(){
 		}
 	}
 
-	this.status = 'init';
 	this.start();
 }
 
@@ -63,8 +62,6 @@ Game2048.prototype.cleanGrid = function(){
 	var board = this.board;
 	var container = this.container;
 
-	if(this.status=='init') return false;
-
 	for(var i=0;i<4;i++){
 		for(var j =0;j<4;j++){
 			if(board[i][j]){
@@ -73,8 +70,6 @@ Game2048.prototype.cleanGrid = function(){
 			}
 		}
 	}
-
-	this.status = 'clean';
 }
 
 //更新分数
@@ -89,7 +84,7 @@ Game2048.prototype.updateGirdView = function(i,j){
 	cell.style.cssText = this.getGirdStyle(i,j);
 }
 
-//获取格子的定位样式
+//获取格子的样式
 Game2048.prototype.getGirdStyle = function(i,j){
 	var left = this.getLeft(i,j);
 	var top = this.getTop(i,j);
@@ -145,7 +140,6 @@ Game2048.prototype.addCell = function(i,j){
 	this.board[i][j] = {"cell":cell,"num":randNumber};
 	//更新视图
 	this.updateGirdView(i,j);
-	this.status = 'dirty';
 }
 
 //移除一个格子
@@ -165,9 +159,8 @@ Game2048.prototype.noBlockVertical=function( col,row1,row2,board ){
 	return true;
 }
 
-//判断水平方向是否有阻挡
-Game2048.prototype.noBlockHorizontal=function(row,col1,col2,board){
-	//var board = this.board[row];
+//判断水平方向是否有格子阻挡
+Game2048.prototype.noBlockHorizontal=function(col1,col2,board){
 	for(var i=col1+1;i<col2;i++){
 		if(board[i]){
 			return false;
@@ -190,13 +183,13 @@ Game2048.prototype.moveLeft = function(){
 		for(var j=1;j<4;j++){
 			if(this.board[i][j]){
 				for(var k=0;k<j;k++){
-					if(this.noBlockHorizontal(i,k,j,board[i]) && !board[i][k] ){
+					if(this.noBlockHorizontal(k,j,board[i]) && !board[i][k] ){
 						board[i][k] = board[i][j];
 						board[i][j] = null;
 						this.updateGirdView(i,k);
 						tag = true;
 						break;
- 					}else if(this.noBlockHorizontal(i,k,j,board[i]) && board[i][k] && board[i][k].num == board[i][j].num){
+ 					}else if(this.noBlockHorizontal(k,j,board[i]) && board[i][k] && board[i][k].num == board[i][j].num){
  						this.delCell(i,k);
  						board[i][k] = board[i][j];
  						board[i][j] = null;
@@ -221,13 +214,13 @@ Game2048.prototype.moveRight = function(){
 		for(var j =2;j>-1;j--){
 			if(board[i][j]){
 				for(var k=3;k>j;k--){
-					if(this.noBlockHorizontal(i,j,k,board[i]) && !board[i][k]){
+					if(this.noBlockHorizontal(j,k,board[i]) && !board[i][k]){
 						board[i][k] = board[i][j];
 						board[i][j] = null;
 						this.updateGirdView(i,k);
 						tag = true;
 						break;
-					}else if(this.noBlockHorizontal(i,j,k,board[i]) && board[i][k] && board[i][k].num == board[i][j].num){
+					}else if(this.noBlockHorizontal(j,k,board[i]) && board[i][k] && board[i][k].num == board[i][j].num){
 						this.delCell(i,k);
 						board[i][k] = board[i][j];
 						board[i][j] = null;
