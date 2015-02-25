@@ -80,7 +80,9 @@ Game2048.prototype.updateScore = function(score){
 
 //刷新格子
 Game2048.prototype.updateGirdView = function(i,j){
-	var cell = this.board[i][j].cell;
+	var grid = this.board[i][j];
+	var cell = grid.cell;
+	cell.innerHTML = grid.num;
 	cell.style.cssText = this.getGirdStyle(i,j);
 }
 
@@ -174,6 +176,15 @@ Game2048.prototype.gameOver = function(){
 	alert('game over');
 }
 
+//延时生成一个格子
+Game2048.prototype.delayCreateCell=function(){
+	var self = this;
+	setTimeout(function(){
+		self.randomCell();
+	},1000)
+}
+
+
 //左移
 Game2048.prototype.moveLeft = function(){
 	var board = this.board;
@@ -183,18 +194,18 @@ Game2048.prototype.moveLeft = function(){
 		for(var j=1;j<4;j++){
 			if(this.board[i][j]){
 				for(var k=0;k<j;k++){
-					if(this.noBlockHorizontal(k,j,board[i]) && !board[i][k] ){
+					var noBlock = this.noBlockHorizontal(k,j,board[i]);
+					if(noBlock && !board[i][k] ){
 						board[i][k] = board[i][j];
 						board[i][j] = null;
 						this.updateGirdView(i,k);
 						tag = true;
 						break;
- 					}else if(this.noBlockHorizontal(k,j,board[i]) && board[i][k] && board[i][k].num == board[i][j].num){
+ 					}else if(noBlock && board[i][k] && board[i][k].num == board[i][j].num){
  						this.delCell(i,k);
  						board[i][k] = board[i][j];
  						board[i][j] = null;
  						board[i][k].num *=2;
- 						board[i][k].cell.innerHTML = board[i][k].num;
  						this.updateScore(board[i][k].num); 
  						this.updateGirdView(i,k);
  						tag = true;
@@ -204,9 +215,11 @@ Game2048.prototype.moveLeft = function(){
 			}
 		}
 	}
-	tag && this.randomCell();
+
+	tag && this.delayCreateCell();
 }
 
+//右移
 Game2048.prototype.moveRight = function(){
 	var board = this.board;
 	var tag = false;
@@ -214,18 +227,18 @@ Game2048.prototype.moveRight = function(){
 		for(var j =2;j>-1;j--){
 			if(board[i][j]){
 				for(var k=3;k>j;k--){
-					if(this.noBlockHorizontal(j,k,board[i]) && !board[i][k]){
+					var noBlock = this.noBlockHorizontal(j,k,board[i]);
+					if(noBlock && !board[i][k]){
 						board[i][k] = board[i][j];
 						board[i][j] = null;
 						this.updateGirdView(i,k);
 						tag = true;
 						break;
-					}else if(this.noBlockHorizontal(j,k,board[i]) && board[i][k] && board[i][k].num == board[i][j].num){
+					}else if(noBlock && board[i][k] && board[i][k].num == board[i][j].num){
 						this.delCell(i,k);
 						board[i][k] = board[i][j];
 						board[i][j] = null;
 						board[i][k].num *=2;
-						board[i][k].cell.innerHTML = board[i][k].num;
 						this.updateScore(board[i][k].num);
 						this.updateGirdView(i,k);
 						tag = true;
@@ -235,9 +248,11 @@ Game2048.prototype.moveRight = function(){
 			}
 		}
 	}
-	tag && this.randomCell();
+
+	tag && this.delayCreateCell();
 }
 
+//上移
 Game2048.prototype.moveUp = function(){
 	var board = this.board;
 	var tag = false;
@@ -245,17 +260,17 @@ Game2048.prototype.moveUp = function(){
 		for(var i=1;i<4;i++){
 			if(board[i][j]){
 				for(var k=0;k<i;k++){
-					if(this.noBlockVertical(j,k,i,board) && !board[k][j]){
+					var noBlock = this.noBlockVertical(j,k,i,board);
+					if(noBlock && !board[k][j]){
 						board[k][j] = board[i][j];
 						board[i][j] = null;
 						this.updateGirdView(k,j);
 						tag = true;
 						break;
-					}else if(this.noBlockVertical(j,k,i,board) && board[k][j] && board[k][j].num == board[i][j].num){
+					}else if(noBlock && board[k][j] && board[k][j].num == board[i][j].num){
 						this.delCell(k,j);
 						board[k][j] = board[i][j];
 						board[k][j].num *=2;
-						board[k][j].cell.innerHTML = board[k][j].num;
 						board[i][j] = null;
 						this.updateScore(board[k][j].num);
 						this.updateGirdView(k,j);
@@ -266,9 +281,11 @@ Game2048.prototype.moveUp = function(){
 			}
 		}
 	}	
-	tag && this.randomCell();
+	
+	tag && this.delayCreateCell();
 }
 
+//下移
 Game2048.prototype.moveDown = function(){
 	var board = this.board;
 	var tag = false;
@@ -276,17 +293,17 @@ Game2048.prototype.moveDown = function(){
 		for(var i=2;i>-1;i--){
 			if(board[i][j]){
 				for(var k=3;k>i;k--){
-					if(this.noBlockVertical(j,i,k,board)&&!board[k][j]){
+					var noBlock = this.noBlockVertical(j,i,k,board);
+					if(noBlock && !board[k][j]){
 						board[k][j] = board[i][j];
 						board[i][j] = null;
 						this.updateGirdView(k,j);
 						tag = true;
 						break;
-					}else if(this.noBlockVertical(j,i,k,board) && board[k][j] && board[k][j].num == board[i][j].num){
+					}else if(noBlock && board[k][j] && board[k][j].num == board[i][j].num){
 						this.delCell(k,j);
 						board[k][j] = board[i][j];
 						board[k][j].num *= 2;
-						board[k][j].cell.innerHTML=board[k][j].num;
 						board[i][j] = null;
 						this.updateScore(board[k][j].num);
 						this.updateGirdView(k,j);
@@ -297,7 +314,8 @@ Game2048.prototype.moveDown = function(){
 			}
 		}
 	}
- 	tag && this.randomCell();
+ 	
+ 	tag && this.delayCreateCell();
 }
 
 //监听事件
