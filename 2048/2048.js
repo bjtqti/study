@@ -155,24 +155,25 @@ Game2048.prototype.delCell = function(i,j){
 	this.board[i][j] = null;
 }
 
-//判断水平方向是否有格子阻挡
-Game2048.prototype.noBlockHorizontal=function( row , col1 , col2 , board ){
-    for( var i = col1 + 1 ; i < col2 ; i ++ ){
-        if( board[row][i] ){
-            return false;
-        }
-    }
-    return true;
+//判断竖直方向是否有格子阻挡
+Game2048.prototype.noBlockVertical=function( col,row1,row2,board ){
+	for(var i=row1+1;i<row2;i++){
+		if(board[i][col]){
+			return false;
+		}
+	}
+	return true;
 }
 
-//判断竖直方向是否有格子阻挡
-Game2048.prototype.noBlockVertical=function( row , col1 , col2 , board ){
-    for( var i = col1 + 1 ; i < col2 ; i ++ ){
-        if( board[i][row] ){
-            return false;
-        }
-    }
-    return true;
+//判断水平方向是否有阻挡
+Game2048.prototype.noBlockHorizontal=function(row,col1,col2,board){
+	//var board = this.board[row];
+	for(var i=col1+1;i<col2;i++){
+		if(board[i]){
+			return false;
+		}
+	}
+	return true;
 }
 
 //游戏结束
@@ -183,46 +184,127 @@ Game2048.prototype.gameOver = function(){
 //左移
 Game2048.prototype.moveLeft = function(){
 	var board = this.board;
-
+	var tag = false;
+	//扫描每一行
 	for(var i = 0;i<4;i++){
-		//左边第1列不移动
-		for(var j = 1;j<4;j++){
-			//能移动的格子必须要有数字
-			if(board[i][j]){
-				//遍历待移动的数字之前的格子
-
+		for(var j=1;j<4;j++){
+			if(this.board[i][j]){
 				for(var k=0;k<j;k++){
-
-					
+					if(this.noBlockHorizontal(i,k,j,board[i]) && !board[i][k] ){
+						board[i][k] = board[i][j];
+						board[i][j] = null;
+						this.updateGirdView(i,k);
+						tag = true;
+						break;
+ 					}else if(this.noBlockHorizontal(i,k,j,board[i]) && board[i][k] && board[i][k].num == board[i][j].num){
+ 						this.delCell(i,k);
+ 						board[i][k] = board[i][j];
+ 						board[i][j] = null;
+ 						board[i][k].num *=2;
+ 						board[i][k].cell.innerHTML = board[i][k].num;
+ 						this.updateScore(board[i][k].num); 
+ 						this.updateGirdView(i,k);
+ 						tag = true;
+ 						break;
+ 					}
 				}
-				
-			} 
+			}
 		}
 	}
-
-	this.randomCell();
-	this.randomCell();
+	tag && this.randomCell();
 }
 
 Game2048.prototype.moveRight = function(){
 	var board = this.board;
-
- 	this.randomCell();
-	this.randomCell();
+	var tag = false;
+	for(var i = 0;i<4;i++){
+		for(var j =2;j>-1;j--){
+			if(board[i][j]){
+				for(var k=3;k>j;k--){
+					if(this.noBlockHorizontal(i,j,k,board[i]) && !board[i][k]){
+						board[i][k] = board[i][j];
+						board[i][j] = null;
+						this.updateGirdView(i,k);
+						tag = true;
+						break;
+					}else if(this.noBlockHorizontal(i,j,k,board[i]) && board[i][k] && board[i][k].num == board[i][j].num){
+						this.delCell(i,k);
+						board[i][k] = board[i][j];
+						board[i][j] = null;
+						board[i][k].num *=2;
+						board[i][k].cell.innerHTML = board[i][k].num;
+						this.updateScore(board[i][k].num);
+						this.updateGirdView(i,k);
+						tag = true;
+						break;
+					}
+				}
+			}
+		}
+	}
+	tag && this.randomCell();
 }
 
 Game2048.prototype.moveUp = function(){
 	var board = this.board;
-	
-	this.randomCell();
-	this.randomCell();
+	var tag = false;
+	for(var j=0;j<4;j++){
+		for(var i=1;i<4;i++){
+			if(board[i][j]){
+				for(var k=0;k<i;k++){
+					if(this.noBlockVertical(j,k,i,board) && !board[k][j]){
+						board[k][j] = board[i][j];
+						board[i][j] = null;
+						this.updateGirdView(k,j);
+						tag = true;
+						break;
+					}else if(this.noBlockVertical(j,k,i,board) && board[k][j] && board[k][j].num == board[i][j].num){
+						this.delCell(k,j);
+						board[k][j] = board[i][j];
+						board[k][j].num *=2;
+						board[k][j].cell.innerHTML = board[k][j].num;
+						board[i][j] = null;
+						this.updateScore(board[k][j].num);
+						this.updateGirdView(k,j);
+						tag = true;
+						break;
+					}
+				}
+			}
+		}
+	}	
+	tag && this.randomCell();
 }
 
 Game2048.prototype.moveDown = function(){
 	var board = this.board;
-
- 	this.randomCell();
-	this.randomCell();
+	var tag = false;
+	for(var j =0;j<4;j++){
+		for(var i=2;i>-1;i--){
+			if(board[i][j]){
+				for(var k=3;k>i;k--){
+					if(this.noBlockVertical(j,i,k,board)&&!board[k][j]){
+						board[k][j] = board[i][j];
+						board[i][j] = null;
+						this.updateGirdView(k,j);
+						tag = true;
+						break;
+					}else if(this.noBlockVertical(j,i,k,board) && board[k][j] && board[k][j].num == board[i][j].num){
+						this.delCell(k,j);
+						board[k][j] = board[i][j];
+						board[k][j].num *= 2;
+						board[k][j].cell.innerHTML=board[k][j].num;
+						board[i][j] = null;
+						this.updateScore(board[k][j].num);
+						this.updateGirdView(k,j);
+						tag = true;
+						break;
+					}
+				}
+			}
+		}
+	}
+ 	tag && this.randomCell();
 }
 
 //监听事件
