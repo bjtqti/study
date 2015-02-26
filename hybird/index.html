@@ -55,50 +55,51 @@
 	  //    Dw       Sw - 2 * left 
 	  //   ----  =  ----------------
 	  //    Dh       Sh - 2 * top 
-		
-		var Vw,Vh,left,top,scaleX,scaleY;
 
 		var horizontal = function(){
-			Vw = Dw * Sh / Dh;
-			left = (Sw - Vw) / 2;
-			top = 0;
-			Vh = Sh;
+			var width = Dw * Sh / Dh;
+ 
+			return {
+				width : width,
+				height : Sh,
+				left : (Sw - width) / 2,
+				top : 0,
+				scale : Sh / Dh
+			}
 		}
 
 		var vertical = function(){
-			Vh = Dh * Sw / Dw;
-			top = (Sh - Vh ) / 2;
-			left = 0;
-			Vw = Sw;
+			var height = Dh * Sw / Dw;
+ 
+			return {
+				width : Sw,
+				height : height,
+				left : 0,
+				top : (Sh - height ) / 2,
+				scale : Sw / Dw
+			}
 		}
+
+		var result;
  
 		if(Sw > Sh){
 			//如果是横屏，页面的高度就是设备的高度,top =0
-			horizontal();
+			result = horizontal();
 			//如果宽度溢出则换成竖屏处理
-			if(Vw > Sw){
-				vertical();
+			if(result.width > Sw){
+				result = vertical();
 			}
 		}else {
 			//如果是竖屏，页面的宽度就是设备的宽度,left = 0;
-			vertical();
+			result = vertical();
 			//如果高度溢出则换成横屏处理
-			if(Vh > Sh){
-				horizontal();
+			if(result.height > Sh){
+				result = horizontal();
 			}
 		}
 
-		scaleX = Vw / Dw;
-		scaleY = Vh / Dh;
-
- 		return {
- 			left : left,
- 			top  : top,
- 			width : Vw,
- 			height : Vh,
- 			scaleX : scaleX,
- 			scaleY : scaleY
- 		}
+ 
+ 		return  result;
 	}
 
 	var pop = proportion();
@@ -110,8 +111,8 @@
 	page.style.top = pop.top + 'px';
 
 	var img = document.getElementById('pic');
-	img.style.width = pop.scaleX * data.w + 'px';
-	img.style.height = pop.scaleY * data.h + 'px';
+	img.style.width = pop.scale * data.w + 'px';
+	img.style.height = pop.scale * data.h + 'px';
 
 	view.style.width = Sw + 'px';
 	view.style.height = Sh + 'px'
