@@ -56,6 +56,7 @@
 	  //   ----  =  ----------------
 	  //    Dh       Sh - 2 * top 
 
+	  	//横屏时，相当于已知高度求最大宽度
 		var horizontal = function(){
 			var width = Dw * Sh / Dh;
  
@@ -67,7 +68,7 @@
 				scale : Sh / Dh
 			}
 		}
-
+		//竖屏时，相当于己知宽度，求最大高度
 		var vertical = function(){
 			var height = Dh * Sw / Dw;
  
