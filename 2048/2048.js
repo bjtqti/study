@@ -199,11 +199,12 @@ Game2048.prototype.moveAnimate = function(from,to){
 		var score = board[ti][tj].num*2;
 		board[ti][tj].num = score;
 		board[fi][fj] = null;
-		setTimeout(function(){
+		cell.addEventListener('transitionend',function eve(e){
 			board[ti][tj].cell.innerHTML = score;
 			self.updateScore(score);
+			cell.removeEventListener('transitionend',eve);
 			self.container.removeChild(cell);
-		},520);
+		});
 	}else{
 		board[ti][tj] = board[fi][fj];
 		board[fi][fj] = null;

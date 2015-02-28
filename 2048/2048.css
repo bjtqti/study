@@ -22,14 +22,10 @@ a {
 }
 
 .start {
-	width:100px;
-	height:44px;
-	line-height: 44px;
+	padding: .5em;
 	background-color: #8f7a66;
 	color:white;
 	border-radius: 6px;
-	margin: 0 auto;
-	display: block;
 }
 
 a.start:hover {
@@ -42,7 +38,7 @@ a.start:active {
 
 .score {
 	color:#CA8544;
-	font-size: 2em;
+	font-size: 1.8em;
 }
 
 .container {
