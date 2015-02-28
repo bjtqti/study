@@ -72,6 +72,8 @@ a.start:active {
 	color:#9D6121;
 	line-height: 100px;
 	text-align: center;
+	-webkit-transition-duration:300ms;
+			transition-duration:300ms;
 }
 
 .center {

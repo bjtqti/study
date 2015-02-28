@@ -53,7 +53,7 @@ Game2048.prototype.start = function(){
 Game2048.prototype.layerout = function(i,j,grids){
 	var index = 4 * i + j;
 	var grid = grids[index];
-	grid.style.cssText = this.getGirdStyle(i,j);
+	this.setGirdStyle(i,j,grid);
 }
  
 
@@ -80,17 +80,14 @@ Game2048.prototype.updateScore = function(score){
 
 //刷新格子
 Game2048.prototype.updateGirdView = function(i,j){
-	var grid = this.board[i][j];
-	var cell = grid.cell;
-	cell.innerHTML = grid.num;
-	cell.style.cssText = this.getGirdStyle(i,j);
+ 
 }
 
-//获取格子的样式
-Game2048.prototype.getGirdStyle = function(i,j){
+//设置格子的样式
+Game2048.prototype.setGirdStyle = function(i,j,element){
 	var left = this.getLeft(i,j);
 	var top = this.getTop(i,j);
-	return "left:"+left+"px;top:"+top+"px";
+	element.style.cssText = "left:"+left+"px;top:"+top+"px";
 }
 
 //获取left的值
@@ -138,10 +135,9 @@ Game2048.prototype.addCell = function(i,j){
 	cell.className = 'number-cell';
 	cell.innerHTML = randNumber;
 	this.container.appendChild(cell); 
+	this.setGirdStyle(i,j,cell);
  	//保存格子
 	this.board[i][j] = {"cell":cell,"num":randNumber};
-	//更新视图
-	this.updateGirdView(i,j);
 }
 
 //移除一个格子
@@ -184,6 +180,37 @@ Game2048.prototype.delayCreateCell=function(){
 	},500)
 }
 
+//移动格子动画
+Game2048.prototype.moveAnimate = function(from,to){
+	var self = this;
+	var board = this.board;
+	var fi = from[0];
+	var fj = from[1];
+	var ti = to[0];
+	var tj = to[1];
+	var x = this.getLeft(ti,tj) - this.getLeft(fi,fj);
+	var y = this.getTop(ti,tj) - this.getTop(fi,fj);
+	var cell = board[fi][fj].cell;
+
+	cell.style.webkitTransform = 'translate3d('+x+'px,'+y+'px, 0px)';
+	cell.style.transform = 'translate3d('+x+'px,'+y+'px, 0px)';
+
+	if(board[ti][tj]){
+		var score = board[ti][tj].num*2;
+		board[ti][tj].num = score;
+		board[fi][fj] = null;
+		setTimeout(function(){
+			board[ti][tj].cell.innerHTML = score;
+			self.updateScore(score);
+			self.container.removeChild(cell);
+		},520);
+	}else{
+		board[ti][tj] = board[fi][fj];
+		board[fi][fj] = null;
+		this.setGirdStyle(ti,tj,cell)
+	}
+}
+
 
 //左移
 Game2048.prototype.moveLeft = function(){
@@ -195,22 +222,12 @@ Game2048.prototype.moveLeft = function(){
 			if(this.board[i][j]){
 				for(var k=0;k<j;k++){
 					var noBlock = this.noBlockHorizontal(k,j,board[i]);
-					if(noBlock && !board[i][k] ){
-						board[i][k] = board[i][j];
-						board[i][j] = null;
-						this.updateGirdView(i,k);
+					var num = this.board[i][j].num;
+					if(noBlock && (!board[i][k] ||board[i][k].num == num)){
+						this.moveAnimate([i,j],[i,k]);
 						tag = true;
 						break;
- 					}else if(noBlock && board[i][k] && board[i][k].num == board[i][j].num){
- 						this.delCell(i,k);
- 						board[i][k] = board[i][j];
- 						board[i][j] = null;
- 						board[i][k].num *=2;
- 						this.updateScore(board[i][k].num); 
- 						this.updateGirdView(i,k);
- 						tag = true;
- 						break;
- 					}
+ 					} 
 				}
 			}
 		}
@@ -228,19 +245,9 @@ Game2048.prototype.moveRight = function(){
 			if(board[i][j]){
 				for(var k=3;k>j;k--){
 					var noBlock = this.noBlockHorizontal(j,k,board[i]);
-					if(noBlock && !board[i][k]){
-						board[i][k] = board[i][j];
-						board[i][j] = null;
-						this.updateGirdView(i,k);
-						tag = true;
-						break;
-					}else if(noBlock && board[i][k] && board[i][k].num == board[i][j].num){
-						this.delCell(i,k);
-						board[i][k] = board[i][j];
-						board[i][j] = null;
-						board[i][k].num *=2;
-						this.updateScore(board[i][k].num);
-						this.updateGirdView(i,k);
+					var num = this.board[i][j].num;
+					if(noBlock && (!board[i][k] || board[i][k].num == num)){
+						this.moveAnimate([i,j],[i,k]);
 						tag = true;
 						break;
 					}
@@ -261,19 +268,12 @@ Game2048.prototype.moveUp = function(){
 			if(board[i][j]){
 				for(var k=0;k<i;k++){
 					var noBlock = this.noBlockVertical(j,k,i,board);
-					if(noBlock && !board[k][j]){
-						board[k][j] = board[i][j];
-						board[i][j] = null;
-						this.updateGirdView(k,j);
-						tag = true;
-						break;
-					}else if(noBlock && board[k][j] && board[k][j].num == board[i][j].num){
-						this.delCell(k,j);
-						board[k][j] = board[i][j];
-						board[k][j].num *=2;
-						board[i][j] = null;
-						this.updateScore(board[k][j].num);
-						this.updateGirdView(k,j);
+					var num = board[i][j].num;
+					if(noBlock && (!board[k][j] || board[k][j].num == num)){
+						this.moveAnimate([i,j],[k,j]);
+						// board[k][j] = board[i][j];
+						// board[i][j] = null;
+						// this.updateGirdView(k,j);
 						tag = true;
 						break;
 					}
@@ -294,22 +294,12 @@ Game2048.prototype.moveDown = function(){
 			if(board[i][j]){
 				for(var k=3;k>i;k--){
 					var noBlock = this.noBlockVertical(j,i,k,board);
-					if(noBlock && !board[k][j]){
-						board[k][j] = board[i][j];
-						board[i][j] = null;
-						this.updateGirdView(k,j);
+					var num = board[i][j].num;
+					if(noBlock && (!board[k][j] || board[k][j].num == num)){
+						this.moveAnimate([i,j],[k,j]);
 						tag = true;
 						break;
-					}else if(noBlock && board[k][j] && board[k][j].num == board[i][j].num){
-						this.delCell(k,j);
-						board[k][j] = board[i][j];
-						board[k][j].num *= 2;
-						board[i][j] = null;
-						this.updateScore(board[k][j].num);
-						this.updateGirdView(k,j);
-						tag = true;
-						break;
-					}
+					} 
 				}
 			}
 		}
