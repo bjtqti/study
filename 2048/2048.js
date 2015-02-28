@@ -177,7 +177,7 @@ Game2048.prototype.delayCreateCell=function(){
 	var self = this;
 	setTimeout(function(){
 		self.randomCell();
-	},500)
+	},300)
 }
 
 //移动格子动画
