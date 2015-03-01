@@ -199,6 +199,7 @@ Game2048.prototype.moveAnimate = function(from,to){
 	if(board[ti][tj]){
 		board[ti][tj].num += score;
 		board[fi][fj] = null;
+		//动画完成之后执行移除和加分操作
 		cell.addEventListener('transitionend',function eve(e){
 			this.cell.innerText = this.num;
 			self.updateScore(this.num);
@@ -272,9 +273,6 @@ Game2048.prototype.moveUp = function(){
 					var num = board[i][j].num;
 					if(noBlock && (!board[k][j] || board[k][j].num == num)){
 						this.moveAnimate([i,j],[k,j]);
-						// board[k][j] = board[i][j];
-						// board[i][j] = null;
-						// this.updateGirdView(k,j);
 						tag = true;
 						break;
 					}
