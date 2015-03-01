@@ -42,6 +42,7 @@ Game2048.prototype.init = function(){
 //开始游戏
 Game2048.prototype.start = function(){
 	this.score = 0;
+	this.lock = false;
 	this.cleanGrid();
 	this.updateScore(this.score);
 	this.randomCell();
@@ -98,33 +99,32 @@ Game2048.prototype.getTop = function(i,j){
 //检查空格
 Game2048.prototype.checkSapce = function(){
 	var board = this.board;
-	var cells = [];
+	var grids = [];
 
 	//查找可用空间
 	for(var i=0;i<4;i++){
 		for(var j=0;j<4;j++){
 			if(board[i][j] === null){
-				cells.push([i,j]);
+				grids.push([i,j]);
 			}
 		}
 	}
 
-	return cells.length ? cells : false;
+	this.blankGrids = grids;
+	return grids.length ? true : false;
 }
 
 //随机生成一个格子
 Game2048.prototype.randomCell = function(){
-	var cells = this.checkSapce();
-
-	if(!cells){
+	if(!this.checkSapce()){
 		return false;
 	}
-
-    var len = cells.length-1,
+	var grids = this.blankGrids;
+    var len = grids.length-1,
 		//随机取一个空位
 	    n = Math.round(Math.random() * len),
-	    i = cells[n][0],
-	    j = cells[n][1],
+	    i = grids[n][0],
+	    j = grids[n][1],
 		//创建一个格子
 	    cell = document.createElement('li');
 		//随机一个数字
@@ -135,6 +135,7 @@ Game2048.prototype.randomCell = function(){
 	this.setGirdStyle(i,j,cell);
  	//保存格子
 	this.board[i][j] = {"cell":cell,"num":randNumber};
+	this.blankGrids = null;
 }
 
 //判断竖直方向是否有格子阻挡
@@ -164,10 +165,21 @@ Game2048.prototype.gameOver = function(){
 
 //延时生成一个格子
 Game2048.prototype.delayCreateCell=function(){
+	//格子移动的动画时间是300ms
 	var self = this;
+	
+	if(this.lock) return;
+
 	setTimeout(function(){
-		self.randomCell();
-	},350)
+		if(self.isMoved){
+			self.randomCell();
+		}else {
+			if(!self.checkSapce()){
+				self.lock = true;
+				self.gameOver();
+			}
+		}
+	},350);
 }
 
 //移动格子动画
@@ -210,7 +222,6 @@ Game2048.prototype.moveAnimate = function(from,to){
 //左移
 Game2048.prototype.moveLeft = function(){
 	var board = this.board;
-	var tag = false;
 	//扫描每一行
 	for(var i = 0;i<4;i++){
 		for(var j=1;j<4;j++){
@@ -222,21 +233,18 @@ Game2048.prototype.moveLeft = function(){
 					//没有障碍&&(前面为空||或前面相等&&没有锁定)
 					if(noBlock && (!block || block.num == num && !block.lock)){
 						this.moveAnimate([i,j],[i,k]);
-						tag = true;
+						this.isMoved = true;
 						break;
  					} 
 				}
 			}
 		}
 	}
-
-	tag && this.delayCreateCell();
 }
 
 //右移
 Game2048.prototype.moveRight = function(){
 	var board = this.board;
-	var tag = false;
 	for(var i = 0;i<4;i++){
 		for(var j =2;j>-1;j--){
 			if(board[i][j]){
@@ -246,21 +254,18 @@ Game2048.prototype.moveRight = function(){
 					var block = board[i][k];
 					if(noBlock && (!block || block.num == num && !block.lock)){
 						this.moveAnimate([i,j],[i,k]);
-						tag = true;
+						this.isMoved = true;
 						break;
 					}
 				}
 			}
 		}
 	}
-
-	tag && this.delayCreateCell();
 }
 
 //上移
 Game2048.prototype.moveUp = function(){
 	var board = this.board;
-	var tag = false;
 	for(var j=0;j<4;j++){
 		for(var i=1;i<4;i++){
 			if(board[i][j]){
@@ -270,21 +275,18 @@ Game2048.prototype.moveUp = function(){
 					var block = board[k][j];
 					if(noBlock && (!block || block.num == num && !block.lock)){
 						this.moveAnimate([i,j],[k,j]);
-						tag = true;
+						this.isMoved = true;
 						break;
 					}
 				}
 			}
 		}
 	}	
-	
-	tag && this.delayCreateCell();
 }
 
 //下移
 Game2048.prototype.moveDown = function(){
 	var board = this.board;
-	var tag = false;
 	for(var j =0;j<4;j++){
 		for(var i=2;i>-1;i--){
 			if(board[i][j]){
@@ -294,15 +296,13 @@ Game2048.prototype.moveDown = function(){
 					var block = board[k][j];
 					if(noBlock && (!block || block.num == num && !block.lock)){
 						this.moveAnimate([i,j],[k,j]);
-						tag = true;
+						this.isMoved = true;
 						break;
 					} 
 				}
 			}
 		}
 	}
- 	
- 	tag && this.delayCreateCell();
 }
 
 //监听事件
@@ -310,6 +310,7 @@ Game2048.prototype.addEvents = function(){
 	var self = this;
 	//键盘操作
 	document.onkeyup = function(e){
+		self.isMoved = false;
 		switch(e.keyCode){
 			case 37: // left
 				self.moveLeft();
@@ -324,6 +325,7 @@ Game2048.prototype.addEvents = function(){
 				self.moveDown();
 				break;
 		}
+		self.delayCreateCell();
 		//console.log(e)
 	}
 }
