@@ -191,24 +191,24 @@ Game2048.prototype.moveAnimate = function(from,to){
 	var x = this.getLeft(ti,tj) - this.getLeft(fi,fj);
 	var y = this.getTop(ti,tj) - this.getTop(fi,fj);
 	var cell = board[fi][fj].cell;
+	var score = board[fi][fj].num;
 
 	cell.style.webkitTransform = 'translate3d('+x+'px,'+y+'px, 0px)';
 	cell.style.transform = 'translate3d('+x+'px,'+y+'px, 0px)';
-
+	
 	if(board[ti][tj]){
-		var score = board[ti][tj].num*2;
-		board[ti][tj].num = score;
+		board[ti][tj].num += score;
 		board[fi][fj] = null;
 		cell.addEventListener('transitionend',function eve(e){
-			board[ti][tj].cell.innerHTML = score;
-			self.updateScore(score);
+			this.cell.innerText = this.num;
+			self.updateScore(this.num);
 			cell.removeEventListener('transitionend',eve);
 			self.container.removeChild(cell);
-		});
+		}.bind(board[ti][tj]));
 	}else{
 		board[ti][tj] = board[fi][fj];
 		board[fi][fj] = null;
-		this.setGirdStyle(ti,tj,cell)
+		self.setGirdStyle(ti,tj,cell)
 	}
 }
 
