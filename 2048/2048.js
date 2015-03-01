@@ -78,11 +78,6 @@ Game2048.prototype.updateScore = function(score){
 	this.$score.innerHTML = this.score;
 }
 
-//刷新格子
-Game2048.prototype.updateGirdView = function(i,j){
- 
-}
-
 //设置格子的样式
 Game2048.prototype.setGirdStyle = function(i,j,element){
 	var left = this.getLeft(i,j);
@@ -100,9 +95,8 @@ Game2048.prototype.getTop = function(i,j){
 	return this.blank+(this.height+this.blank) * i;
 }
  
-
-//随机生成一个格子
-Game2048.prototype.randomCell = function(){
+//检查空格
+Game2048.prototype.checkSapce = function(){
 	var board = this.board;
 	var cells = [];
 
@@ -115,22 +109,25 @@ Game2048.prototype.randomCell = function(){
 		}
 	}
 
-    var len = cells.length-1;
-
-    if(len < 0) {
-    	return false;
-    }
-
-	//随机取一个格子
-	var n = Math.round(Math.random() * len);
-	this.addCell(cells[n][0],cells[n][1]);
+	return cells.length ? cells : false;
 }
 
-//添加一个带数字的格子
-Game2048.prototype.addCell = function(i,j){
-	//创建一个格子
-	var cell = document.createElement('li');
-	//随机一个数字
+//随机生成一个格子
+Game2048.prototype.randomCell = function(){
+	var cells = this.checkSapce();
+
+	if(!cells){
+		return false;
+	}
+
+    var len = cells.length-1,
+		//随机取一个空位
+	    n = Math.round(Math.random() * len),
+	    i = cells[n][0],
+	    j = cells[n][1],
+		//创建一个格子
+	    cell = document.createElement('li');
+		//随机一个数字
     var randNumber = Math.random() < 0.5 ? 2 : 4;
 	cell.className = 'number-cell';
 	cell.innerHTML = randNumber;
@@ -138,13 +135,6 @@ Game2048.prototype.addCell = function(i,j){
 	this.setGirdStyle(i,j,cell);
  	//保存格子
 	this.board[i][j] = {"cell":cell,"num":randNumber};
-}
-
-//移除一个格子
-Game2048.prototype.delCell = function(i,j){
-	var cell = this.board[i][j].cell;
-	this.container.removeChild(cell);
-	this.board[i][j] = null;
 }
 
 //判断竖直方向是否有格子阻挡
@@ -177,7 +167,7 @@ Game2048.prototype.delayCreateCell=function(){
 	var self = this;
 	setTimeout(function(){
 		self.randomCell();
-	},300)
+	},350)
 }
 
 //移动格子动画
