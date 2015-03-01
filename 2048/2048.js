@@ -163,6 +163,28 @@ Game2048.prototype.gameOver = function(){
 	alert('game over');
 }
 
+//检查是否可以移动
+Game2048.prototype.canMove = function(){
+	var board = this.board;
+	//水平方向
+	for(var i=0;i<4;i++){
+		for(var j=0;j<3;j++){
+			if(board[i][j].num == board[i][j+1].num){
+				return true;
+			}
+		}
+	}
+	//垂直方向
+	for(var j=0;j<4;j++){
+		for(var i=0;i<3;i++){
+			if(board[i][j].num == board[i+1][j].num){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 //延时生成一个格子
 Game2048.prototype.delayCreateCell=function(){
 	//格子移动的动画时间是300ms
@@ -170,15 +192,16 @@ Game2048.prototype.delayCreateCell=function(){
 	
 	if(this.lock) return;
 
+	if(!this.checkSapce() && !this.canMove()){
+		this.lock = true;
+		this.gameOver();
+		return;
+	}
+
+	if(!this.isMoved) return;
+
 	setTimeout(function(){
-		if(self.isMoved){
-			self.randomCell();
-		}else {
-			if(!self.checkSapce()){
-				self.lock = true;
-				self.gameOver();
-			}
-		}
+		self.randomCell();
 	},350);
 }
 
