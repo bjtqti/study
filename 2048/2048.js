@@ -188,6 +188,8 @@ Game2048.prototype.moveAnimate = function(from,to){
 	
 	if(board[ti][tj]){
 		board[ti][tj].num += score;
+		//阻止累加
+		board[ti][tj].lock = true;
 		board[fi][fj] = null;
 		//动画完成之后执行移除和加分操作
 		cell.addEventListener('transitionend',function eve(e){
@@ -195,6 +197,7 @@ Game2048.prototype.moveAnimate = function(from,to){
 			self.updateScore(this.num);
 			cell.removeEventListener('transitionend',eve);
 			self.container.removeChild(cell);
+			this.lock = false;
 		}.bind(board[ti][tj]));
 	}else{
 		board[ti][tj] = board[fi][fj];
@@ -214,8 +217,10 @@ Game2048.prototype.moveLeft = function(){
 			if(this.board[i][j]){
 				for(var k=0;k<j;k++){
 					var noBlock = this.noBlockHorizontal(k,j,board[i]);
-					var num = this.board[i][j].num;
-					if(noBlock && (!board[i][k] ||board[i][k].num == num)){
+					var num = board[i][j].num;
+					var block = board[i][k];
+					//没有障碍&&(前面为空||或前面相等&&没有锁定)
+					if(noBlock && (!block || block.num == num && !block.lock)){
 						this.moveAnimate([i,j],[i,k]);
 						tag = true;
 						break;
@@ -238,7 +243,8 @@ Game2048.prototype.moveRight = function(){
 				for(var k=3;k>j;k--){
 					var noBlock = this.noBlockHorizontal(j,k,board[i]);
 					var num = this.board[i][j].num;
-					if(noBlock && (!board[i][k] || board[i][k].num == num)){
+					var block = board[i][k];
+					if(noBlock && (!block || block.num == num && !block.lock)){
 						this.moveAnimate([i,j],[i,k]);
 						tag = true;
 						break;
@@ -261,7 +267,8 @@ Game2048.prototype.moveUp = function(){
 				for(var k=0;k<i;k++){
 					var noBlock = this.noBlockVertical(j,k,i,board);
 					var num = board[i][j].num;
-					if(noBlock && (!board[k][j] || board[k][j].num == num)){
+					var block = board[k][j];
+					if(noBlock && (!block || block.num == num && !block.lock)){
 						this.moveAnimate([i,j],[k,j]);
 						tag = true;
 						break;
@@ -284,7 +291,8 @@ Game2048.prototype.moveDown = function(){
 				for(var k=3;k>i;k--){
 					var noBlock = this.noBlockVertical(j,i,k,board);
 					var num = board[i][j].num;
-					if(noBlock && (!board[k][j] || board[k][j].num == num)){
+					var block = board[k][j];
+					if(noBlock && (!block || block.num == num && !block.lock)){
 						this.moveAnimate([i,j],[k,j]);
 						tag = true;
 						break;
