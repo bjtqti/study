@@ -69,6 +69,7 @@ a.start:active {
 	line-height: 100px;
 	text-align: center;
 	-webkit-transition-duration:300ms;
+	    -ms-transition-duration:300ms;
 			transition-duration:300ms;
 }
 
