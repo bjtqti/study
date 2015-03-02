@@ -222,17 +222,19 @@ Game2048.prototype.moveAnimate = function(from,to){
 	cell.style.transform = 'translate3d('+x+'px,'+y+'px, 0px)';
 	
 	if(board[ti][tj]){
-		board[ti][tj].num += num;
+		var grid = board[ti][tj];
+		grid.num += num;
 		//阻止累加
-		board[ti][tj].lock = true;
-		//动画完成之后执行移除和加分操作
-		cell.addEventListener('transitionend',function eve(e){
-			this.cell.innerText = this.num;
-			self.updateScore(this.num);
-			cell.removeEventListener('transitionend',eve);
+		grid.lock = true;
+		var handleEvent = function(e){
+			grid.cell.innerText = grid.num;
+			self.updateScore(grid.num);
+			cell.removeEventListener('transitionend',handleEvent);
 			self.container.removeChild(cell);
-			this.lock = false;
-		}.bind(board[ti][tj]));
+			grid.lock = false;
+		}
+		//动画完成之后执行移除和加分操作
+		cell.addEventListener('transitionend', handleEvent);
 	}else{
 		board[ti][tj] = board[fi][fj];
 		this.setGirdStyle(ti,tj,cell);
