@@ -235,13 +235,12 @@ Game2048.prototype.moveAnimate = function(from,to){
 		}.bind(board[ti][tj]));
 	}else{
 		board[ti][tj] = board[fi][fj];
-		self.setGirdStyle(ti,tj,cell);
+		this.setGirdStyle(ti,tj,cell);
 	}
-	
+
 	this.isMoved = true;
 	board[fi][fj] = null;
 }
-
 
 //左移
 Game2048.prototype.moveLeft = function(){
