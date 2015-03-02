@@ -237,7 +237,8 @@ Game2048.prototype.moveAnimate = function(from,to){
 		board[ti][tj] = board[fi][fj];
 		self.setGirdStyle(ti,tj,cell);
 	}
-
+	
+	this.isMoved = true;
 	board[fi][fj] = null;
 }
 
@@ -256,7 +257,6 @@ Game2048.prototype.moveLeft = function(){
 					//没有障碍&&(前面为空||或前面相等&&没有锁定)
 					if(noBlock && (!block || block.num == num && !block.lock)){
 						this.moveAnimate([i,j],[i,k]);
-						this.isMoved = true;
 						break;
  					} 
 				}
@@ -277,7 +277,6 @@ Game2048.prototype.moveRight = function(){
 					var block = board[i][k];
 					if(noBlock && (!block || block.num == num && !block.lock)){
 						this.moveAnimate([i,j],[i,k]);
-						this.isMoved = true;
 						break;
 					}
 				}
@@ -298,7 +297,6 @@ Game2048.prototype.moveUp = function(){
 					var block = board[k][j];
 					if(noBlock && (!block || block.num == num && !block.lock)){
 						this.moveAnimate([i,j],[k,j]);
-						this.isMoved = true;
 						break;
 					}
 				}
@@ -319,7 +317,6 @@ Game2048.prototype.moveDown = function(){
 					var block = board[k][j];
 					if(noBlock && (!block || block.num == num && !block.lock)){
 						this.moveAnimate([i,j],[k,j]);
-						this.isMoved = true;
 						break;
 					} 
 				}
