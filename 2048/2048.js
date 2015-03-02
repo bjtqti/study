@@ -117,7 +117,7 @@ Game2048.prototype.checkSapce = function(){
 
 //随机生成一个格子
 Game2048.prototype.randomCell = function(){
-	!this.blankGrids && this.checkSapce();
+	if(!this.checkSapce()) return;
 	var grids = this.blankGrids,
         len = grids.length-1,
 		//随机取一个空位
