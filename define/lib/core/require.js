@@ -55,7 +55,7 @@
 	 */
 	function build(module){
 		var factory = module['factory'],
-			id = module['id'];
+			id = module['id'],
 			exist = dn[id];
 
 		if(exist){
