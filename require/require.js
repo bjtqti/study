@@ -11,8 +11,7 @@
 			// Stack of moduleIds currently being built.
 			requireStack = [],
 			// Map of module ID -> index into requireStack of modules currently being built.
-			inProgressModules = {},
-			SEPARATOR = ".";
+			inProgressModules = {};
 
 		function build(module) {
 			var factory = module.factory;
@@ -45,7 +44,7 @@
 			}
  
 			return modules[id].exports;
-		};
+		}
 
 		function define(id, factory) {
 			if (modules[id]) {
@@ -56,11 +55,11 @@
 				id: id,
 				factory: factory
 			};
-		};
+		}
 
 		define.remove = function(id) {
 			delete modules[id];
-		};
+		}
 
 		define.moduleMap = modules;
 
