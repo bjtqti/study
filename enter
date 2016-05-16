@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+<title>测试</title>
+<style type="text/css">
+    .form {
+        width: 100%;
+        height: 100px;
+        border: 1px solid gray;
+    }
+    textarea{
+        width: 100%;
+        height: 100%;
+    }
+    .enter {
+        width:100px;
+        height: 30px;
+        line-height: 30px;
+        color: white;
+        border: 1px solid #801da1;
+        background-color: #801da1;
+        text-align: center;
+        border-radius: 5px;
+    }
+    .choose {
+        float: right;
+        margin-right: 20px;
+        line-height: 30px;
+    }
+</style>
+</head>
+
+<body bgcolor="#f5f5f5">
+    <div id="chart" class="form">
+        <textarea>Here is some text your need!</textarea>
+        <div class="choose">
+            <input type="radio" name="method" value="enter" checked /><label>Enter</label>
+            <input type="radio" name="method" value="ctrl-enter" /><label>Ctrl+enter</label>
+        </div>
+        <div class="enter">Enter</div>
+    </div>
+    <script type="text/javascript">
+        var events = {
+            enter:true,
+            ctrl:false
+        };
+        var button = $('.enter');
+        var method = 'enter';
+
+        document.addEventListener('keydown',function(e){
+            var keyCode = e.keyCode;
+            if(keyCode===13){
+                events.enter = true;
+            }
+            if(keyCode===17){
+                events.ctrl = true;
+            }
+        });
+
+        document.addEventListener('keyup',function(e){
+            submit();
+            events = {
+                enter:false,
+                ctrl:false
+            }
+        });
+
+        $('.choose').addEventListener('click',select,false);
+        
+        button.addEventListener('click',submit,false);
+
+        function select(e){
+            if(e.target.tagName==='INPUT'){
+                method = e.target.value;
+                button.innerHTML = method;
+            }
+        }
+        function $(tagName){
+            return document.querySelector(tagName);
+        }
+
+        function submit(){
+            console.log(events,method)
+            if(method==='enter'){
+                if(events.enter&&!events.ctrl){
+                    alert('submit by enter successfull !');
+                }
+            }else if(method==='ctrl-enter'){
+                if(events.enter && events.ctrl){
+                    alert('submit by ctrl-enter successfull !');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
