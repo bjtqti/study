@@ -2,6 +2,7 @@
 
 function Dialog(options){
 	var config = {
+		element:null,
     	onConfrim:function(){},
     	onCancel:function(){}
 	};

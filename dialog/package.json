@@ -1,0 +1,19 @@
+{
+  "name": "dialog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build":"gulp"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^6.3.6",
+    "browser-sync": "^2.13.0",
+    "cssnext": "^1.8.4",
+    "gulp-postcss": "^6.1.1",
+    "precss": "^1.4.0"
+  }
+}
