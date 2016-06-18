@@ -1,23 +1,24 @@
 
 
 function Dialog(options){
-	if(options.onConfrim){
-		this.onConfrim = options.onConfrim;
+	var config = {
+    	onConfrim:function(){},
+    	onCancel:function(){}
+	};
+	for(var k in config){
+		if(config.hasOwnProperty(k)){
+			this[k] = options[k]!==undefined?options[k]:config[k];
+		}
 	}
-	if(options.onCancel){
-		this.onCancel = options.onCancel;
+	if(!options.element){
+		return false;
 	}
-	this.element = options.element||null;
 	this.bindEvent();
 }
 
 Dialog.prototype.bindEvent = function(){
-	var it = this;
-	var element =  this.element;
-	if(element === null){
-		return false;
-	}
-	var buttons = element.querySelectorAll('button');
+	var it = this,
+	    buttons = this.element.querySelectorAll('button');
 	if(buttons&&buttons[0]){
 		buttons[0].addEventListener('click',function(e){
 			it.onCancel();
@@ -30,14 +31,6 @@ Dialog.prototype.bindEvent = function(){
 			it.hide();
 		});
 	}
-}
-
-Dialog.prototype.onConfrim=function(){
-	 
-}
-
-Dialog.prototype.onCancel=function(){
-
 }
 
 Dialog.prototype.show = function(){
