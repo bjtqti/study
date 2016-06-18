@@ -1,0 +1,89 @@
+.dialog-container {
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+	display: flex;
+	position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,.7);
+    overflow: hidden;
+    z-index: 200;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    visibility: hidden;
+}
+.dialog-container.active {
+    visibility: visible;
+}
+
+.dialog-container.active .dialog {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1)
+}
+.dialog-container .dialog {
+	background: white;
+    border-radius: .1875rem;
+    border: .03125rem solid #801da1;
+    margin-top: 40%;
+    z-index: 201;
+    overflow: hidden;
+    min-width: 6.25rem;
+    -webkit-transform: scale(0.85);
+    -ms-transform: scale(0.85);
+    transform: scale(0.85);
+    opacity: 0;
+    -webkit-transition: opacity .1s linear,-webkit-transform .2s linear;
+    transition: opacity .1s linear,transform .2s linear
+}
+
+.dialog-title {
+	padding: 0 .9375rem;
+    line-height: 1.125rem;
+    color: white;
+    text-align: center;
+    background: #801da1;
+}
+
+.dialog-content {
+	padding: .78125rem .9375rem;
+    text-align: center;
+}
+
+.dialog-btns {
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+	display: flex;
+	line-height: .9375rem;
+    border-top: .03125rem solid #801da1;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.dialog-btns > button {
+    display: block;
+	-webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    background: white;
+    border: none;
+}
+
+.dialog-btns > button:first-child {
+	border-right: .03125rem solid #801da1;
+}
+
+.dialog-btns > button:last-child {
+	background-color: #d5c0dc;
+    border-right: none;
+}

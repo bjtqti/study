@@ -9,18 +9,39 @@
     <meta name="description" content="友阿微商城">
     <meta name="keyword" content="友阿,微商城,全渠道">
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="css/dailog.css">
+    <link rel="stylesheet" type="text/css" href="css/dialog.css">
     <script type="text/javascript" src="js/flexible.js"></script>
-    <script type="text/javascript" src="js/dailog.js"></script>
+    <script type="text/javascript" src="js/dialog.js"></script>
     <title>dailog</title>
 </head>
 <body>
-<h3>对话框</h3>
-<div style="width:40%;margin:0 auto">
-	 
+<h3><button>删除</button></h3>
+<div class="dialog-container">
+	<div class="dialog">
+		<div class="dialog-title">
+			提示
+		</div>
+		<div class="dialog-content">
+			确定删除该宝贝吗？
+		</div>
+		<div class="dialog-btns">
+			<button>取消</button>
+			<button>确定</button>
+		</div>
+	</div>
 </div>
 <script type="text/javascript">
-	 
+	var element = document.querySelector('.dialog-container');
+	var d = new Dialog({
+		element:element,
+		onConfrim:function(){
+			alert('删除成功')
+		}
+	});
+
+	document.querySelector('h3').addEventListener('click',function(){
+		d.show()
+	});
 </script>
 </body>
 </html>
