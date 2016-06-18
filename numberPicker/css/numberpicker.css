@@ -1,0 +1,38 @@
+.number-picker {
+	display: flex;
+	border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    align-items: center;
+    justify-content: center;
+    -webkit-user-select: none
+}
+
+.number-picker > div {
+	height: .9rem;
+	width: .9rem;
+    font-size: .4375rem;
+    text-align: center;
+}
+
+.number-picker .increase ,
+.number-picker .decrease {
+	line-height: .9rem;
+}
+
+.number-picker .quantity {
+	flex-grow:1;
+	border: 1px solid #dcdcdc;
+	border-top: 0;
+    border-bottom: 0;
+}
+ 
+.number-picker .quantity > input {
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+.number-picker .disabled {
+	color: gray;
+}
