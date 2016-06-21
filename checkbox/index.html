@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="友阿微商城">
+    <meta name="keyword" content="友阿,微商城,全渠道">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/checkbox.css">
+    <script type="text/javascript" src="js/flexible.js"></script>
+    <script type="text/javascript" src="js/checkbox.js"></script>
+    <title>demo</title>
+</head>
+<body>
+ 
+<div style="width:40%;margin:10% auto">
+	<div class="checkbox">
+        <span class="off"></span>
+	</div>	
+</div>
+<script type="text/javascript">
+    var element = document.querySelector('.checkbox');
+	var checkbox = new Checkbox({
+        element:element,
+        checked:false,
+        onClick:function(checked){
+            console.log(checked) 
+        }
+    });
+</script>
+</body>
+</html>

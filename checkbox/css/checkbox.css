@@ -1,0 +1,18 @@
+.checkbox {
+	width: .43rem;
+	height: .43rem;
+}
+
+.checkbox > span {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}
+.checkbox .on {
+	background: url(../images/checkbox-on.png) no-repeat center center;
+	background-size: 100% 100%;
+}
+.checkbox .off {
+	background: url(../images/checkbox-off.png) no-repeat center center;
+	background-size: 100% 100%;
+}
