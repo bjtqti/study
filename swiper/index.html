@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="友阿微商城">
+    <meta name="keyword" content="友阿,微商城,全渠道">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/swiper.css">
+    <script type="text/javascript" src="js/flexible.js"></script>
+    <script type="text/javascript" src="js/swiper.js"></script>
+    <title>swiper</title>
+</head>
+<body>
+    <div class="swiper-wrap">
+        <ul class="swiper-contner"></ul>
+    </div>
+    <script>
+        window.addEventListener('load',function(){
+            var wrap = document.querySelector('.swiper-wrap');
+            var pages = ['images/pic21.gif','images/pic22.gif','images/pic23.gif']
+            var slide = new Slider(wrap);
+            slide.loadImages(pages);
+        });
+    </script>
+</body>
+</html>

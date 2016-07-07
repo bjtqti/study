@@ -1,0 +1,34 @@
+a {
+  text-decoration: none;
+}
+
+img {
+	vertical-align: middle;
+}
+
+input {
+  border: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+/* List
+   ========================================================================== */
+
+/**
+ * 1. Remove margin and padding.
+ * 2. Remove default style
+ */
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style:none;
+}
+ 
+dl, dd {
+  margin: 0;
+}
+
+ 

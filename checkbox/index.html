@@ -13,23 +13,85 @@
     <script type="text/javascript" src="js/flexible.js"></script>
     <script type="text/javascript" src="js/checkbox.js"></script>
     <title>demo</title>
+    <style type="text/css">
+        .result {
+            width:40%;margin:50px auto
+        }
+        .hide {
+            visibility: hidden;
+        }
+        .show {
+            visibility: visible;
+        }
+        .all {
+            width:40%;
+            margin: 10px auto;
+        }
+    </style>
 </head>
 <body>
  
-<div style="width:40%;margin:10% auto">
-	<div class="checkbox">
+<div class="all">
+    <button>全选 / 取消</button>
+</div>
+<div class="result">
+	衣服<div class="checkbox">
         <span class="off"></span>
 	</div>	
+    鞋子<div class="checkbox">
+        <span class="off"></span>
+    </div>  
+    帽子<div class="checkbox">
+        <span class="off"></span>
+    </div> 
+    <hr />
+    <p><span class="hide">你选择了：</span><span></span></p>
 </div>
 <script type="text/javascript">
-    var element = document.querySelector('.checkbox');
-	var checkbox = new Checkbox({
-        element:element,
-        checked:false,
-        onClick:function(checked){
-            console.log(checked) 
-        }
-    });
+    var div = document.querySelector('.result'),
+        btn = document.querySelector('button'),
+        mockData = [
+            {name:'衣服',size:'xxl'},
+            {name:'鞋子',size:'41'},
+            {name:'帽子',size:'x'}
+        ];
+    mockData.forEach(function(d,i){
+        var c = new Checkbox({
+            element:div.children[i],
+            checked:false,
+            onClick:function(checked){
+                d.checked=checked;
+                submit()
+            }
+        });
+        mockData[i].checkbox = c;
+    })
+	 
+    div.children[3].onclick = submit;
+    btn.onclick = function(){
+        mockData.forEach(function(d,i){
+            var checked = !d.checked;
+            checked ? d.checkbox.on():d.checkbox.off();
+            d.checked = checked;
+        });
+        submit();
+    }
+ 
+    function submit(){
+        var arr = [];
+        mockData.forEach(function(data){
+            if(data.checked){
+                arr.push(data.name);
+            }
+            if(arr.length>0){
+                div.children[4].children[0].className='show'
+                div.children[4].children[1].innerHTML= arr.join(';')
+            }else{
+                div.children[4].children[0].className='hide';
+                div.children[4].children[1].innerHTML='点一个呗';
+            }
+        })
+    }
 </script>
 </body>
 </html>

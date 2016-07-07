@@ -33,8 +33,7 @@
 	background-color: white;
     border-radius: .1875rem;
     border: .03125rem solid #801da1;
-    margin-top: 40%;
-    z-index: 201;
+    margin: auto;
     overflow: hidden;
     min-width: 6.25rem;
     -webkit-transform: scale(0.85);
