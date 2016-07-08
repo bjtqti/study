@@ -36,3 +36,10 @@ study
 
 ### numberPicker
 * 购物车数量加减插件
+
+### swiper
+* 图片轮播插件，支持滑动和点击，带反弹效果
+* 不依赖jquery
+
+### checkbox
+* 自定义的checkbox按钮
