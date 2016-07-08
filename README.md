@@ -1,6 +1,6 @@
 study
 ---
-##学习过程分享
+##内容简介
 ---
 ### require
 * 模拟requireJs 的require方法，实现代码模块化
