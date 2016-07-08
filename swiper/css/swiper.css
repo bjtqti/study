@@ -10,21 +10,27 @@
 	overflow:hidden;
 }
 
-.swiper-contner {
+.swiper-content {
 	height: 100%;
 	overflow: hidden;
 }
 
-.swiper-contner .page{
+.swiper-content .page{
 	width: 100%;
 	position: absolute;
-	top:50%;
+	top:0;
 	left:0;
 	z-index: 2;
-	margin-top: -25%;
+	height: 100%;
 }
 
-.swiper-contner .page > img{
+.swiper-content>li:before{
+	content: "";
+    display: inline-block;
+    height: 50%;
+}
+
+.swiper-content .page > img{
 	width: 100%;
 	-webkit-user-select:none;
 	-ms-user-select:none;

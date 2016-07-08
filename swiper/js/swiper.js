@@ -53,7 +53,7 @@ Slider.prototype.loadImages = function(pages){
 		tmp.appendChild(page);
 		this.pages.push(page);
 	}
-	this.container.querySelector('.swiper-contner').appendChild(tmp);
+	this.container.querySelector('.swiper-content').appendChild(tmp);
 	this.totalPages = total;
 	this.pageUpdate();
 }
