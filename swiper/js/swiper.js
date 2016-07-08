@@ -23,9 +23,11 @@ function Slider(obj){
 }
 
 Slider.prototype.init=function(){
+	this.span = document.querySelector('.page-limit');
 	this.prevIndex = -1;
 	this.curentIndex = 0;
 	this.nextIndex = 1;
+	this.distance = 0;
 	this.time = 300;
 	this.timerId = null;
 	this.axis = {
@@ -51,13 +53,14 @@ Slider.prototype.loadImages = function(pages){
 		tmp.appendChild(page);
 		this.pages.push(page);
 	}
-	this.container.children[0].appendChild(tmp);
+	this.container.querySelector('.swiper-contner').appendChild(tmp);
 	this.totalPages = total;
+	this.pageUpdate();
 }
 
 Slider.prototype.bindEvent = function(){
 	var container = this.container;
-	//util.bindEvent(container,'click',this.handleEvent.bind(this));
+	util.bindEvent(container,'click',this.handleEvent.bind(this));
 	util.bindEvent(container,'mousedown',this.handleEvent.bind(this));
 	util.bindEvent(container,'mousemove',this.handleEvent.bind(this));
 	util.bindEvent(container,'mouseup',this.handleEvent.bind(this));
@@ -78,6 +81,7 @@ Slider.prototype.prev=function(){
 		this.curentIndex = this.prevIndex;
 		this.prevIndex--;
 		this.transitionEnd();
+		this.pageUpdate();
 	}
 }
 
@@ -93,6 +97,7 @@ Slider.prototype.next=function(){
 		this.curentIndex = this.nextIndex;
 		this.nextIndex++;
 		this.transitionEnd();
+		this.pageUpdate();
 	}
 }
 
@@ -105,8 +110,6 @@ Slider.prototype.transition=function(index,distance,time){
 }
 
 Slider.prototype.handleEvent=function(e){
-	var direction = this.width / 2 - e.clientX;
-	e.preventDefault();
 	switch(e.type){
 		case 'mousedown':
 			this._start(e);
@@ -127,7 +130,7 @@ Slider.prototype.handleEvent=function(e){
 			this._end();
 			break;
 		case 'click':
-			//direction > 0 ? this.prev():this.next();
+			this._click(e);
 			break;
 		default:
 			break;
@@ -188,12 +191,10 @@ Slider.prototype._end = function(){
 	    bounce = Math.round(this.width*.2),
 	    time = this.time,
 	    width = this.width;
-	this.enabled = false;
-	this.axis = {
-		x:0,
-		y:0
+	//忽略点击
+	if(distance===0){
+		return false;
 	}
-	this.distance = 0;
 	if(Math.abs(distance)>bounce){
 		if(distance>0){
 			this.prev();
@@ -202,16 +203,43 @@ Slider.prototype._end = function(){
 		}
 	}else{
 		//滑动距离太小反弹
-		this.transition(currIndex,0,time);
 		if(distance>0){
 			//prev
+			this.transition(currIndex,0,time);
     		this.transition(this.prevIndex,-width,time);
 		}else{
 			//next
+			this.transition(currIndex,0,time);
 			this.transition(this.nextIndex,width,time);
 		}
 	}
+	this.distance = 0;
+	this.enabled = false;
+	this.axis = {
+		x:0,
+		y:0
+	}
 }
 
+Slider.prototype._click = function(e){
+	e.preventDefault();
+	var direction = this.width / 2 - e.clientX;
+	if(e.target.className==='back'){
+		this.hide();
+	}else{
+		direction > 0 ? this.prev() : this.next();
+	}
+	return false;
+}
 
- 
+Slider.prototype.show = function(e){
+	this.container.style.display='block';
+}
+
+Slider.prototype.hide = function(e){
+	this.container.style.display='none';
+}
+
+Slider.prototype.pageUpdate = function(){
+	this.span.innerHTML = (1+this.curentIndex) + '/' + this.totalPages;
+}

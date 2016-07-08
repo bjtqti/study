@@ -16,16 +16,24 @@
     <title>swiper</title>
 </head>
 <body>
+<button>click</button>
     <div class="swiper-wrap">
+        <header class="swiper-header">
+            <div class="back"></div>
+            <div class="page-limit"></div>
+        </header>
         <ul class="swiper-contner"></ul>
     </div>
     <script>
+        var wrap = document.querySelector('.swiper-wrap');
+        var slide = new Slider(wrap);
         window.addEventListener('load',function(){
-            var wrap = document.querySelector('.swiper-wrap');
             var pages = ['images/pic21.gif','images/pic22.gif','images/pic23.gif']
-            var slide = new Slider(wrap);
             slide.loadImages(pages);
         });
+        document.querySelector('button').onclick=function(){
+            slide.show()
+        }
     </script>
 </body>
 </html>
