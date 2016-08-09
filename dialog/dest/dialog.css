@@ -9,7 +9,7 @@
     left: 0;
     background-color: rgba(0,0,0,.7);
     overflow: hidden;
-    z-index: 200;
+    z-index: -1;
     -webkit-justify-content: center;
         -ms-flex-pack: center;
             justify-content: center;
@@ -20,6 +20,7 @@
 }
 .dialog-container.active {
     visibility: visible;
+    z-index: 200;
 }
 
 .dialog-container.active .dialog {

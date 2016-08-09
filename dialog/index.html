@@ -6,9 +6,6 @@
     <meta name="format-detection" content="telephone=no, address=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="description" content="友阿微商城">
-    <meta name="keyword" content="友阿,微商城,全渠道">
-    <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/dialog.css">
     <script type="text/javascript" src="js/flexible.js"></script>
@@ -17,7 +14,7 @@
 </head>
 <body>
 <h3><button>删除</button></h3>
-<div class="dialog-container">
+<!-- <div class="dialog-container">
 	<div class="dialog">
 		<div class="dialog-title">
 			提示
@@ -30,18 +27,22 @@
 			<button>确定</button>
 		</div>
 	</div>
-</div>
+</div> -->
 <script type="text/javascript">
-	var element = document.querySelector('.dialog-container');
-	var d = new Dialog({
-		element:element,
+ 	document.getElementsByTagName('button')[0].onclick=function(){
+ 		d.show();
+ 	}
+	var d = new Dialog('确定删除该宝贝吗？',{
+		onCancel:function(){
+			d.hide();
+		},
 		onConfrim:function(){
-			alert('删除成功')
-		}
-	});
-
-	document.querySelector('h3').addEventListener('click',function(){
-		d.show()
+			d.hide();
+		},
+		title:'确认信息',
+		onlyConfirm:false,
+		confirmText:'是',
+		cancelText:'否'
 	});
 </script>
 </body>
