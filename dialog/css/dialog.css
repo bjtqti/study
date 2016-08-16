@@ -1,3 +1,4 @@
+/*对话框*/
 .dialog-container {
 	display: flex;
 	position: fixed;
@@ -7,14 +8,13 @@
     left: 0;
     background-color: rgba(0,0,0,.7);
     overflow: hidden;
-    z-index: -1;
+    z-index: 200;
     justify-content: center;
     align-items: flex-start;
     visibility: hidden;
 }
 .dialog-container.active {
     visibility: visible;
-    z-index: 200;
 }
 
 .dialog-container.active .dialog {
@@ -25,48 +25,86 @@
 .dialog-container .dialog {
 	background-color: white;
     border-radius: .1875rem;
-    border: .03125rem solid #801da1;
+    border: .03125rem solid #d7d7d7;
     margin: auto;
     overflow: hidden;
     min-width: 6.25rem;
     max-width: 80%;
     transform: scale(0.85);
     opacity: 0;
-    transition: opacity .1s linear,transform .2s linear
-}
-
-.dialog-title {
-	padding: 0 .9375rem;
-    line-height: 1.125rem;
-    color: white;
-    text-align: center;
-    background-color: #801da1;
+    transition: opacity .1s linear,transform .2s linear;
 }
 
 .dialog-content {
-	padding: .78125rem .9375rem;
+	padding: 1.2rem .9375rem;
     text-align: center;
+    color:#222;
 }
 
 .dialog-btns {
 	display: flex;
 	line-height: .9375rem;
-    border-top: .03125rem solid #801da1;
+    border-top: .03125rem solid #d7d7d7;
     align-items: center;
 }
 
 .dialog-btns > button {
-    display: block;
+    display: inline-block;
+    background-color: white;
     flex: 1;
-    background: white;
     border: none;
 }
 
-.dialog-btns > button:first-child {
-	border-right: .03125rem solid #801da1;
+.dialog-btns > button:nth-child(1) {
+    color:#222;
+	border-right: .03125rem solid #d7d7d7;
 }
 
-.dialog-btns > button:last-child {
-	background-color: #d5c0dc;
+.dialog-btns > button:nth-child(2) {
+	color: #e42b2b;
     border-right: none;
 }
+
+/* 提示层 */
+.tips-wrap {
+    position:fixed;
+    left:0;
+    top:85%;
+    width:100%;
+    text-align:center;
+    z-index:100;
+    -webkit-animation-name: down;
+    animation-name: down;
+    animation-duration:.5s;
+}
+.tips-wrap .text {
+    background-color:rgba(0,0,0,.7);
+    color:white;
+    text-align:center;
+    display:inline-block;
+    border-radius:5px;
+    max-width:80%;
+    padding:.4rem .2rem;
+}
+
+@-webkit-keyframes down {
+    0%{
+        opacity:0;
+        transform:translateY(-100px);
+    }
+    100%{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+@keyframes down {
+    0%{
+        opacity:0;
+        transform:translateY(-100px);
+    }
+    100%{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+ 

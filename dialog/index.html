@@ -13,37 +13,30 @@
     <title>dailog</title>
 </head>
 <body>
-<h3><button>删除</button></h3>
-<!-- <div class="dialog-container">
-	<div class="dialog">
-		<div class="dialog-title">
-			提示
-		</div>
-		<div class="dialog-content">
-			确定删除该宝贝吗？
-		</div>
-		<div class="dialog-btns">
-			<button>取消</button>
-			<button>确定</button>
-		</div>
-	</div>
-</div> -->
+<div style="text-align:center;">
+	<button>删除</button> <button>提示</button>
+	<button>提醒</button>
+</div>
+
 <script type="text/javascript">
  	document.getElementsByTagName('button')[0].onclick=function(){
- 		d.show();
+ 		var d = new Dialog('确定删除该宝贝吗？',{
+			onConfrim:function(){
+				console.log(333)
+			}
+		});
  	}
-	var d = new Dialog('确定删除该宝贝吗？',{
-		onCancel:function(){
-			d.hide();
-		},
-		onConfrim:function(){
-			d.hide();
-		},
-		title:'确认信息',
-		onlyConfirm:false,
-		confirmText:'是',
-		cancelText:'否'
-	});
+
+	document.getElementsByTagName('button')[1].onclick=function(){
+ 		Dialog.tips('密码格式不符合要求')
+ 	}
+
+ 	document.getElementsByTagName('button')[2].onclick=function(){
+ 		var d = new Dialog('请阅读协议',{
+			onlyConfirm:true
+		});
+ 	}
+	 
 </script>
 </body>
 </html>

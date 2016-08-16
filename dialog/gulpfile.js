@@ -18,7 +18,7 @@ gulp.task('css',function(){
 	var processors = [
 		precss,
 		cssnext,
-		autoprefixer({browsers:['last 3 versions']})
+		autoprefixer({browsers:['last 2 versions', 'Android >= 4.0']})
 	];
 	return gulp.src(config.style)
 		//.pipe(watch(config.style))

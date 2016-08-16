@@ -1,0 +1,20 @@
+{
+  "name": "nodeExpress",
+  "version": "1.0.0",
+  "description": "how to use express",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "ejs": "^2.5.1",
+    "express": "^4.14.0",
+    "body-parser": "^1.15.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node test/post.js"
+  },
+  "author": "frog",
+  "license": "MIT"
+}
