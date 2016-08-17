@@ -1,0 +1,135 @@
+.container {
+	position: relative;
+}
+.header {
+	background: url(../images/headerBg_2.png) 0 bottom no-repeat;
+    background-size: 100%;
+}
+ 
+.content {
+	padding: .266rem .32rem 0;
+}
+.content > li{
+	position: relative;
+	margin-bottom: .266rem;
+}
+.content > li  > img {
+	width: 100%;
+    height: 5.32rem;
+}
+
+.goods-info {
+	width: 4.8rem;
+    position: absolute;
+    right: .24rem;
+    top: 1.2rem; 
+    color:#222;
+}
+
+.goods-info .name {
+	font-size: .32rem;
+    height: 1rem;
+    line-height: .5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.goods-info .area {
+	margin: .4rem 0 .6rem;
+    line-height: .54rem;
+    font-size: .32rem;
+}
+
+.goods-info .area > img {
+	width: .46rem;
+    height: .46rem;
+    display: inline-block;
+    margin-right: .2rem;
+    vertical-align: top;
+}
+
+.goods-info .price > span {
+	color: #ed1946;
+    font-size: .48rem;
+    line-height: .6rem;
+    font-weight: bold;
+}
+
+.goods-info .price > del {
+	float: right;
+    color: #999;
+    line-height: .6rem;
+    font-size: .32rem;
+}
+
+.sold-out {
+	width: 1.813rem;
+    height: 1.813rem;
+    background-image: url(../images/ico_soldOut.png);
+    background-size: 100%;
+    position: absolute;
+    left: 1rem;
+    top: 2rem;
+}
+
+.share-box {
+	width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: -100%;
+    transition: bottom .5s ease;
+    background-color: #e0e0e0;
+    padding:.56rem;
+    z-index: 101;
+    box-sizing: border-box;
+}
+
+.share-box > ul {
+	display: flex;
+    position: relative;
+    padding: 0 1.2rem;
+}
+
+.share-box >ul > li {
+    flex: 1;
+    padding: 0 .3rem;
+}
+
+.share-box > ul img {
+    width: 100%;
+}
+
+.share-box > button {
+    width: 100%;
+    height: 1.22rem;
+    line-height: 1.22rem;
+	border: 1px solid #666666;
+    color: #232323;
+    text-align: center;
+    border-radius: 1rem;
+    font-size: .48rem;
+    margin-top: 1rem;
+}
+
+.share-icon {
+	display: inline-block;
+	width: .573333rem;
+    height: .56rem;
+    background: url(../images/topShare.png) no-repeat;
+    background-size: 100%;
+    margin: .32rem .32rem 0 0;
+}
+
+.mask {
+    display: none;
+	width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(0,0,0,.6);
+}

@@ -1,0 +1,24 @@
+.back-to-top {
+	display: none;
+	position: fixed;
+	bottom: 1.25rem;
+    right: .3125rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 1.25rem;
+    z-index: 100;
+    background: url("../images/toTop.png") center center;
+    background-size: 100% 100%;
+    opacity: 0;
+}
+
+.back-to-top.active {
+    display: block;
+    opacity: 1;
+}
+
+.back-to-top,
+.back-to-top.active {
+    -webkit-transition: opacity .3s ease-in;
+    transition: opacity .3s ease-in
+}
