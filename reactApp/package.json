@@ -1,0 +1,17 @@
+{
+  "name": "myreactapp",
+  "version": "1.0.0",
+  "description": "reactjs tutorial",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --hot"
+  },
+  "author": "frog",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
