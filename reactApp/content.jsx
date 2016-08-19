@@ -1,12 +1,21 @@
 import React,{Component} from 'react';
 
 export default class Content extends Component {
-   render() {
-      return (
-         <div>
-            <h2 className="new-title">Content</h2>
-            <p>The content text!!!</p>
-         </div>
-      );
-   }
+	constructor() {
+      	super();
+      	this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
+   	};
+
+   	forceUpdateHandler() {
+      this.forceUpdate();
+   	};
+
+   	render() {
+      	return (
+        <div>
+            <button onClick = {this.forceUpdateHandler}>FORCE UPDATE</button>
+            <h4>Random number: {Math.random()}</h4>
+        </div>);
+   	}
+
 }
