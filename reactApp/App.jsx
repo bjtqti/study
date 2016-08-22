@@ -7,14 +7,13 @@ class App extends Component {
 		super(props);
 
 		this.state = {
-				data: 0
-			}
+			data: 0
+		}
 		this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
 	};
 	forceUpdateHandler() {
-		var newData = ++this.state.data;
 		this.setState({
-			data:newData
+			data:Math.random()
 		})
 		//this.forceUpdate();
 	};
@@ -22,6 +21,7 @@ class App extends Component {
       return (
          <div>
             <Header/>
+            <h4>Random number: {this.state.data}</h4>
             <Content myNumber = {this.state.data}></Content>
             <button onClick = {this.forceUpdateHandler}>FORCE UPDATE</button>
          </div>

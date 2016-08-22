@@ -1,43 +1,18 @@
 import React,{Component} from 'react';
 
 export default class Content extends Component {
-	constructor(props) {
-		super(props);
-	};
-
-	componentWillMount() {
-		console.log('Component WILL MOUNT!')
-	}
-
-	componentDidMount() {
-		console.log('Component DID MOUNT!')
-	}
-
-	componentWillReceiveProps(newProps) {
-		console.log('Component WILL RECIEVE PROPS!',newProps)
-	}
-
-	shouldComponentUpdate(newProps, newState) {
-		return true;
-	}
-
-	componentWillUpdate(nextProps, nextState) {
-		console.log('Component WILL UPDATE!');
-	}
-
-	componentDidUpdate(prevProps, prevState) {
-		console.log('Component DID UPDATE!')
-	}
-
-	componentWillUnmount() {
-		console.log('Component WILL UNMOUNT!')
-	}
-
+ 
    	render() {
+   		console.log(this.props)
       	return (
         <div>
-            <h4>Random number: {Math.random()}</h4>
-            <p>{this.props.myNumber}</p>
+            <p>我是p标签{this.props.myNumber}</p>
+            <a>我是a标签{this.props.myNumber}</a>
+            <div>我是div标签{this.props.myNumber}</div>
+            <div>
+            	<p>我是div标签里边的p标签{this.props.myNumber}</p>
+            	<p><a>我是div标签里边的p标签里边的a标签{this.props.myNumber}</a></p>
+            </div>
         </div>);
    	}
 
