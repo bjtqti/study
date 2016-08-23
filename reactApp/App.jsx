@@ -3,27 +3,29 @@ import Header from './header.jsx';
 import Content from './content.jsx';
 
 class App extends Component {
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 
 		this.state = {
-			data: 0
+			data: []
 		}
-		this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
+		this.setStateHandler = this.setStateHandler.bind(this);
 	};
-	forceUpdateHandler() {
+	setStateHandler() {
+		var item = "setState..."
+		var myArray = this.state.data;
+		myArray.push(item)
 		this.setState({
-			data:Math.random()
+			data: myArray
 		})
-		//this.forceUpdate();
 	};
-   render() {
+    render() {
       return (
          <div>
             <Header/>
-            <h4>Random number: {this.state.data}</h4>
+            <h4>In this tutorial we will explain React component API</h4>
             <Content myNumber = {this.state.data}></Content>
-            <button onClick = {this.forceUpdateHandler}>FORCE UPDATE</button>
+            <button onClick = {this.setStateHandler}>SET STATE</button>
          </div>
       );
    }
