@@ -5,7 +5,7 @@
    npm install && npm start
 ```
 
-### 打包
+### 打包发布
 
 ```javascript 
    npm run build
