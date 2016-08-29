@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --hot",
-    "build":"webpack  --progress --colors"
+    "build": "webpack  --progress --colors"
   },
   "author": "frog",
   "license": "MIT",
   "dependencies": {
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   }
