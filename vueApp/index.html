@@ -10,6 +10,7 @@
 <div id="app">
     {{ message }}
     <input v-model="message">
+    <button v-on:click="reverseMessage">Reverse Message</button>
     <ul>
 	    <li v-for="todo in todos">
 	      {{ todo.text }}
@@ -26,7 +27,12 @@
 		      { text: 'Learn Vue.js' },
 		      { text: 'Build Something Awesome' }
 		    ]
+	    },
+	     methods: {
+	    reverseMessage: function () {
+	      this.message = this.message.split('').reverse().join('')
 	    }
+	  }
 	})
 </script>
 </body>
