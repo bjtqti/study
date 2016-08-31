@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test vue</title>
+</head>
+<body>
+<!--<script src="https://npmcdn.com/vue/dist/vue.js"></script>-->
+<script src="vue.1.0.26.js"></script>
+
+<div id="app">
+    {{ message }}
+    <input v-model="message">
+</div>
+<script type="text/javascript">
+	new Vue({
+	    el: '#app',
+	    data: {
+	        message: 'Hello Vue.js!'
+	    }
+	})
+</script>
+</body>
+</html>
