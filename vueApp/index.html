@@ -11,6 +11,7 @@
     {{ message }}
     <input v-model="message">
     <button v-on:click="addTodo">Reverse Message</button>
+    <p v-if="greeting">Hello!</p>
     <ul>
 	    <li v-for="todo in todos">
 	    <span v-on:click="removeTodo($index)">{{ todo.text }}</span>
@@ -21,6 +22,7 @@
 	new Vue({
 	    el: '#app',
 	    data: {
+	    	greeting:true,
 	        message: 'Hello Vue.js!',
 	        todos: [
 		      { text: 'Learn JavaScript' },
@@ -31,6 +33,7 @@
 	    methods: {
 	    removeTodo:function(index){
 	    	this.todos.splice(index,1);
+	    	this.greeting = !this.greeting;
 	    },
 	    addTodo: function () {
 	      var text = this.message.trim()
