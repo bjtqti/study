@@ -10,12 +10,22 @@
 <div id="app">
     {{ message }}
     <input v-model="message">
+    <ul>
+	    <li v-for="todo in todos">
+	      {{ todo.text }}
+	    </li>
+	  </ul>
 </div>
 <script type="text/javascript">
 	new Vue({
 	    el: '#app',
 	    data: {
-	        message: 'Hello Vue.js!'
+	        message: 'Hello Vue.js!',
+	        todos: [
+		      { text: 'Learn JavaScript' },
+		      { text: 'Learn Vue.js' },
+		      { text: 'Build Something Awesome' }
+		    ]
 	    }
 	})
 </script>
