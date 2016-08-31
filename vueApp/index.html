@@ -10,10 +10,10 @@
 <div id="app">
     {{ message }}
     <input v-model="message">
-    <button v-on:click="reverseMessage">Reverse Message</button>
+    <button v-on:click="addTodo">Reverse Message</button>
     <ul>
 	    <li v-for="todo in todos">
-	      {{ todo.text }}
+	    <span v-on:click="removeTodo($index)">{{ todo.text }}</span>
 	    </li>
 	  </ul>
 </div>
@@ -28,10 +28,17 @@
 		      { text: 'Build Something Awesome' }
 		    ]
 	    },
-	     methods: {
-	    reverseMessage: function () {
-	      this.message = this.message.split('').reverse().join('')
-	    }
+	    methods: {
+	    removeTodo:function(index){
+	    	this.todos.splice(index,1);
+	    },
+	    addTodo: function () {
+	      var text = this.message.trim()
+	      if (text) {
+	        this.todos.push({ text: text })
+	        this.message = ''
+	      }
+	    },
 	  }
 	})
 </script>
