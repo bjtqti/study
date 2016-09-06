@@ -12,7 +12,11 @@
 姓: <input type="text" ng-model="lastName"><br>
 <br>
 姓名: {{firstName + " " + lastName}}
-
+<ul>
+    <li ng-repeat="x in names">
+      {{ x.name }}
+    </li>
+  </ul>
 </div>
 
 <script>
@@ -20,7 +24,10 @@ var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope) {
     $scope.firstName= "John";
     $scope.lastName= "Doe";
-});
+    $scope.names = [{name:'Jani',country:'Norway'},
+				{name:'Hege',country:'Sweden'},
+				{name:'Kai',country:'Denmark'}];
+	});
 </script>
 
 </body>
