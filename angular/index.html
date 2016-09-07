@@ -6,31 +6,42 @@
 </head>
 <body>
 
-<div ng-app="myApp" ng-controller="myCtrl">
-<button ng-click="toggle()">隐藏/显示</button>
-名: <input type="text" ng-model="firstName"><br>
-姓: <input type="text" ng-model="lastName"><br>
-<br>
-姓名: {{firstName + " " + lastName}}
-<ul>
-    <li ng-repeat="x in names">
-      {{ x.name }}
-    </li>
-  </ul>
+<h2>AngularJS 简单应用</h2>
+
+<div ng-app = "mainApp" ng-controller = "CalcController">
+ <p>输入一个数字: <input type = "number" ng-model = "number" /></p>
+ <button ng-click = "square()">X<sup>2</sup></button>
+ <p>结果: {{result}}</p>
 </div>
 
 <script>
-var app = angular.module('myApp', []);
-app.controller('myCtrl', function($scope) {
-    $scope.firstName= "John";
-    $scope.lastName= "Doe";
-    $scope.names = [{name:'Jani',country:'Norway'},
-				{name:'Hege',country:'Sweden'},
-				{name:'Kai',country:'Denmark'}];
-	$scope.toggle = function(){
-		console.log(this.names.push({name:this.firstName,country:this.lastName}))
-	}
-	});
+var mainApp = angular.module("mainApp", []);
+         
+         mainApp.value("defaultInput", 5);
+         
+         mainApp.factory('MathServices', function() {
+            var factory = {};
+            
+            factory.multiply = function(a, b) {
+               return a * b;
+            }
+            return factory;
+         });
+         
+         mainApp.service('CalcService', function(MathServices){
+            this.square = function(a) {
+               return MathServices.multiply(a,a);
+            }
+         });
+         
+         mainApp.controller('CalcController', function($scope, CalcService, defaultInput) {
+            $scope.number = defaultInput;
+            $scope.result = CalcService.square($scope.number);
+
+            $scope.square = function() {
+               $scope.result = CalcService.square($scope.number);
+            }
+         });
 </script>
 
 </body>
