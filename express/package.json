@@ -1,0 +1,19 @@
+{
+  "name": "expressss",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "browser-sync": "^2.15.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "multer": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "supervisor app.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
