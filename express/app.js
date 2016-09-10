@@ -2,7 +2,9 @@
 //express_demo.js 文件
 var express = require('express');
 var app = express();
+var  bodyParser=require('body-parser');
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', function (req, res) {
    res.send('Hello World');
@@ -14,8 +16,15 @@ app.get('/index.html', function (req, res) {
    //res.json(JSON.stringify({a:3}))
 });
 
-app.get('/process_get', function (req, res) {
+app.post('/post', function (req, res) {
+   var response = {
+   	first_name:req.body.first_name,
+   	last_name:req.body.last_name
+   }
+   res.end(JSON.stringify(response));
+});
 
+app.get('/process_get', function (req, res) {
    // 输出 JSON 格式
    response = {
        first_name:req.query.first_name,
