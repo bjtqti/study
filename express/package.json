@@ -1,19 +1,42 @@
 {
-  "name": "expressss",
+  "name": "express-webpack-full-live-reload-example",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "body-parser": "^1.15.2",
-    "browser-sync": "^2.15.0",
-    "cookie-parser": "^1.4.3",
-    "express": "^4.14.0",
-    "multer": "^1.2.0"
+  "description": "A workflow with full live reload for webpack&express application.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kenanpengyou/express-webpack-full-live-reload-example.git"
   },
-  "devDependencies": {},
+  "author": "liangzhu",
+  "main": "app.js",
   "scripts": {
-    "start": "supervisor app.js"
+    "start": "cross-env NODE_ENV=dev supervisor -w server,app.js app",
+    "browsersync": "cross-env NODE_ENV=dev node app_browsersync",
+    "build": "webpack",
+    "production": "webpack --config webpack.production.config.js -p & cross-env NODE_ENV=production node app"
   },
-  "author": "",
-  "license": "ISC"
+  "license": "MIT",
+  "dependencies": {
+    "consolidate": "^0.14.0",
+    "ejs": "^2.5.2",
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.15.0",
+    "chokidar": "^1.5.1",
+    "clean-webpack-plugin": "^0.1.10",
+    "cross-env": "^1.0.8",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "node-sass": "^3.9.3",
+    "npm-install-webpack-plugin": "^2.0.2",
+    "reload": "^0.7.0",
+    "resolve-url-loader": "^1.4.3",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.2",
+    "webpack-dev-middleware": "^1.5.1",
+    "webpack-hot-middleware": "^2.12.2"
+  }
 }
