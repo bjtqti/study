@@ -1,9 +1,12 @@
 console.log('main.js');
 var app = document.getElementById('app');
 var p = document.createElement('p');
-p.innerHTML  = 'hello webpack : at '+ Date.now() + '!!';
+let now =  Date.now();
+let text = "hello webpack : at "+now+" !!";
+p.innerHTML  = text;
 app.appendChild(p);
-const a = 'aaa';
-(()=>{
-	console.log('aaa')
-})()
+ 
+const fn=(a)=>{
+	return console.log(a);
+}
+fn(text);
