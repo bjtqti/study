@@ -1,0 +1,12 @@
+{
+  "name": "webpacksss",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "develop":"webpack-dev-server --content-base build/",
+    "build":"webpack"
+  },
+  "author": "",
+  "license": "ISC"
+}
