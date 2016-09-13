@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "develop": "webpack-dev-server --content-base build/",
+    "develop": "webpack-dev-server --hot --content-base build/",
     "build": "webpack"
   },
   "author": "",
@@ -13,6 +13,7 @@
     "babel-core": "^6.14.0",
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.14.0",
+    "html-webpack-plugin": "^2.22.0",
     "webpack": "^1.13.2"
   }
 }

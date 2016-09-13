@@ -1,4 +1,4 @@
-console.log('main.js');
+
 var app = document.getElementById('app');
 var p = document.createElement('p');
 let now =  Date.now();

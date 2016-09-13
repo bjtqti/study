@@ -51,8 +51,19 @@
 /* 1 */
 /***/ function(module, exports) {
 
-	console.log('main.js');
-	(a)=>{return a}
+	'use strict';
+
+	var app = document.getElementById('app');
+	var p = document.createElement('p');
+	var now = Date.now();
+	var text = "hello webpack : at " + now + " !!";
+	p.innerHTML = text;
+	app.appendChild(p);
+
+	var fn = function fn(a) {
+	  return console.log(a);
+	};
+	fn(text);
 
 /***/ }
 /******/ ]);

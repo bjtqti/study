@@ -1,9 +1,10 @@
 var path = require("path");
 var webpack = require('webpack');
- 
+// var HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
   entry: {
-    app: ["./app/main.js"]
+    app: ['webpack/hot/dev-server', "./app/main.js"]
   },
   devServer: { inline: true },
   module: {
@@ -17,7 +18,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "build"),
     publicPath: "/assets/",
-    filename: "bundle.js"
+    filename: "bundle.js?[hash]"
   },
   plugins: [
         // new webpack.optimize.UglifyJsPlugin({
