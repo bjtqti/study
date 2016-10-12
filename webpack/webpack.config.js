@@ -1,6 +1,7 @@
 var path = require("path");
 var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
 module.exports = {
   entry: {
@@ -27,6 +28,8 @@ module.exports = {
   },
   plugins: [
         new ExtractTextPlugin("[name]-[hash].css"),
+        new CommonsChunkPlugin('init.js'),
+        //new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'vendor.js')
         // new webpack.optimize.UglifyJsPlugin({
         //     compress: {
         //         warnings: false,
