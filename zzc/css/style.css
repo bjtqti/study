@@ -252,3 +252,60 @@ footer{
 	font-style: normal;
 	padding-right: 30px;
 }
+
+.kefu {
+    position: fixed;
+    width: 40px;
+    right: 0px;
+    top: 0px;
+    height: 100%;
+    background-color: #e8e8e8;
+    z-index: 3;
+}
+
+.kefu ul {
+    margin-top: 150px;
+}
+
+.kefu ul li {
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #444;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+img.rightimg {
+	width: 22px;
+	height: 22px;
+    position: relative;
+    z-index: 4;
+    top: 9px;
+    left: 9px;
+}
+.ziceng {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    height: 40px;
+    background: #32a2ed;
+    padding-right: 42px;
+    display: none;
+    width: 70px;
+    color: #fff;
+    padding-left: 20px;
+    font-size: 14px;
+}
+
+.erweimaxx1 {
+	width: auto;
+    padding: 20px;
+    padding-right: 42px;
+    background: none;
+}
+
+.ziceng a {
+    color: #fff;
+}
