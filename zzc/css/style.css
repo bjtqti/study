@@ -188,21 +188,20 @@ a {
 .z-news .text {
 	float: left;
 	width: 60%;
-	line-height: 20px;
 	font-size: 12px;
+	margin-top:10px;
 }
 .z-news .text .bold {
 	font-size: 14px;
 	font-weight: bold;
 }
 .z-news .text .gray {
-	margin-top: 5px;
+	margin-top: 10px;
 	color: gray;
 }
 .z-news .text .time {
 	float: right;
 	color: gray;
-	margin-top: 10px;
 }
 .z-room {
 	float: right;
