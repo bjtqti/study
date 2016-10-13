@@ -208,27 +208,26 @@ a {
 	float: right;
 	width: 50%;
 }
-.z-room .video {
+ 
+.z-full {
 	width: 100%;
 }
-.z-room .video img {
+.z-full img {
 	width: 100%;
 }
-.z-room .left {
+.z-full .left {
 	float: left;
 	width: 50%;
 }
-.z-room .right {
+.z-full .right {
 	float: right;
 	width: 50%;
 }
-.z-room .bottom {
+.z-full .bottom {
 	width: 100%;
 	clear: both;
 }
-.z-room .left img,.z-room .right img,.z-room .bottom img {
-	width: 100%;
-}
+
 footer{
 	height: 230px;
     padding-left: 50px;
