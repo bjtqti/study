@@ -177,10 +177,10 @@ a {
 }
 .z-news .repeat {
 	overflow: hidden;
-	margin: 5px;
+	margin: 10px 5px;
 	background-color: white;
 }
-.z-news img {
+.z-imgwrap {
 	float: left;
 	max-width: 40%;
 	margin: 10px;
