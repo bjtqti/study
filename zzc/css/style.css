@@ -143,15 +143,15 @@ a {
 }
 
 .z-main {
-	background-color: white;
 	overflow: hidden;
-	padding-left: 20px;
-	margin-bottom: 10px;
+}
+.wrap {
+	width: 94%;
+	margin: 2px auto;
 }
 .z-news{
 	float: left;
-	width: 49%;
-	box-sizing: border-box;
+	width: 50%;
 }
 .z-main .title {
 	height: 40px;
@@ -206,8 +206,7 @@ a {
 }
 .z-room {
 	float: right;
-	width: 49%;
-	box-sizing: border-box;
+	width: 50%;
 }
 .z-room .video {
 	width: 100%;
