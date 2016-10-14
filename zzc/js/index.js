@@ -1,19 +1,32 @@
  
-
-var sidebar = $('#side-bar');
-
-sidebar.find('li').on('mouseover',function(e){
-	e.preventDefault();
-	var target = $(this).find('.ziceng');
-	target && target.show();
+//侧边栏
+$('#side-bar').delegate('li','mouseover mouseout click',function(e){
+	var index = $(this).index();
+	switch(e.type){
+		case 'mouseover':
+			handleMouseover(index,this);
+			break;
+		case 'click':
+			handleClick(index);
+			break;
+		case 'mouseout':
+			handleMouseout(index,this);
+			break;
+		default:
+			break;
+	}
 	return false;
-}).on('mouseout',function(e){
-	e.preventDefault();
-	var target = $(this).find('.ziceng');
-	target && target.hide();
-	return false;
-}).on('click',function(){
-	switch($(this).index()){
+});
+
+//返回顶部
+function toTop(){
+	$('body').animate({
+		scrollTop: 0 
+	}, 500);
+}
+
+function handleClick(index){
+	switch(index){
 		case 0:
 			alert('需求发布');
 			break;
@@ -21,9 +34,21 @@ sidebar.find('li').on('mouseover',function(e){
 			alert('问题反馈');
 			break;
 		case 4:
-			$('body').animate({ scrollTop: 0 }, 500);
+			toTop();
 			break;
 		default:
 			break;
 	}
-});
+}
+
+function handleMouseover(index,target){
+	if([0,1,3].indexOf(index)!== -1){
+		target.children[1].style.display='block';
+	}
+}
+
+function handleMouseout(index,target){
+	if([0,1,3].indexOf(index)!== -1){
+		target.children[1].style.display='none';
+	}
+}
