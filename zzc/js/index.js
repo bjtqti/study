@@ -26,7 +26,7 @@ $('.z-mask').on('click',function(e){
 
 //返回顶部
 function toTop(){
-	$('body').animate({
+	$(document.body).animate({
 		scrollTop: 0 
 	}, 500);
 }
