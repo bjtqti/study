@@ -1,6 +1,6 @@
  
 //侧边栏
-$('#side-bar').delegate('li','mouseover mouseout click',function(e){
+$('#side-bar').on('mouseover mouseout click','li',function(e){
 	var index = $(this).index();
 	switch(e.type){
 		case 'mouseover':
