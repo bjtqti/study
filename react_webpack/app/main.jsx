@@ -1,7 +1,7 @@
 'use strict';
  
 import React from "react";
-import {About} from "./about.jsx";
+import About from "./about.jsx";
 import ReactDOM from "react-dom";
 ReactDOM.render(
 	<div>
