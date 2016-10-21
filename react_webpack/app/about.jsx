@@ -24,6 +24,9 @@ class AboutUs extends Component{
                 <ul>
                 	{this.memuList()}
                 </ul>
+                <footer>
+                    copyright@2014-2016 湖南长沙互联网家
+                </footer>
             </div>
         )
     }

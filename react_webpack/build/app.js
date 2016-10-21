@@ -4331,6 +4331,11 @@
 	                    'ul',
 	                    null,
 	                    this.memuList()
+	                ),
+	                _react2.default.createElement(
+	                    'footer',
+	                    null,
+	                    'copyright@2014-2016 \u6E56\u5357\u957F\u6C99\u4E92\u8054\u7F51\u5BB6'
 	                )
 	            );
 	        }
