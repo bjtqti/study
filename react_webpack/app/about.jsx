@@ -14,7 +14,8 @@ class AboutUs extends Component{
 	handleClick(){
         var pageIndex = this.state.pageIndex+1;
         this.setState({
-            pageIndex
+            pageIndex,
+            maskActive:true
         });
 	}
 	memuList(){
@@ -24,7 +25,9 @@ class AboutUs extends Component{
 		});
 	}
     render(){
-        const {pageIndex} = this.state;
+        const {pageIndex,maskActive} = this.state;
+        let maxlength = Math.min(pageIndex * 10,window.innerWidth);
+        let proces = {width:(maxlength) + 'px','text-indent':maxlength+'px'};
         return (
             <div className="aboutus-content">
                 <h3>
@@ -33,6 +36,9 @@ class AboutUs extends Component{
                 <ul>
                 	{this.memuList()}
                 </ul>
+                <div className="process">
+                    <div style={proces}>{maxlength}</div>
+                </div>
                 <footer>
                     copyright@2014-2016 湖南长沙互联网家 {pageIndex}
                 </footer>
