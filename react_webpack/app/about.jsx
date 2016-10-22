@@ -4,10 +4,18 @@ import React,{Component} from "react";
 class AboutUs extends Component{
 	constructor(props){
 		super(props);
+        this.state = {
+            maskActive:false,
+            pageIndex:1
+        }
 		this.handleClick = this.handleClick.bind(this);
 	}
+
 	handleClick(){
-		console.log(this)
+        var pageIndex = this.state.pageIndex+1;
+        this.setState({
+            pageIndex
+        });
 	}
 	memuList(){
     	let list = this.props.initialState||[];
@@ -16,6 +24,7 @@ class AboutUs extends Component{
 		});
 	}
     render(){
+        const {pageIndex} = this.state;
         return (
             <div className="aboutus-content">
                 <h3>
@@ -25,7 +34,7 @@ class AboutUs extends Component{
                 	{this.memuList()}
                 </ul>
                 <footer>
-                    copyright@2014-2016 湖南长沙互联网家
+                    copyright@2014-2016 湖南长沙互联网家 {pageIndex}
                 </footer>
             </div>
         )
