@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var CleanPlugin = require('clean-webpack-plugin');
+
 module.exports = {
 	entry: {
 		app:['./app/main.jsx','./asset/main.styl']
@@ -31,8 +31,8 @@ module.exports = {
 		filename: './[name].js',
 	},
 	plugins: [
-		new CleanPlugin('builds'),
 		new webpack.NoErrorsPlugin(),
+		new webpack.HotModuleReplacementPlugin(),
 		new ExtractTextPlugin("./[name].css")
 	]
 };
