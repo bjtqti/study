@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/build/";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -4289,6 +4289,10 @@
 
 	        var _this = _possibleConstructorReturn(this, (AboutUs.__proto__ || Object.getPrototypeOf(AboutUs)).call(this, props));
 
+	        _this.state = {
+	            maskActive: false,
+	            pageIndex: 1
+	        };
 	        _this.handleClick = _this.handleClick.bind(_this);
 	        return _this;
 	    }
@@ -4296,7 +4300,11 @@
 	    _createClass(AboutUs, [{
 	        key: 'handleClick',
 	        value: function handleClick() {
-	            console.log(this);
+	            var pageIndex = this.state.pageIndex + 1;
+	            this.setState({
+	                pageIndex: pageIndex,
+	                maskActive: true
+	            });
 	        }
 	    }, {
 	        key: 'memuList',
@@ -4315,6 +4323,12 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _state = this.state;
+	            var pageIndex = _state.pageIndex;
+	            var maskActive = _state.maskActive;
+
+	            var maxlength = Math.min(pageIndex * 10, window.innerWidth);
+	            var proces = { width: maxlength + 'px', 'text-indent': maxlength + 'px' };
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'aboutus-content' },
@@ -4333,9 +4347,20 @@
 	                    this.memuList()
 	                ),
 	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'process' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: proces },
+	                        maxlength
+	                    )
+	                ),
+	                _react2.default.createElement(
 	                    'footer',
 	                    null,
-	                    'copyright@2014-2016 \u6E56\u5357\u957F\u6C99\u4E92\u8054\u7F51\u5BB6'
+	                    'copyright@2014-2016 \u6E56\u5357\u957F\u6C99\u4E92\u8054\u7F51\u5BB6 ',
+	                    pageIndex,
+	                    ' .'
 	                )
 	            );
 	        }

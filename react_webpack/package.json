@@ -8,9 +8,9 @@
   },
   "scripts": {
     "start": "webpack --config webpack.production.js --display-error-details",
-    "dev": "webpack-dev-server --inline --hot",
+    "dev": "webpack-dev-server --inline --hot --port 3000",
     "server": "node server.js",
-    "build": "webpack --watch --progress --colors --display-error-details",
+    "build": "webpack --progress --colors --display-error-details",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "278500368@qq.com",

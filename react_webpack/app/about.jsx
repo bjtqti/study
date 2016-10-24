@@ -27,7 +27,7 @@ class AboutUs extends Component{
     render(){
         const {pageIndex,maskActive} = this.state;
         let maxlength = Math.min(pageIndex * 10,window.innerWidth);
-        let proces = {width:(maxlength) + 'px','text-indent':maxlength+'px'};
+        let proces = {width:(maxlength) + 'px','textIndent':maxlength+'px'};
         return (
             <div className="aboutus-content">
                 <h3>
@@ -40,7 +40,7 @@ class AboutUs extends Component{
                     <div style={proces}>{maxlength}</div>
                 </div>
                 <footer>
-                    copyright@2014-2016 湖南长沙互联网家 {pageIndex}
+                    copyright@2014-2016 湖南长沙互联网家
                 </footer>
             </div>
         )

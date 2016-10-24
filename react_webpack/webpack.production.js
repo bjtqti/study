@@ -3,10 +3,9 @@ var webpack = require('webpack');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var CleanPlugin = require('clean-webpack-plugin');
+var entry = require('./config.js');
 module.exports = {
-	entry: {
-		app:['./app/main.jsx','./asset/main.styl']
-	},
+	entry: entry,
 	resolve:{
         extentions:["","js"]
     },
