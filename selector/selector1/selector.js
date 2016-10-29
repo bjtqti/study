@@ -36,7 +36,7 @@ function Selector(id,str){
 					var arr = [];
 					for(var j=0;j<item.length;j++){
 						var node = item[j];
-						node.aix=[i,j];
+						node.setAttribute('data-aix',i+','+j);
 						arr.push({el:node,val:node.innerText});
 					}
 					elements.push(arr);
@@ -46,7 +46,7 @@ function Selector(id,str){
 			bindEvent:function(){
 				var it = this;
 				document.querySelector('.container').onclick=function(e){
-					if(e.target.aix){
+					if(e.target.getAttribute('data-aix')){
 						//console.log(e.target.innerText)
 						it.handleClick(e.target)
 					}	
@@ -84,9 +84,9 @@ function Selector(id,str){
 				});
 			},
 			handleClick:function(target){
-				//console.log(target.getAttribute('data-pos'))
-				var aix=target.aix;
-				var x=aix[0],y=aix[1];
+				var aix = target.dataset.aix.split(',');
+				var x=parseInt(aix[0]),
+					y=parseInt(aix[1]);
 				var item = this.elements[x][y];
 				if(item.isActive||item.isDisable){
 					return false;
