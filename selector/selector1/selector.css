@@ -1,0 +1,25 @@
+.container {
+			width:80%;
+			margin: 10% auto;
+		}
+		a{
+			text-decoration: none;
+			color:black;
+			display: inline-block;
+			width: 80px;
+			padding: 16px 5px;
+			border: 1px solid gray;
+			margin: 5px 10px;
+			text-align: center;
+		}
+		span {
+			display: block;
+			padding: 5px;
+		}
+		.active {
+			border:1px solid red;
+		}
+		.dis {
+			background-color: gray;
+			color:white;
+		}

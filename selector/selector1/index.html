@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>selector</title>
+	<link rel="stylesheet" type="text/css" href="selector.css">
+	<script type="text/javascript">
+		var attr = '{"1001":"颜色##红色,规格##XL","1002":"颜色##蓝色,规格##S","1003":"颜色##蓝色,规格##L"}';
+	</script>
+	<script type="text/javascript" src="selector.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="selector">
+			<span>颜色</span>
+			<a href="javascript:;">红色</a>
+			<a href="javascript:;">蓝色</a>
+		</div>
+		<div class="selector">
+			<span>规格</span>
+			<a href="javascript:;">XL</a>
+			<a href="javascript:;">S</a>
+			<a href="javascript:;">L</a>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var s = new Selector('1001',attr);
+	</script>
+</body>
+</html>
