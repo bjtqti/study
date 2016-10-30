@@ -70,16 +70,16 @@ function Selector(id,str){
 				}
 				var item = this.selected[0],
 				    data = this.data,
-				    enabled = [],
-				    it=this;
+				    enabled = [];
 				for(var k in data){
 					if(data[k][0]===item.val){
 						enabled.push(data[k][1]);
 					}
 				}
-				it.elements[x].forEach(function(item){
+				this.elements[x].forEach(function(item){
 					if(enabled.indexOf(item.val)===-1){
-						it.setDisable(item,true);
+						item.el.className='dis';
+						item.isDisable = true;
 					}
 				});
 			},
@@ -124,7 +124,7 @@ function Selector(id,str){
 			},
 			setDisable:function(item,status){
 				item.el.className=status?'dis':'';
-				item.isDisable = false;
+				item.isDisable = !!status;
 			},
 			setDefaultActive:function(x){
 				var items=this.elements[x];
