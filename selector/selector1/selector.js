@@ -68,26 +68,26 @@ function Selector(id,str){
 				if(!this.elements[x]){
 					return;
 				}
-				var item = this.selected[0];
-				var data = this.data;
-				var enabled = [];
+				var item = this.selected[0],
+				    data = this.data,
+				    enabled = [],
+				    it=this;
 				for(var k in data){
 					if(data[k][0]===item.val){
 						enabled.push(data[k][1]);
 					}
 				}
-				this.elements[x].forEach(function(item){
+				it.elements[x].forEach(function(item){
 					if(enabled.indexOf(item.val)===-1){
-						item.el.className='dis';
-						item.isDisable = true;
+						it.setDisable(item,true);
 					}
 				});
 			},
 			handleClick:function(target){
-				var aix = target.dataset.aix.split(',');
-				var x=parseInt(aix[0]),
-					y=parseInt(aix[1]);
-				var item = this.elements[x][y];
+				var aix = target.dataset.aix.split(','),
+				    x=parseInt(aix[0]),
+					y=parseInt(aix[1]),
+				    item = this.elements[x][y];
 				if(item.isActive||item.isDisable){
 					return false;
 				}
@@ -105,8 +105,8 @@ function Selector(id,str){
 				console.log(this.getId())
 			},
 			getId:function(){
-				var arr = [];
-				var data = this.data;
+				var arr = [],
+				    data = this.data;
 				this.selected.forEach(function(item){
 					arr.push(item.val);
 				});
@@ -121,6 +121,10 @@ function Selector(id,str){
 			setActive:function(item,status){
 				item.el.className=status?'active':'';
 				item.isActive=status;
+			},
+			setDisable:function(item,status){
+				item.el.className=status?'dis':'';
+				item.isDisable = false;
 			},
 			setDefaultActive:function(x){
 				var items=this.elements[x];
