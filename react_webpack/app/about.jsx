@@ -39,6 +39,10 @@ class AboutUs extends Component{
                 <div className="process">
                     <div style={proces}>{maxlength}</div>
                 </div>
+                <div>
+                    <p>错误人民币符号：￥100.00</p>
+                    <p>正确人民币符号：¥100.00</p>
+                </div>
                 <footer>
                     copyright@2014-2016 湖南长沙互联网家
                 </footer>

@@ -1,4 +1,4 @@
 
 module.exports ={
-	app:['./app/main.jsx','./asset/main.styl']
+	app:['./app/app.jsx','./asset/main.styl']
 }

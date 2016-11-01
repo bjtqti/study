@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "webpack --config webpack.production.js --display-error-details",
-    "dev": "webpack-dev-server --inline --hot --port 3000",
+    "dev": "webpack-dev-server --inline --hot --port 3000 --host 192.168.2.68",
     "server": "node server.js",
     "build": "webpack --progress --colors --display-error-details",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,7 +18,9 @@
   "license": "MIT",
   "dependencies": {
     "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
