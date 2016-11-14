@@ -1,0 +1,17 @@
+{% extends './layout.html' %}
+{% block title %}List{% endblock %} 
+{% block css %}
+<!-- inject:css -->
+<!-- endinject -->
+{% endblock %} 
+{% block content %}
+<div class="error-container">
+    <div id="error">{{ markup|safe }}</div>
+</div>
+<script src="{{baseURL}}:7000/bs/browser-sync-client.js"></script>
+<script type="application/json" id="initial-state">{{ initialState|json|safe }}</script>
+{% endblock %}
+{% block js %}
+<!-- inject:js -->
+<!-- endinject -->
+{% endblock %}

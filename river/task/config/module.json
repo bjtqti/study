@@ -1,0 +1,20 @@
+{
+    "error": {
+        "html": "error.html",
+        "path": "./client/bundle/error/",
+        "compiler": {
+            "js": "babel",
+            "css": "stylus"
+        },
+        "vendor": "react"
+    },
+    "index": {
+        "html": "index.html",
+        "path": "./client/bundle/index/",
+        "compiler": {
+            "js": "babel",
+            "css": "stylus"
+        },
+        "vendor": "react"
+    }
+}
