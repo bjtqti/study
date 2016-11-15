@@ -8,8 +8,6 @@ var gulp = require("gulp"),
     _ = require("lodash");
 
 var env = require("./environment");
-var hmrBasePath = "{{baseURL}}:"+env.hmrPort
-var reloaderBasePath = "{{baseURL}}:"+env.reloaderPort
 
 gulp.task("develop-webpack", function() {
     _.each(env.modules, function(moduleObj) {
@@ -23,32 +21,31 @@ gulp.task("develop-webpack", function() {
             moduleJSFile = path.join(moduleObj.path, env.buildFolder + '*.js');
         jsFiles.push(vendorJSFile);
         jsFiles.push(moduleJSFile);
-        var sources = gulp.src(jsFiles, {
+        var sources = gulp.src(_.union(cssFiles, jsFiles), {
             read: false
         });
         gulp.src(injectTarget).pipe(inject(sources, {
             relative: true,
             empty:true,
             transform: function(filepath) {
-                console.log(filepath)
                 var vendorPattern = new RegExp(".+" + moduleObj.vendor),
                     buildPattern = new RegExp(".+" + env.buildFolder);
                 // filepath = filepath.replace(prefixPattern, './');
                 if (vendorPattern.test(filepath) === true) {
                     if (path.extname(filepath) === ".js") {
-                        filepath = filepath.replace(buildPattern, hmrBasePath+env.hmrPath);
+                        filepath = filepath.replace(buildPattern, "{{hostname}}"+env.hmrPath);
                     }
                 } else if (vendorPattern.test(filepath) === false) {
                     if (path.extname(filepath) === ".js") {
-                        filepath = filepath.replace(buildPattern, hmrBasePath+env.hmrPath);
+                        filepath = filepath.replace(buildPattern, "{{hostname}}"+env.hmrPath);
                     }
                 }
                 return inject.transform.apply(inject.transform, arguments);
             }
 
         }))
-        .pipe(injectString.replace('<script src="'+reloaderBasePath+'/bs/browser-sync-client.js"></script>\n',""))
-        .pipe(injectString.before("<script",'<script src="'+reloaderBasePath+'/bs/browser-sync-client.js"></script>\n'))
+        .pipe(injectString.replace('<script src="{{hostname}}/bs/browser-sync-client.js"></script>\n',""))
+        .pipe(injectString.before("<script",'<script src="{{hostname}}/bs/browser-sync-client.js"></script>\n'))
         .pipe(gulp.dest(injectedPath));
     });
 });
@@ -90,7 +87,7 @@ gulp.task("deploy-webpack", function() {
                 return inject.transform.apply(inject.transform, arguments);
             }
         }))
-        .pipe(injectString.replace('<script src="'+reloaderBasePath+'/bs/browser-sync-client.js"></script>\n',""))
+        .pipe(injectString.replace('<script src="{{hostname}}/bs/browser-sync-client.js"></script>\n',""))
         .pipe(injectString.replace('<meta name="bundledAt" content="\d{12}">',""))
         .pipe(injectString.before("</head>",'<meta name="bundledAt" content="'+bundledTime()+'">\n')).pipe(gulp.dest(injectedPath));
     });

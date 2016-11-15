@@ -1,35 +1,44 @@
-'use strict'
-var Koa = require("koa")
-var staticServer = require("koa-static"),
-    bodyParser = require("koa-bodyparser"),
-    methodOverride = require("koa-methodoverride"),
-    convert = require("koa-convert"),
-    session = require("koa-generic-session"),
-    views = require("koa-views")
+var express = require("express"),
+    bodyParser = require("body-parser"),
+    methodOverride = require("method-override"),
+    session = require("express-session"),
+    cons = require("consolidate");
 
-const app = new Koa()
+var app = express();
 
-app.use(staticServer(`${__dirname}/client`,{gzip:true})) 
-app.use(bodyParser())
-app.use(methodOverride())
+app.use('/client', express.static('client'));
+app.use(bodyParser.urlencoded({
+    extended:true
+}));
+app.use(bodyParser.json());
+app.use(methodOverride());
 
-app.use(convert(session({
-    key:"isomorphic-boilerplate",
-    cookie:{
+app.use(session({
+    name: "isomorphic-boilerplate.sid",
+    secret: "isomorphic-boilerplate",
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
         maxAge: 3600000 * 12 //12 hour
     }
-})))
+}))
 
-// app.use(convert(function* (next){
-//     console.log("ctx",this)
-//     yield next
-// }))
+app.engine('html', cons.swig);
+app.set('view engine', 'html');
+app.set("views", __dirname + '/../view');
 
-app.use(views(`${__dirname}/../view`,{map:{html:"swig"},extension:"html"}))
+app.use(function(req,res,next){
+    if(process.env.HMR_ENABLED){
+        var hmrPort = process.env.HMR_PORT || 5000;
+        // res.locals.hostname = ""
+        res.locals.hostname = req.protocol+"://"+req.hostname+":"+hmrPort
+    }
+    next()
+})
+if(process.env.HMR_ENABLED){
+    app = require("../task/develop-middleware")(app)
+}
 
-var router = require("./router.js")
-
-app.use(router.routes())
-app.use(router.allowedMethods())
-
-module.exports = app
+var router = require("./router.js");
+app.use(router);
+module.exports = app;

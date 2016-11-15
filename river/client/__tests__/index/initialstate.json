@@ -1,0 +1,21 @@
+{
+    "weather": {
+        "city": "长沙",
+        "pinyin": "changsha",
+        "citycode": "101250101",
+        "date": "15-11-02",
+        "time": "11:00",
+        "postCode": "410000",
+        "longitude": 112.967,
+        "latitude": 28.197,
+        "altitude": "66",
+        "weather": "多云",
+        "temp": "20",
+        "l_tmp": "12",
+        "h_tmp": "20",
+        "WD": "北风",
+        "WS": "微风(<10m/h)",
+        "sunrise": "06:39",
+        "sunset": "17:43"
+    }
+}

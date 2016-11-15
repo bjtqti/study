@@ -1,0 +1,11 @@
+node_modules/
+npm-debug.log
+.git/
+# vendor/
+client/**/build/
+# client/**/dist/
+client/__coverage__/
+# /client/**/stylesheet/
+# /client/**/*.jsx
+# /client/**/__tests__/
+# /server/**/__tests__/

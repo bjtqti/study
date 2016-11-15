@@ -1,18 +1,17 @@
 'use strict'
-var Router = require("koa-router")
-var router = new Router()
+var express = require('express');
 
-require("babel-polyfill");
-require("babel-register")({
+var router = express.Router();
+
+require("babel-core/register")({
+    optional:["runtime"],
     extensions: [".es6", ".jsx"]
 });
 
-router.use(require("./middleware.es6").constants)
+router.get("/",require("./controller/main.js").index);
+router.post("/weather",require("./controller/main.js").weather);
 
-router.get("/",require("./controller/main.es6").index);
-router.post("/weather",require("./controller/main.es6").weather);
-
-router.all("*",require("./controller/main.es6").notFoundHandler);
-router.use(require("./controller/main.es6").errorHandler);
+router.all("*",require("./controller/main.js").notFoundHandler);
+router.use(require("./controller/main.js").errorHandler);
 
 module.exports = router;

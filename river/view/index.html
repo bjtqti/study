@@ -5,9 +5,10 @@
 <div class="index-container">
     <div id="weather">{{ markup|safe }}</div>
 </div>
-<script src="{{baseURL}}:7000/bs/browser-sync-client.js"></script>
 <script type="application/json" id="initial-state">{{ initialState|json|safe }}</script>
 {% endblock %} {% block js %}
 <!-- inject:js -->
+<script src="{{hostname}}/hmr/react.js"></script>
+<script src="{{hostname}}/hmr/index.js"></script>
 <!-- endinject -->
 {% endblock %}

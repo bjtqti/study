@@ -1,0 +1,7 @@
+node_modules/
+task/
+client/**/dist/
+client/**/build/
+vendor/
+.git/
+client/__coverage__/

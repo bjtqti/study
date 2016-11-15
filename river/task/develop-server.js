@@ -4,7 +4,8 @@ var gulp = require("gulp"),
     nodemon = require("nodemon"),
     webpack = require('webpack'),
     browserSync = require("browser-sync"),
-    env = require("./environment"),
+    //webpackDevMiddleware = require("webpack-dev-middleware"),
+    //webpackHotMiddleware = require("webpack-hot-middleware"),
     config = require('./webpack.hot-update.js');
 
 var bundler = webpack(config);
@@ -44,11 +45,12 @@ var bundler = webpack(config);
 
 gulp.task("start", ["nodemon"], function() {
     var listenPort = process.env.LISTEN_PORT || 3000;
+    var hmrPort = process.env.HMR_PORT || 5000;
     browserSync({
         proxy: {
             target: "http://localhost:" + listenPort,
         },
-        port: env.reloaderPort,
+        port: hmrPort,
         files: "view/*.html",
         online: false,
         logLevel: "info",
@@ -61,9 +63,9 @@ gulp.task("start", ["nodemon"], function() {
         },
         scriptPath:function(path,port,options){
             path = path.replace(/browser-sync-client(\.\d+)+/,"browser-sync-client")
-            return "http://localhost:" + env.reloaderPort + path
+            return "http://localhost:" + hmrPort + path
         }
     }, function() {
-        console.log('🌎 browserSync Listening at %d', env.reloaderPort);
+        console.log('🌎 hmr-server Listening at %d', hmrPort);
     })
 })

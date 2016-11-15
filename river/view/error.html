@@ -8,10 +8,11 @@
 <div class="error-container">
     <div id="error">{{ markup|safe }}</div>
 </div>
-<script src="{{baseURL}}:7000/bs/browser-sync-client.js"></script>
 <script type="application/json" id="initial-state">{{ initialState|json|safe }}</script>
 {% endblock %}
 {% block js %}
 <!-- inject:js -->
+<script src="{{hostname}}/hmr/react.js"></script>
+<script src="{{hostname}}/hmr/error.js"></script>
 <!-- endinject -->
 {% endblock %}
