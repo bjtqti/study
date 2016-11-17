@@ -34,10 +34,13 @@ const stat = ()=>{
 // stat();
 
 const read = (fileName)=>{
-	fs.readFile(fileName,(err,data)=>{
-		console.log(data.toString())
+	fs.readFile(fileName,'utf8',(err,data)=>{
+		if(err) throw err;
+		console.log(data)
 	});
 }
+
+// read('./test.txt');
 
 const access=(fileName)=>{
 	fs.access(fileName,fs.R_OK|fs.W_OK,(err)=>{
@@ -65,3 +68,27 @@ const dir=(path)=>{
 }
 
 // dir('./');
+
+
+const write=(file,data)=>{
+	fs.writeFile(file,data,(err)=>{
+		if(err) throw err;
+		console.log("it's saved !");
+	});
+}
+
+// write('index.html','<html></html>');
+
+const net = require('net');
+const server = net.createServer((socket) => {
+	socket.end('goodbye\n');
+}).on('error', (err) => {
+	// handle errors here
+	throw err;
+});
+
+// grab a random port.
+server.listen({port:4000,host:'localhost'},() => {
+	let address = server.address();
+	console.log('opened server on %j', address);
+});
