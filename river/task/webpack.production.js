@@ -1,6 +1,6 @@
 var webpack = require('webpack'),
     path = require('path'),
-    del = require("del"),
+    //del = require("del"),
     _ = require("lodash");
 
 // var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
@@ -16,7 +16,7 @@ var commonChunks = [];
 var moduleEntries = {},
     moduleEntryPath = "";
 _.each(env.modules, function(moduleObj) {
-    del.sync(path.join(moduleObj.path, env.distFolder + '/*.*'));
+    //del.sync(path.join(moduleObj.path, env.distFolder + '/*.*'));
     var moduleEntry = {};
     moduleEntryPath = moduleObj.path + "../";
     moduleEntry[moduleObj.name] = [moduleObj.entryJS, moduleObj.entryCSS];
@@ -24,7 +24,7 @@ _.each(env.modules, function(moduleObj) {
 });
 
 /*build vendors*/
-del.sync(env.vendorPath + "/" + env.distFolder + '/*.js');
+//del.sync(env.vendorPath + "/" + env.distFolder + '/*.js');
 _.each(env.vendors, function(vendor) {
     commonChunks.push(new webpack.optimize.CommonsChunkPlugin({
         name: vendor.name,
@@ -82,7 +82,7 @@ module.exports = {
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false
-            }
+            },
             output: {
               comments: false
             },

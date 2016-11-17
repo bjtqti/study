@@ -1,0 +1,19 @@
+{
+	"restartable":"rs",
+	"colours":true,
+	"ignoreRoot":["node_modules"],
+	"watch":["*.js"],
+	"stdin":true,
+	"runOnChangeOnly":false,
+	"verbose":false,
+	"stdout":true,
+	"env":{
+		"NODE_ENV":"development",
+		"PORT":"3000"
+	},
+	"ext":"js json",
+	"execMap":{
+		"":"node",
+		"js":"node --harmony"
+	}
+}
