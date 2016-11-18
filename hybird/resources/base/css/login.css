@@ -1,0 +1,99 @@
+@charset "utf-8";
+/* CSS Document */
+
+html{
+	background-color:#fff;
+}
+.user{
+	padding:3.75rem 1rem 1rem;
+}
+
+/* 未登录 */
+.notLogged .user_form{
+	margin:0 0.25rem;
+	background-color:#fff;
+	border-radius:5px;
+}
+.notLogged .user_form p{
+	line-height:4.125rem;
+	padding:0 1.25rem;
+	position:relative;
+}
+.notLogged .user_form p > span{
+    width: 77%;
+    display: block;
+    float: left;
+    position: relative;
+}
+.notLogged .user_form p > span.wait {
+	color: #666;
+    width: 6rem;
+    display: block;
+    position: relative;
+    float: left;
+    font-size: 1.5rem;
+}
+.notLogged .user_form p{
+	border-bottom:1px solid #e6e6e6;
+}
+.notLogged .user_form input{
+	width:100%;
+	color:#222;
+	font-size:1.5rem;
+}
+.notLogged .user_form p.codeArea span:last-child{
+	padding-right:7rem;
+}
+.notLogged .user_form input#btn{
+	width:7.5rem;
+	height:2.875rem;
+	border:1px solid #d7d7d7;
+	background-color:#fff;
+	color:#222;
+	border-radius:3px;
+	font-size:1.4rem;
+	position:absolute;
+	right:-1.25rem;
+	top:0.625rem;
+}
+.notLogged .user_form input#btn.disabled{
+	background-color:#f5f5f5;
+	font-size:1rem;
+	color:#b6b6b6;
+	border:1px solid #f5f5f5;
+}
+.notLogged .loginBtn{
+	background-color:#dd1732;
+	color:#fff;
+	font-size:1.5rem;
+	display:block;
+	line-height:3.75rem;
+	margin:2.75rem .25rem;
+	text-align:center;
+	border-radius:3px;
+}
+.notLogged .loginBtn.dis-btn{
+	background-color:#e5e5e6;
+	color:#c7c7c8;
+}
+
+.notLogged .user_form p > span .del{
+	width:2.4rem;
+	height:2.4rem;
+	line-height:2.4rem;
+	position:absolute;
+	right:0;
+	top:0.8625rem;
+	display:none;
+	z-index:2;
+}
+.notLogged .user_form p > span .del:after{
+	content:"";
+	width:1.75rem;
+	height:1.75rem;
+	display:block;
+	background:url(../images/del.png) no-repeat;
+	background-size:100%;
+	float:right;
+	margin-top:0.325rem;
+}

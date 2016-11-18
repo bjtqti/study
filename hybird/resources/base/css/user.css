@@ -1,0 +1,172 @@
+@charset "utf-8";
+/* CSS Document */
+
+.user{
+}
+.user .head{
+	height:11.375rem;
+	background:url(../images/user-bg.jpg) no-repeat;
+	background-size:100%;
+}
+.notLog{
+	text-align:center;
+	padding-top:4.25rem;
+}
+.notLog a{
+	height:2.875rem;
+	line-height:2.875rem;
+	border:1px solid #bbb;
+	border-radius:3px;
+	display:inline-block;
+	font-size:1.4rem;
+	color:#fff;
+	padding:0 2rem;
+	margin:0 1.3125rem;
+}
+.hasLog{
+	padding:2.25rem 0 0 3.25rem;
+}
+.hasLog > img{
+	width:5.875rem;
+	height:5.875rem;
+	display:block;
+	border-radius:100%;
+	border:3px solid #4e4e4e;
+	float:left;
+}
+.hasLog .userInfo{
+	padding:1rem 0 0 8rem;
+}
+.hasLog .userInfo span{
+	color:#fff;
+	font-size:1.5rem;
+	display:block;
+	line-height:2rem;
+}
+.hasLog .userInfo{
+	color:#cacaca;
+	font-size:1.4rem;
+}
+.user-order{
+	background-color:#fff;
+}
+.user-order .kind {
+    line-height: 1.875rem;
+    font-size: 1.4rem;
+    display: block;
+    position: relative;
+    padding: 1rem 3rem 1rem 1rem;
+	border-bottom:1px solid #f3f5f7;
+}
+.user-order .kind em {
+    color: #222;
+	font-size:1.4rem;
+}
+.user-order .kind span {
+    color: #999;
+	font-size:1.2rem;
+    float: right;
+}
+.right-icon {
+    position: absolute;
+    right: 1rem;
+    top: 1.4375rem;
+    background: url(../images/right-icon.png) no-repeat;
+    background-size: 100%;
+    width: 1rem;
+    height: 1rem;
+}
+.userGoods{
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+	padding:0.625rem 0;
+}
+.userGoods a {
+    display: block;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+.userGoods a em {
+    display: block;
+    width:2.5rem;
+    height:2rem;
+    margin:.2rem auto;
+	position:relative;
+}
+.userGoods a.userGoods_1 em {
+    background: url(../images/userGoods_1.png) no-repeat;
+    background-size: 100%;
+}
+.userGoods a.userGoods_2 em {
+    background: url(../images/userGoods_2.png) no-repeat;
+    background-size: 100%;
+}
+.userGoods a.userGoods_3 em {
+    background: url(../images/userGoods_3.png) no-repeat;
+    background-size: 100%;
+}
+.userGoods a.userGoods_4 em {
+    background: url(../images/userGoods_4.png) no-repeat;
+    background-size: 100%;
+}
+.userGoods a.userGoods_5 em {
+    background: url(../images/userGoods_5.png) no-repeat;
+    background-size: 100%;
+}
+.userGoods a span {
+    font-size:1.2rem;
+	color:#222;
+}
+.userGoods a i {
+	font-size: .8rem;
+    line-height: 1rem;
+    display: block;
+    position: absolute;
+    background-color: #dd1847;
+    color: #fff;
+    right: -1rem;
+    top: -.25rem;
+    border-radius: 10px;
+    padding: 0 .125rem;
+}
+
+.user-list{
+	margin-top:0.75rem;
+	background-color:#fff;
+}
+.user-list a{
+	position:relative;
+	line-height: 1.875rem;
+	padding: 1rem 3rem 1rem 1rem;
+	border-bottom: 1px solid #f3f5f7;
+	display: block;
+	font-size:1.5rem;
+}
+.user-list a em{
+	width:1.875rem;
+	height:1.875rem;
+	display:inline-block;
+	vertical-align: bottom;
+	margin-right:.5rem;
+}
+.user-list a:nth-child(1) em{
+	background:url(../images/user_icon_1.png) no-repeat;
+	background-size:100%;
+}
+.user-list a:nth-child(2) em{
+	background:url(../images/user_icon_2.png) no-repeat;
+	background-size:100%;
+}
+.user-list a:nth-child(3) em{
+	background:url(../images/user_icon_3.png) no-repeat;
+	background-size:100%;
+}
+.user-list a span{
+}
+.user-list a .right-icon{
+}
