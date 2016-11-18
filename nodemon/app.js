@@ -92,3 +92,9 @@ server.listen({port:4000,host:'localhost'},() => {
 	let address = server.address();
 	console.log('opened server on %j', address);
 });
+
+
+ var os = require('os');
+
+var type =  os.type();
+console.log(type)
