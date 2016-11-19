@@ -9,6 +9,7 @@
 ```bash
  $ nodemon app.js
 ```
+visit http://127.0.0.1:3000
 
 ## Manual restarting
 
