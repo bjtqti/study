@@ -8,7 +8,6 @@ function bootstrap(){
         ReactDOM.render(<ErrorContent initialState={initialState} />,document.getElementById('error'));
 }
 
-require("../../../shared/lib/responsive");
 if(typeof window.addEventListener){
     window.addEventListener("DOMContentLoaded",bootstrap);
 }else{

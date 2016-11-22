@@ -1,4 +1,5 @@
-
+"use strict";
+import jquery from 'jquery';
 var app = document.getElementById('app');
 var p = document.createElement('p');
 let now =  Date.now();
@@ -9,4 +10,11 @@ app.appendChild(p);
 const fn=(a)=>{
 	return console.log(a);
 }
-fn(text);
+
+jquery(document).ready(()=>{
+	fn(text);
+	console.log(888)
+});
+
+module.exports = fn;
+ 
