@@ -1,14 +1,17 @@
 "use strict";
 
 import _ from "lodash";
+
 //import fetch from "isomorphic-fetch";
+require('./index.css');
 
 function component() {
 	var element = document.createElement('div');
-
-	element.innerHTML = _.map(['Hello', 'webpack'], function(item) {
-		return item + ' ';
+	var text = _.map(['Hello', 'webpack','!'],(item)=>{
+		return item;
 	});
+	element.className = 'container';
+	element.innerHTML = text.join(' ');
 
 	return element;
 }
