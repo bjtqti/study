@@ -1,0 +1,131 @@
+html,body {
+	height: 100%;
+}
+.container {
+	height: 100%;
+	overflow: hidden;
+	background-color: #f3f5f7;
+}
+.content {
+	height: 100%;
+	margin-bottom: 1.8rem;
+}
+ 
+.user-login {
+	position: relative;
+	height: 3.654rem;
+	background:url('../images/user_top_back.png') no-repeat;
+	background-size: cover;
+	text-align: center;
+	font-size: .4rem;
+}
+
+.user-login > a {
+	display: inline-block;
+	padding: .2rem .5rem;
+	border:1px solid white;
+	margin: 1.25rem .48rem;
+	color: white;
+}
+
+.order-list {
+	padding: 0 .3rem;
+	height: 1.33rem;
+	line-height: 1.33rem;
+	background-color: white;
+}
+.order-list .all {
+	float: right;
+	color: gray;
+}
+
+.all > img {
+	width: .56rem;
+    height: .56rem;
+}
+
+.middle-nav {
+	display: -webkit-flex;
+    display: flex;
+    width: 100%;
+    background-color: white;
+    overflow: hidden;
+    align-items: center;
+    margin-top: 1px;
+    padding-bottom: .2rem;
+}
+
+.middle-nav > li {
+    display: flex;
+    flex-grow: 1;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+}
+
+ 
+
+.middle-nav > li i {
+    width: 39px;
+    height: 39px;
+    display: block;
+    margin: 0 auto;
+    background-image: url("../images/icons_user_login.png");
+}
+
+.middle-nav > li:nth-child(1) i {
+    background-position: 0 44px;
+    background-size: 100%;
+}
+
+.middle-nav > li:nth-child(2) i {
+    background-position: 0 120px;
+    background-size: 100%;
+}
+.middle-nav > li:nth-child(3) i {
+    background-position: 0 84px;
+    background-size: 100%;
+}
+
+.middle-nav > li em {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: .25rem;
+    line-height: .27rem;
+    background: #dd1847;
+    color: #fff;
+    border-radius: .3125rem;
+    padding: .0625rem .09375rem;
+    font-size: .22rem;
+}
+
+.menu-list {
+	width: 100%;
+	margin:.3rem auto;
+}
+
+.menu-list > li {
+	height: 1.3rem;
+	line-height: 1.3rem;
+	margin-bottom: 1px;
+	background-color: white;
+	padding-left: .3rem;
+}
+
+.menu-list > li > img {
+	width: .56rem;
+    height: .56rem;
+    margin-right: .28rem;
+}
+
+.side {
+	float: right;
+	padding-top: .4rem;
+}

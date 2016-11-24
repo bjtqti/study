@@ -1,0 +1,18 @@
+.container {
+	background-color: #f7f7f7;
+}
+
+.error {
+	padding-top: 20%;
+	margin-bottom: 5%;
+}
+
+.error > img {
+	width: 100%;
+}
+
+.info {
+	color: #666;
+    font-size: .4rem;
+    text-align: center;
+}

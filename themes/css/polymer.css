@@ -1,0 +1,70 @@
+html,body {
+	height: 100%;
+}
+.container {
+	height: 100%;
+	overflow: hidden;
+}
+.content {
+	height: 100%;
+	margin-bottom: 1.8rem;
+	display: -webkit-flex;
+	display: flex;
+}
+ 
+.nav {
+	display: -webkit-flex;
+	display: flex;
+	height: 1.2rem;
+	overflow: hidden;
+	align-items:center;
+	background-color: white;
+	border-bottom: 1px solid #f3f5f7;
+}
+.nav > li {
+	height: 100%;
+	line-height: 1.2rem;
+	text-align: center;
+	flex-grow:1;
+	font-size: .425rem;
+	color: gray;
+}
+
+.nav .active {
+	color: black;
+}
+
+.side {
+	float: right;
+}
+
+.banner-name {
+	-webkit-flex-shrink:0;
+	flex-shrink:0;
+	flex-grow: 1;
+	background-color: #f3f5f7;
+	padding-bottom: 5px;
+	color: gray;
+}
+.banner-name > li {
+	padding: .4rem .5rem;
+	border-bottom: 1px solid white;
+}
+.banner-name .active {
+	background-color: white;
+	color: black;
+}
+.banner-list {
+	margin-top: .5rem;
+	flex-grow: 2;
+	overflow: hidden;
+}
+
+.banner-list > li {
+	float: left;
+	width: 33.3%;
+}
+
+.banner-list > li > img {
+	width: 100%;
+}

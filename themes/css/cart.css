@@ -1,0 +1,328 @@
+
+/** checkbox **/
+.checkbox {
+    padding: .1rem .3rem;
+    width: .6rem;
+    height: .6rem;
+}
+
+.checkbox > span {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+.checkbox .on {
+    background: url(../images/checkbox_on.png) no-repeat center center;
+    background-size: 100% 100%;
+}
+.checkbox .off {
+    background: url(../images/checkbox_off.png) no-repeat center center;
+    background-size: 100% 100%;
+}
+/** number picker start **/
+.number-picker {
+    display: -ms-flexbox;
+    display: flex;
+    position: absolute;
+    top:1.2rem;
+    right: .4rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    -ms-flex-align: center;
+        align-items: center;
+    -ms-flex-pack: center;
+        justify-content: center;
+    -webkit-user-select: none
+}
+
+.number-picker > div {
+    height: .9rem;
+    width: .9rem;
+    font-size: .4375rem;
+    text-align: center;
+}
+
+.number-picker .increase ,
+.number-picker .decrease {
+    line-height: .9rem;
+}
+
+.number-picker .quantity {
+    -ms-flex-positive:1;
+        flex-grow:1;
+    border: 1px solid #dcdcdc;
+    border-top: 0;
+    border-bottom: 0;
+}
+ 
+.number-picker .quantity > input {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.number-picker .disabled {
+    color: gray;
+}
+/** dialog start **/
+.dialog-container {
+    display: -ms-flexbox;
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.7);
+    overflow: hidden;
+    z-index: -1;
+    -ms-flex-pack: center;
+        justify-content: center;
+    -ms-flex-align: start;
+        align-items: flex-start;
+    visibility: hidden;
+}
+.dialog-container.active {
+    visibility: visible;
+    z-index: 200;
+}
+
+.dialog-container.active .dialog {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1)
+}
+.dialog-container .dialog {
+    background-color: white;
+    border-radius: .1875rem;
+    border: .03125rem solid #801da1;
+    margin: auto;
+    overflow: hidden;
+    min-width: 6.25rem;
+    -webkit-transform: scale(0.85);
+            transform: scale(0.85);
+    opacity: 0;
+    transition: opacity .1s linear,-webkit-transform .2s linear;
+    transition: opacity .1s linear,transform .2s linear;
+    transition: opacity .1s linear,transform .2s linear,-webkit-transform .2s linear
+}
+
+.dialog-title {
+    padding: 0 .9375rem;
+    line-height: 1.125rem;
+    color: white;
+    text-align: center;
+    background-color: #801da1;
+}
+
+.dialog-content {
+    padding: .78125rem .9375rem;
+    text-align: center;
+}
+
+.dialog-btns {
+    display: -ms-flexbox;
+    display: flex;
+    line-height: .9375rem;
+    border-top: .03125rem solid #801da1;
+    -ms-flex-align: center;
+        align-items: center;
+}
+
+.dialog-btns > button {
+    display: block;
+    -ms-flex: 1;
+        flex: 1;
+    background: white;
+    border: none;
+}
+
+.dialog-btns > button:first-child {
+    border-right: .03125rem solid #801da1;
+}
+
+.dialog-btns > button:last-child {
+    background-color: #d5c0dc;
+    border-right: none;
+}
+
+html,body{
+    height: 100%;
+}
+
+/** content start **/
+.container {
+    height: 100%;
+}
+.content{
+    padding-bottom: 2.76rem;
+    background-color: #f3f5f7;
+}
+.empty {
+    text-align: center;
+    padding-top: 40%;
+}
+.empty > img {
+    width: 2.533rem;
+    margin-bottom: 5%;
+}
+.empty > .btn {
+    display: block;
+    width: 3.92rem;
+    height: .9rem;
+    line-height: .9rem;
+    margin: .52rem auto 0;
+    color: #777;
+    border: 1px solid #777;
+    border-radius: 5px;
+    text-align: center;
+    font-size: .38rem;
+}
+
+.empty > .info {
+    color: #666;
+    font-size: .4rem;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+
+.sales-shop {
+    background-color: white;
+    margin-bottom: .3rem;
+}
+.checkbox-wrap {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align:center;
+        align-items:center;
+    height: .9067rem;
+}
+ 
+.checkbox-wrap .name {
+    color: #222;
+    font-size: .45rem;
+}
+
+.sales-promotion {
+    background-color: #f8fbfe;
+    height: .907rem;
+    line-height: .907rem;
+    padding-left: .45rem;
+    overflow: hidden;
+}
+
+.sales-promotion .icon-txt {
+    padding:.03rem .1rem;
+    border:1px solid #e42b2b;
+    color: #dd1732;
+    font-size: .32rem;
+    border-radius: 4px;
+}
+.sales-promotion .info {
+    color: #666;
+    padding-left: .3rem;
+    font-size: .38rem;
+}
+
+.sales-item {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+        align-items: center;
+    height: 2.44rem;
+    overflow: hidden;
+}
+.goods-pic {
+    width: 2.2rem;
+    height: 1.92rem;
+}
+.goods-pic > img {
+    width: 100%;
+    height: 100%;
+}
+.goods-info {
+    -ms-flex-positive:3;
+        flex-grow:3;
+    height: 1.92rem;
+    padding-left: .3rem;
+    font-size: .38rem;
+}
+.goods-info .name {
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-word;
+    color: #666;
+    height: .96rem;
+    line-height: .48rem;
+    overflow: hidden;
+}
+.size {
+    color: #999;
+    font-size: .32rem;
+    height: .425rem;
+    line-height: .425rem;
+}
+
+.price {
+    color:#dd1732;
+}
+
+.cart-opp {
+    position: relative;
+    height: 100%;
+}
+.delete {
+    margin: .2rem .3rem;
+    width: .48rem;
+    height: .48rem;
+    background: url(../images/trush.png) no-repeat center center;
+    background-size: cover;
+}
+
+.cart-account {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+        justify-content: space-between;
+    -ms-flex-align: center;
+        align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 1.38rem;
+    bottom: 1.38rem;
+    left: 0;
+    z-index: 9;
+    background-color: white;
+}
+
+.cart-buy {
+    width: 2.8rem;
+    height: 100%;
+    line-height: 1.38rem;
+    color: white;
+    text-align: center;
+    font-size: .42rem;
+    background-color: #e42b2b;
+}
+.total-money {
+    color: #e42b2b;
+    padding:0 .2rem;
+}
+.save-money {
+    color: #666;
+    font-size:.32rem;
+}
+.total-price {
+    -ms-flex-positive:2;
+        flex-grow:2;
+    text-align: right;
+    padding-right: .3rem;
+    height: 100%;
+    overflow: hidden;
+    line-height: .69rem;
+}
