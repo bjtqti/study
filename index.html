@@ -1,0 +1,92 @@
+<html>
+<head>
+	<title>marquee</title>
+	<style type="text/css">
+		.wrap {
+			height: 40px;
+			line-height: 40px;
+			overflow: hidden;
+			border: 1px solid black;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		ul	{
+			margin: 0px; 
+			padding: 0px;
+			list-style-type: none; 
+			height: 280px;
+			-webkit-transition-duration:300ms;
+			transition-duration:300ms;
+		}
+		li {
+			overflow: hidden;
+			width: 472px; 
+			height: 40px;
+		}
+	</style>
+</head>
+<body>
+	<div id="marquee-wrap" class="wrap">
+		<ul>
+			<li>
+				最新关于友阿农博汇余额支付系统升级的公告
+			</li>
+			<li>
+				<span>最新</span><a href="https://hnmall.com/wap/content-info.html?article_id=38" target="_blank">友阿农博汇春节放假通知</a>
+			</li>
+			<li>
+				<span>最新</span><a href="https://hnmall.com/wap/content-info.html?article_id=37" target="_blank">友阿农博汇双11生鲜类产品物流公告</a>
+			</li>
+			<li>
+				<span>最新</span><a href="https://hnmall.com/wap/content-info.html?article_id=35" target="_blank">关于友阿农博汇PC端余额支付系统升级的公告</a>
+			</li>
+			<li>
+				<span>最新</span><a href="https://hnmall.com/wap/content-info.html?article_id=34" target="_blank">关于友阿果园配送范围的公告</a>
+			</li>
+			<li>
+				<span>最新</span><a href="https://hnmall.com/wap/content-info.html?article_id=33" target="_blank">  关于友阿农博汇余额支付系统升级的公告</a>
+			</li>
+			<li>
+				<span>最新</span><a href="https://hnmall.com/wap/content-info.html?article_id=38" target="_blank">友阿农博汇春节放假通知</a>
+			</li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		//如果有jquery，用$(node).height()代替;
+		function getHeight(node){
+			var div = node.getBoundingClientRect();
+			if(div.height){
+				return div.height;
+			}else{
+				return div.bottom - div.top;
+			}
+		}
+		/**
+		 * 轮回滚动函数
+		 * @param {string} id 行框包裹元素id
+		 * @param {int} second 滚动间隔；秒；
+		 */
+		function loopScrollTop(id,second){
+			var wrap = document.getElementById(id);
+			var node = wrap.children[0];
+			var items = node.children;
+			var length = items.length-1;
+			var height = getHeight(wrap); //line height;
+			var time = (second||3) * 1000;// 滚动间隔；
+			//console.log(wrap.getBoundingClientRect())
+			function marqueeLoop(index){
+				if(index===length){
+					index = 0;
+				}
+				var distance = index*height;
+				node.style.transform = 'translate3d(0, -'+distance+'px, 0)';
+				setTimeout(function(){
+					marqueeLoop(index+1);
+				},time);
+			}
+			marqueeLoop(0);
+		}
+		loopScrollTop('marquee-wrap',5);
+	</script>
+</body>
+</html>
