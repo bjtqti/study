@@ -43,3 +43,6 @@ study
 
 ### checkbox
 * 自定义的checkbox按钮
+
+### scrolloop
+* 竖直滚动条插件
