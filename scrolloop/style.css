@@ -11,8 +11,6 @@ ul	{
 	padding: 0px;
 	list-style-type: none; 
 	height: 280px;
-	-webkit-transition-duration:300ms;
-	transition-duration:300ms;
 }
 li {
 	overflow: hidden;
