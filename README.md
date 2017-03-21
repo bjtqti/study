@@ -46,3 +46,6 @@ study
 
 ### scrolloop
 * 竖直滚动条插件
+
+### size-picker
+* 颜色尺码选择联动插件，自动置灰不可用属性
