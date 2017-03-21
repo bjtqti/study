@@ -1,19 +1,22 @@
 .wrap {
+	position: relative;
 	height: 40px;
-	line-height: 40px;
 	overflow: hidden;
 	border: 1px solid black;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 ul	{
+	position: relative;
+	left: 0;
+	top: 0;
 	margin: 0px; 
 	padding: 0px;
 	list-style-type: none; 
-	height: 280px;
 }
 li {
 	overflow: hidden;
 	width: 472px; 
 	height: 40px;
+	line-height: 40px;
 }

@@ -16,26 +16,29 @@ function getHeight(node) {
  */
 function loopScrollTop(id, second) {
 	var wrap = document.getElementById(id);
-	var node = wrap.children[0];
+	var node = $(wrap.children[0]);
 	var stack = [];
-	var height = getHeight(wrap); //==$(wrap).height();
+	var height = getHeight(wrap);
 	var time = (second || 1) * 1000; // 滚动间隔；
-	for(var i =0,n=node.children.length;i<n;i++){
+	var item = node.children().last().clone();
+	node.prepend(item);
+	var itemLength =node.children().length;
+	for(var i =0;i<itemLength;i++){
 		stack.push(i);
 	}
+	node.css('top',-height+'px');
+	stack.shift();
 	function next(){
 		var index = stack.shift();
-		var distance = index * height;
-		node.style.transform = 'translate3d(0, -' + distance + 'px, 0)';
+		var distance = -(index * height)+'px';
 		stack.push(index);
-		if(index>0){
-			node.style['-webkit-transition-duration']='800ms';
-			node.style['transition-duration']='800ms';
-		}else{
-			node.style['-webkit-transition-duration']='0ms';
-			node.style['transition-duration']='0ms';
-		}
+		node.animate({
+			top:distance
+		})
 		setTimeout(function() {
+			if(index===itemLength-1){
+				node.css('top','0px');
+			} 
 			next();
 		}, time);
 	}
