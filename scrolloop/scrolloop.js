@@ -23,11 +23,10 @@ function loopScrollTop(id, second) {
 	var item = node.children().last().clone();
 	node.prepend(item);
 	var itemLength =node.children().length;
-	for(var i =0;i<itemLength;i++){
+	for(var i =1;i<itemLength;i++){
 		stack.push(i);
 	}
 	node.css('top',-height+'px');
-	stack.shift();
 	function next(){
 		var index = stack.shift();
 		var distance = -(index * height)+'px';
