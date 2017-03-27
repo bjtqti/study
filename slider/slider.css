@@ -1,0 +1,40 @@
+body {
+	padding: 0;
+    min-width: 300px;
+    max-width: 640px;
+    margin: 0 auto; 
+}
+
+ul {
+	list-style: none;
+}
+
+ul,li {
+	margin: 0;
+	padding: 0;
+}
+
+.slider-wrapper {
+	position: relative;
+	width: 100%;
+	height: 220px;
+	border: 1px solid gray;
+	overflow: hidden;
+	box-sizing:border-box;
+}
+
+.slider-items {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.slider-item {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	text-align: center;
+}
