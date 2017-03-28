@@ -20,7 +20,6 @@ ul,li {
 	height: 220px;
 	border: 1px solid gray;
 	overflow: hidden;
-	box-sizing:border-box;
 }
 
 .slider-items {
@@ -37,4 +36,12 @@ ul,li {
 	left: 0;
 	z-index: 1;
 	text-align: center;
+}
+
+.slider-item > img {
+	width: 100%;
+	-webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
 }

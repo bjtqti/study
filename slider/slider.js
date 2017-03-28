@@ -20,25 +20,58 @@
 	"use strict";
 
 	var version = '1.0.0';
+	var defaultOption = {
+		speed:'300ms',
+		delay:'5000',
+		bounce:0.3,
+		auto:true
+	};
 
-	function Slider( selector, context ) {
-		return new Slider.init( selector, context );
+	var extend = function(target,source){
+		var res = {};
+		if(Object.assign){
+			return Object.assign(res,target,source);
+		}
+		for(var i in target){
+			res[i] = target[i];
+		}
+		if(source && typeof source === 'object'){
+			for(var i in source){
+				if(res[i] !== null && res[i] !== undefined){
+					res[i] = source[i]
+				};
+			}
+		}
+		return res;
 	}
 
-	Slider.init=function(selector, context){
+	function Slider( selector, options ) {
+		var config = extend(defaultOption,options);
+		return new Slider.init( selector, config );
+	}
+
+	Slider.init=function(selector, options){
 		var wrap = document.querySelector(selector);
 		var box = wrap.children[0];
 		var pages = box.children;
+		this.wrap = wrap;
 		this.box = box;
 		this.pages = pages;
-		this.screenWidth = window.innerWidth;
+		this.speed = options.speed;
+		this.delay = options.delay;
+		this.auto = options.auto;
+		this.bounce = options.bounce;
 		this.pageLength = pages.length;
 		this.initPages();
 	}
 
-	Slider.init.prototype = Slider.prototype = {
+	Slider.prototype = {
 		initPages:function(){
 		 	var length = this.pageLength;
+		 	if(length<1){
+		 		console.warn('Slider children require at least one');
+		 		return false;
+		 	}
  			if(length < 3){
  				var lastItem = this.pages[length-1];
  				while(length < 3) {
@@ -50,73 +83,150 @@
  			this.prevIndex = length - 1;
  			this.currIndex = 0;
  			this.nextIndex = this.currIndex + 1;
- 			this.translate(this.prevIndex,'-100%');
- 			this.translate(this.currIndex,'0px');
- 			this.translate(this.nextIndex,'100%');
- 			this.auto()
+ 			this.reset();
+ 			this.width = window.innerWidth;
+ 			this.auto && this.autoRun();
+ 			this.wrap.addEventListener('touchstart',this,false);
+ 			this.wrap.addEventListener('touchmove',this,false);
+ 			this.wrap.addEventListener('touchend',this,false);
+ 			this.wrap.addEventListener('mousedown',this,false);
+ 			this.wrap.addEventListener('mousemove',this,false);
+ 			document.addEventListener('mouseup',this,false);
 		},
 		handleEvent:function(e){
-
+		 	var type = e.type;
+			if(e.touches){
+				console.log(e.touches[0])
+				e = e.touches[0]||e.changedTouches[0];
+			}
+			switch(type){
+				case 'mousedown':
+				case 'touchstart':
+					this.axis.x = e.clientX;
+    				this.axis.y = e.clientY;
+    				this.enableSlide = true;
+    				this.auto = false;
+    				clearTimeout(this.timmerId);
+					break;
+				case 'mouseup':
+				case 'touchend':
+ 					var distance = e.clientX - this.axis.x;
+ 					var bounce = Math.round(this.width * this.bounce);
+    				this.enableSlide = false;
+    				if(Math.abs(distance)>bounce){
+    					distance > 0 ? this.prev() : this.next();
+    				}else{
+    					//反弹
+    					if(distance>0){
+    						this.css(this.currIndex,this.animate('0px'));
+	 						this.css(this.prevIndex,this.animate('100%'));
+    					}else{
+    						this.css(this.currIndex,this.animate('0px'));
+							this.css(this.nextIndex,this.animate('100%'));
+    					}
+    				}
+					break;
+				case 'mousemove':
+				case 'touchmove':
+					var distance = e.clientX - this.axis.x;
+					if(this.enableSlide){
+						this.move(distance);
+					}
+					break;
+				default:
+					break;
+			}
+	 	
 		},
- 
-		setStyle:function(index,distance){
-			var element = this.pages[index];
-			this.translate(index,distance);
-			element.style.WebkitTransition = 'all 6s ease';
-			element.style.transition = 'all 6s ease';
-			element.style.visibility = 'visible';
-			element.style.zIndex = 10;
+		reset:function(){
+			this.css(this.prevIndex,this.translate('-100%'));
+			this.css(this.currIndex,this.translate('0px'));
+			this.css(this.nextIndex,this.translate('100%'));
+			for(var i=this.nextIndex+1;i<this.pageLength-1;i++){
+				this.css(i,this.translate('100%'));
+			}
+			this.axis = {
+				x:0,
+				y:0
+			}
 		},
-		move:function(index,distance){
+		css:function(index,style){
 			var element = this.pages[index];
-			this.translate(index,distance);
-			element.style.WebkitTransition = 'none';
-			element.style.transition = 'none';
-			element.style.visibility = 'hidden';
-			element.style.zIndex = 5;
+			for(var i in style){
+				element.style[i] = style[i];
+			}
 		},
-		translate:function(index,distance){
-			var element = this.pages[index];
-			element.style.WebkitTransform = "translate3d(" + distance + ",0,0)";
-			element.style.transform = "translate3d(" + distance + ",0,0)";
+		move:function(distance){
+			var width = this.width;
+			if(distance > 0){
+				//prev
+				this.css(this.currIndex,this.translate(distance+'px'));
+				this.css(this.prevIndex,this.translate((distance-width)+'px'));
+			}else{
+				//next
+				this.css(this.currIndex,this.translate(distance+'px'));
+				this.css(this.nextIndex,this.translate((width+distance)+'px'));
+			}
+		},
+		translate:function(distance){
+ 			return {
+ 				WebkitTransform:"translate3d(" + distance + ",0px,0px)",
+				transform:"translate3d(" + distance + ",0px,0px)"
+ 			}
+		},
+		animate:function(distance){
+			return {
+				WebkitTransform:"translate3d(" + distance + ",0px,0px)",
+				transform:"translate3d(" + distance + ",0px,0px)",
+				WebkitTransition : 'all '+ this.speed+' ease',
+				transition:'all '+ this.speed+' ease',
+				zIndex:5
+			}
+		},
+		noAnimate:function(distance){
+			return {
+				WebkitTransform:"translate3d(" + distance + ",0px,0px)",
+				transform:"translate3d(" + distance + ",0px,0px)",
+				WebkitTransition : 'none',
+				transition:'none',
+				zIndex:-1
+			}
 		},
 		next:function(){
-			this.setStyle(this.currIndex,'-100%');
- 			this.setStyle(this.nextIndex,'0px');
- 			this.move(this.prevIndex,'100%');
 			var length = this.pageLength-1;
-			var prevIndex = this.prevIndex;
+			this.css(this.currIndex,this.animate('-100%'));
+			this.css(this.nextIndex,this.animate('0px'));
+	 		this.css(this.prevIndex,this.noAnimate('100%'));
 			this.prevIndex = this.currIndex;
 			this.currIndex = this.nextIndex;
 			if(++this.nextIndex > length){
-				this.nextIndex = prevIndex;
+				this.nextIndex = 0;
 			}
-			this.step();
 		},
 		prev:function(){
 			var length = this.pageLength-1;
+			this.css(this.currIndex,this.animate('100%'));
+	 		this.css(this.prevIndex,this.animate('0px'));
+			this.css(this.nextIndex,this.noAnimate('-100%'));
 			this.nextIndex = this.currIndex;
 			this.currIndex = this.prevIndex;
 			if(--this.prevIndex<0){
 				this.prevIndex = length;
 			}
-			this.step();
 		},
-		auto:function(){
+		autoRun:function(){
 			var that = this;
-			setTimeout(function(){
+			if(!this.auto){
+				return false;
+			}
+			this.timmerId = setTimeout(function(){
 				that.next();
-				that.auto();
-			},3000)
-		},
-		step:function(){
-			
- 			console.log(this.currIndex)
+				that.autoRun();
+			},this.delay);
 		}
 	}
 
- 
-
+	Slider.init.prototype = Slider.prototype;
 
 	if(!noGlobal){
 		window.Slider = Slider;
