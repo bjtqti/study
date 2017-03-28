@@ -21,7 +21,7 @@
 
 	var version = '1.0.0';
 	var defaultOption = {
-		speed:'300ms',
+		speed:'500ms',
 		delay:'5000',
 		bounce:0.3,
 		auto:true
@@ -88,15 +88,15 @@
  			this.auto && this.autoRun();
  			this.wrap.addEventListener('touchstart',this,false);
  			this.wrap.addEventListener('touchmove',this,false);
- 			this.wrap.addEventListener('touchend',this,false);
+ 			document.body.addEventListener('touchend',this,false);
  			this.wrap.addEventListener('mousedown',this,false);
  			this.wrap.addEventListener('mousemove',this,false);
- 			document.addEventListener('mouseup',this,false);
+ 			document.body.addEventListener('mouseup',this,false);
 		},
 		handleEvent:function(e){
 		 	var type = e.type;
+		 	e.stopPropagation();
 			if(e.touches){
-				console.log(e.touches[0])
 				e = e.touches[0]||e.changedTouches[0];
 			}
 			switch(type){
@@ -171,7 +171,9 @@
 		translate:function(distance){
  			return {
  				WebkitTransform:"translate3d(" + distance + ",0px,0px)",
-				transform:"translate3d(" + distance + ",0px,0px)"
+				transform:"translate3d(" + distance + ",0px,0px)",
+				WebkitTransition : 'translate '+ this.speed+' ease',
+				transition:'translate '+ this.speed+' ease'
  			}
 		},
 		animate:function(distance){
@@ -179,8 +181,7 @@
 				WebkitTransform:"translate3d(" + distance + ",0px,0px)",
 				transform:"translate3d(" + distance + ",0px,0px)",
 				WebkitTransition : 'all '+ this.speed+' ease',
-				transition:'all '+ this.speed+' ease',
-				zIndex:5
+				transition:'all '+ this.speed+' ease'
 			}
 		},
 		noAnimate:function(distance){
@@ -188,8 +189,7 @@
 				WebkitTransform:"translate3d(" + distance + ",0px,0px)",
 				transform:"translate3d(" + distance + ",0px,0px)",
 				WebkitTransition : 'none',
-				transition:'none',
-				zIndex:-1
+				transition:'none'
 			}
 		},
 		next:function(){
