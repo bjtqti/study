@@ -27,7 +27,7 @@
 		auto:true
 	};
 
-	var extend = function(target,source){
+	var assign = function(target,source){
 		var res = {};
 		if(Object.assign){
 			return Object.assign(res,target,source);
@@ -46,7 +46,7 @@
 	}
 
 	function Slider( selector, options ) {
-		var config = extend(defaultOption,options);
+		var config = assign(defaultOption,options);
 		return new Slider.init( selector, config );
 	}
 
@@ -88,10 +88,10 @@
  			this.auto && this.autoRun();
  			this.wrap.addEventListener('touchstart',this,false);
  			this.wrap.addEventListener('touchmove',this,false);
- 			document.body.addEventListener('touchend',this,false);
+ 			this.wrap.addEventListener('touchend',this,false);
  			this.wrap.addEventListener('mousedown',this,false);
  			this.wrap.addEventListener('mousemove',this,false);
- 			document.body.addEventListener('mouseup',this,false);
+ 			this.wrap.addEventListener('mouseup',this,false);
 		},
 		handleEvent:function(e){
 		 	var type = e.type;
@@ -102,7 +102,7 @@
 			switch(type){
 				case 'mousedown':
 				case 'touchstart':
-					this.axis.x = e.clientX;
+					this.axis.x = e.pageX;
     				this.axis.y = e.clientY;
     				this.enableSlide = true;
     				this.auto = false;
@@ -110,7 +110,7 @@
 					break;
 				case 'mouseup':
 				case 'touchend':
- 					var distance = e.clientX - this.axis.x;
+ 					var distance = e.pageX - this.axis.x;
  					var bounce = Math.round(this.width * this.bounce);
     				this.enableSlide = false;
     				if(Math.abs(distance)>bounce){
@@ -172,8 +172,8 @@
  			return {
  				WebkitTransform:"translate3d(" + distance + ",0px,0px)",
 				transform:"translate3d(" + distance + ",0px,0px)",
-				WebkitTransition : 'translate '+ this.speed+' ease',
-				transition:'translate '+ this.speed+' ease'
+				WebkitTransition : 'none',
+				transition:'none'
  			}
 		},
 		animate:function(distance){
@@ -181,7 +181,9 @@
 				WebkitTransform:"translate3d(" + distance + ",0px,0px)",
 				transform:"translate3d(" + distance + ",0px,0px)",
 				WebkitTransition : 'all '+ this.speed+' ease',
-				transition:'all '+ this.speed+' ease'
+				transition:'all '+ this.speed+' ease',
+				visibility: 'visible',
+				zIndex:9
 			}
 		},
 		noAnimate:function(distance){
@@ -189,7 +191,9 @@
 				WebkitTransform:"translate3d(" + distance + ",0px,0px)",
 				transform:"translate3d(" + distance + ",0px,0px)",
 				WebkitTransition : 'none',
-				transition:'none'
+				transition:'none',
+				visibility: 'hidden',
+				zIndex:0
 			}
 		},
 		next:function(){
