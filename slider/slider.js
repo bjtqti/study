@@ -112,7 +112,7 @@
 		this.wrap.insertBefore(prevItem,firstItem);
 		this.wrap.appendChild(nextItem);
 		this.wrap.style.width = slideWidth * sliderCount + 'px';
-		this.translate3d(this.wrap,slideWidth);
+		translate3d(this.wrap,slideWidth);
 		this.activeIndex = 1;
 		this.sliderCount = sliderCount;
 		this.lastIndex += 2;
@@ -122,7 +122,7 @@
 		var that = this;
 		var x = this.slideWidth;
 		setTimeout(function(){
-			that.translate3d(that.wrap,x);
+			translate3d(that.wrap,x);
 			transition(that.wrap,0);
 			that.activeIndex = 1;
 		},that.params.speed);
@@ -171,25 +171,19 @@
 
 	fn.next = function(){
 		var activeIndex = ++this.activeIndex;
-		this.translate3d(this.wrap,activeIndex*this.slideWidth);
+		translate3d(this.wrap,activeIndex*this.slideWidth);
 	 	transition(this.wrap,this.params.speed);
+	 	this.setActivePagination();
 	 	if(activeIndex === this.lastIndex){
 	 		this.fixedLoop();
 	 	}
-	 	this.setActivePagination();
 	}
 
 	fn.prev = function(){
-		if(this.activeIndex===this.firstIndex){
-			return;
-		}
-		var x = (--this.activeIndex-1) * this.slideWidth;
-		this.translate3d(this.wrap,x);
-	 	transition(this.wrap,this.params.speed);
-	 	this.setActivePagination();
+		
 	}
 
-	fn.translate3d = function (element,x,y) {
+	function translate3d(element,x,y) {
 		x = x === undefined ? 0 : x;
 		y = y === undefined ? 0 : x;
 		element.style['-webkit-transform'] = 'translate3d(-'+x+'px,'+y+'px,0px)';
