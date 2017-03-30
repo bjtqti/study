@@ -20,217 +20,186 @@
 	"use strict";
 
 	var version = '1.0.0';
-	var defaultOption = {
-		speed:'500ms',
-		delay:'5000',
-		bounce:0.3,
-		auto:true
+	var defaults = {
+		speed:500,
+		delay:5000,
+		direction: 'horizontal',
+		autoplay: true,
+		bounceRatio:0.3,
+		pagination:true,
+		paginationClass:'slider-pagination',
+		bulletClass:'slider-bullet',
+		bulletActiveClass:'slider-bullet-active',
+		loop:true
 	};
 
-	var assign = function(target,source){
-		var res = {};
-		if(Object.assign){
-			return Object.assign(res,target,source);
+	var isObject = function (obj) {
+		return Object.prototype.toString.call(obj)==="[object Object]";
+	}
+
+	var extend = function(target, source) {
+		if(!isObject(source)){
+			source = {};
 		}
-		for(var i in target){
-			res[i] = target[i];
-		}
-		if(source && typeof source === 'object'){
-			for(var i in source){
-				if(res[i] !== null && res[i] !== undefined){
-					res[i] = source[i]
-				};
+		for (var i in target) {
+			if (source[i] === undefined) {
+				source[i] = target[i]
 			}
 		}
-		return res;
+		return source;
 	}
 
 	function Slider( selector, options ) {
-		var config = assign(defaultOption,options);
-		return new Slider.init( selector, config );
+		options = extend(defaults,options);
+		return new Slider.init( selector, options );
 	}
 
-	Slider.init=function(selector, options){
-		var wrap = document.querySelector(selector);
-		var box = wrap.children[0];
-		var pages = box.children;
+	Slider.init=function(selector, params){
+		var container = document.querySelector(selector);
+		var wrap = container.children[0];
+		var slides = wrap.children;
+		var sliderCount = slides.length;
+		if(sliderCount === 0) {
+			console.warn('Slider children require at least one');
+			return this;
+		}
+		this.container = container;
 		this.wrap = wrap;
-		this.box = box;
-		this.pages = pages;
-		this.speed = options.speed;
-		this.delay = options.delay;
-		this.auto = options.auto;
-		this.bounce = options.bounce;
-		this.pageLength = pages.length;
-		this.initPages();
+		this.slides = slides;
+		this.params = {};
+		extend(params,this.params);
+		this.sliderCount = sliderCount;
+		this.lastIndex = sliderCount - 1;
+		this.firstIndex = 0;
+		this.initSlides();
 	}
 
-	Slider.prototype = {
-		initPages:function(){
-		 	var length = this.pageLength;
-		 	if(length<1){
-		 		console.warn('Slider children require at least one');
-		 		return false;
-		 	}
- 			if(length < 3){
- 				var lastItem = this.pages[length-1];
- 				while(length < 3) {
- 					this.box.appendChild(lastItem.cloneNode(true));
- 					length++;
- 				}
- 				this.pageLength = length;
- 			}
- 			this.prevIndex = length - 1;
- 			this.currIndex = 0;
- 			this.nextIndex = this.currIndex + 1;
- 			this.reset();
- 			this.width = window.innerWidth;
- 			this.auto && this.autoRun();
- 			this.wrap.addEventListener('touchstart',this,false);
- 			this.wrap.addEventListener('touchmove',this,false);
- 			this.wrap.addEventListener('touchend',this,false);
- 			this.wrap.addEventListener('mousedown',this,false);
- 			this.wrap.addEventListener('mousemove',this,false);
- 			this.wrap.addEventListener('mouseup',this,false);
-		},
-		handleEvent:function(e){
-		 	var type = e.type;
-		 	e.stopPropagation();
-			if(e.touches){
-				e = e.touches[0]||e.changedTouches[0];
-			}
-			switch(type){
-				case 'mousedown':
-				case 'touchstart':
-					this.axis.x = e.pageX;
-    				this.axis.y = e.clientY;
-    				this.enableSlide = true;
-    				this.auto = false;
-    				clearTimeout(this.timmerId);
-					break;
-				case 'mouseup':
-				case 'touchend':
- 					var distance = e.pageX - this.axis.x;
- 					var bounce = Math.round(this.width * this.bounce);
-    				this.enableSlide = false;
-    				if(Math.abs(distance)>bounce){
-    					distance > 0 ? this.prev() : this.next();
-    				}else{
-    					//反弹
-    					if(distance>0){
-    						this.css(this.currIndex,this.animate('0px'));
-	 						this.css(this.prevIndex,this.animate('100%'));
-    					}else{
-    						this.css(this.currIndex,this.animate('0px'));
-							this.css(this.nextIndex,this.animate('100%'));
-    					}
-    				}
-					break;
-				case 'mousemove':
-				case 'touchmove':
-					var distance = e.clientX - this.axis.x;
-					if(this.enableSlide){
-						this.move(distance);
-					}
-					break;
-				default:
-					break;
-			}
-	 	
-		},
-		reset:function(){
-			this.css(this.prevIndex,this.translate('-100%'));
-			this.css(this.currIndex,this.translate('0px'));
-			this.css(this.nextIndex,this.translate('100%'));
-			for(var i=this.nextIndex+1;i<this.pageLength-1;i++){
-				this.css(i,this.translate('100%'));
-			}
-			this.axis = {
-				x:0,
-				y:0
-			}
-		},
-		css:function(index,style){
-			var element = this.pages[index];
-			for(var i in style){
-				element.style[i] = style[i];
-			}
-		},
-		move:function(distance){
-			var width = this.width;
-			if(distance > 0){
-				//prev
-				this.css(this.currIndex,this.translate(distance+'px'));
-				this.css(this.prevIndex,this.translate((distance-width)+'px'));
-			}else{
-				//next
-				this.css(this.currIndex,this.translate(distance+'px'));
-				this.css(this.nextIndex,this.translate((width+distance)+'px'));
-			}
-		},
-		translate:function(distance){
- 			return {
- 				WebkitTransform:"translate3d(" + distance + ",0px,0px)",
-				transform:"translate3d(" + distance + ",0px,0px)",
-				WebkitTransition : 'none',
-				transition:'none'
- 			}
-		},
-		animate:function(distance){
-			return {
-				WebkitTransform:"translate3d(" + distance + ",0px,0px)",
-				transform:"translate3d(" + distance + ",0px,0px)",
-				WebkitTransition : 'all '+ this.speed+' ease',
-				transition:'all '+ this.speed+' ease',
-				visibility: 'visible',
-				zIndex:9
-			}
-		},
-		noAnimate:function(distance){
-			return {
-				WebkitTransform:"translate3d(" + distance + ",0px,0px)",
-				transform:"translate3d(" + distance + ",0px,0px)",
-				WebkitTransition : 'none',
-				transition:'none',
-				visibility: 'hidden',
-				zIndex:0
-			}
-		},
-		next:function(){
-			var length = this.pageLength-1;
-			this.css(this.currIndex,this.animate('-100%'));
-			this.css(this.nextIndex,this.animate('0px'));
-	 		this.css(this.prevIndex,this.noAnimate('100%'));
-			this.prevIndex = this.currIndex;
-			this.currIndex = this.nextIndex;
-			if(++this.nextIndex > length){
-				this.nextIndex = 0;
-			}
-		},
-		prev:function(){
-			var length = this.pageLength-1;
-			this.css(this.currIndex,this.animate('100%'));
-	 		this.css(this.prevIndex,this.animate('0px'));
-			this.css(this.nextIndex,this.noAnimate('-100%'));
-			this.nextIndex = this.currIndex;
-			this.currIndex = this.prevIndex;
-			if(--this.prevIndex<0){
-				this.prevIndex = length;
-			}
-		},
-		autoRun:function(){
-			var that = this;
-			if(!this.auto){
-				return false;
-			}
-			this.timmerId = setTimeout(function(){
-				that.next();
-				that.autoRun();
-			},this.delay);
+	var fn = Slider.init.prototype;
+
+	fn.initSlides = function(){
+		var width = this.wrap.clientWidth;
+		this.slideWidth = width;
+		this.wrap.style.width = width * this.sliderCount + 'px';
+		this.activeIndex = 0;
+		this.slideStack = [];
+		for(var i = 0;i<this.sliderCount;i++){
+			this.slides[i].style.width = width + 'px';
+			this.slideStack.push(i);
+		}
+
+		if(this.params.pagination){
+			this.createPagination();
+		}
+
+		if(this.params.loop){
+			this.createLoopItems();
+		}
+
+		if(this.params.autoplay){
+			this.autoPlay();
 		}
 	}
 
-	Slider.init.prototype = Slider.prototype;
+	fn.createLoopItems = function(){
+		var lastItem = this.slides[this.lastIndex];
+		var firstItem = this.slides[this.firstIndex];
+		var prevItem = lastItem.cloneNode(true);
+		var nextItem = firstItem.cloneNode(true);
+		var sliderCount = this.sliderCount+2;
+		var slideWidth = this.slideWidth;
+		this.slideStack.push(this.firstIndex);
+		this.slideStack.unshift(this.lastIndex);
+		this.wrap.insertBefore(prevItem,firstItem);
+		this.wrap.appendChild(nextItem);
+		this.wrap.style.width = slideWidth * sliderCount + 'px';
+		this.translate3d(this.wrap,slideWidth);
+		this.activeIndex = 1;
+		this.sliderCount = sliderCount;
+		this.lastIndex += 2;
+	}
+
+	fn.fixedLoop = function(){
+		var that = this;
+		var x = this.slideWidth;
+		setTimeout(function(){
+			that.translate3d(that.wrap,x);
+			transition(that.wrap,0);
+			that.activeIndex = 1;
+		},that.params.speed);
+	}
+
+	fn.createPagination = function(){
+		var ul = document.createElement('ul');
+		var bullets = [];
+		var bulletClass = this.params.bulletClass;
+		ul.className = this.params.paginationClass;
+		for(var i = 0;i<this.sliderCount;i++){
+			var li = document.createElement('li');
+			li.className = bulletClass;
+			ul.appendChild(li);
+			bullets.push(li);
+		}
+		this.container.appendChild(ul);
+		this.bullets = bullets;
+		this.setActivePagination();
+	}
+
+	fn.setActivePagination = function(){
+		var prevIndex = this.activeBulletIndex;
+		var activeIndex = this.activeIndex;
+		activeIndex = this.slideStack[activeIndex];
+		if(prevIndex === activeIndex){
+			return;
+		}
+		if(prevIndex !== undefined){
+			this.bullets[prevIndex].className = this.params.bulletClass;
+		}
+		this.bullets[activeIndex].className += ' '+ this.params.bulletActiveClass;
+		this.activeBulletIndex = activeIndex;
+	}
+
+	fn.autoPlay = function(){
+		var that = this;
+		if(!this.params.autoplay){
+			return;
+		}
+		this.timeId = setTimeout(function(){
+			that.next();
+			that.autoPlay();
+		},this.params.delay);
+	}
+
+	fn.next = function(){
+		var activeIndex = ++this.activeIndex;
+		this.translate3d(this.wrap,activeIndex*this.slideWidth);
+	 	transition(this.wrap,this.params.speed);
+	 	if(activeIndex === this.lastIndex){
+	 		this.fixedLoop();
+	 	}
+	 	this.setActivePagination();
+	}
+
+	fn.prev = function(){
+		if(this.activeIndex===this.firstIndex){
+			return;
+		}
+		var x = (--this.activeIndex-1) * this.slideWidth;
+		this.translate3d(this.wrap,x);
+	 	transition(this.wrap,this.params.speed);
+	 	this.setActivePagination();
+	}
+
+	fn.translate3d = function (element,x,y) {
+		x = x === undefined ? 0 : x;
+		y = y === undefined ? 0 : x;
+		element.style['-webkit-transform'] = 'translate3d(-'+x+'px,'+y+'px,0px)';
+		element.style['transform'] = 'translate3d(-'+x+'px,'+y+'px,0px)';
+	}
+	
+	function transition(element,time){
+		element.style['-webkit-transition-duration'] = time+'ms';
+		element.style['transition-duration'] = time+'ms';
+	} 
 
 	if(!noGlobal){
 		window.Slider = Slider;

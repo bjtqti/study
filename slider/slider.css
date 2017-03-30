@@ -18,23 +18,16 @@ ul,li {
 	position: relative;
 	width: 100%;
 	height: 220px;
-	border: 1px solid gray;
 	overflow: hidden;
 }
 
 .slider-items {
 	position: relative;
-	width: 100%;
 	height: 100%;
 }
 
 .slider-item {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 10;
+	float: left;
 	text-align: center;
 }
 
@@ -44,4 +37,32 @@ ul,li {
     -ms-user-select: none;
     user-select: none;
     pointer-events: none;
+}
+
+.slider-pagination {
+	position: absolute;
+	bottom: 10px;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	-webkit-transition-duration: .3s;
+    -moz-transition-duration: .3s;
+    -o-transition-duration: .3s;
+    transition-duration: .3s;
+}
+
+.slider-bullet {
+	width: 8px;
+    height: 8px;
+    margin: 0 5px;
+    display: inline-block;
+    border-radius: 100%;
+    background-color: black;
+    opacity: .2;
+    cursor: pointer;
+}
+
+.slider-bullet-active {
+	opacity: 1;
+	background-color: #007aff;
 }
