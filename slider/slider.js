@@ -27,10 +27,11 @@
 		autoplay: true,
 		bounceRatio:0.1,
 		pagination:true,
+		loop:true,
+		buttons:false,
 		paginationClass:'slider-pagination',
 		bulletClass:'slider-bullet',
-		bulletActiveClass:'slider-bullet-active',
-		loop:true
+		bulletActiveClass:'slider-bullet-active'
 	};
 
 	var isObject = function (obj) {
@@ -123,6 +124,10 @@
 			this.createLoopItems();
 		}
 
+		if(this.params.buttons){
+			this.createButtons();
+		}
+
 		if(this.params.autoplay){
 			this.autoPlay();
 		}
@@ -182,6 +187,17 @@
 		this.container.appendChild(ul);
 		this.bullets = bullets;
 		this.setActivePagination();
+	}
+
+	fn.createButtons = function(){
+		var prev = document.createElement('div');
+		var next = document.createElement('div');
+		prev.className = 'slider-button prev';
+		next.className = 'slider-button next';
+		prev.innerHTML = '&lt;';
+		next.innerHTML = '&gt';
+		this.container.appendChild(prev);
+		this.container.appendChild(next);
 	}
 
 	fn.setActivePagination = function(){
