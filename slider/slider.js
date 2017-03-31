@@ -113,7 +113,7 @@
 		this.wrap.appendChild(nextItem);
 		this.wrap.style.width = slideWidth * sliderCount + 'px';
 		translate3d(this.wrap,slideWidth);
-		this.activeIndex = 1;
+		this.activeIndex += 1;
 		this.sliderCount = sliderCount;
 		this.lastIndex += 2;
 	}
@@ -171,11 +171,15 @@
 
 	fn.next = function(){
 		var activeIndex = ++this.activeIndex;
+	 	if(activeIndex > this.lastIndex){
+	 		this.params.autoplay && clearTimeout(this.timeId);
+	 		return;
+	 	}
 		translate3d(this.wrap,activeIndex*this.slideWidth);
 	 	transition(this.wrap,this.params.speed);
 	 	this.setActivePagination();
 	 	if(activeIndex === this.lastIndex){
-	 		this.fixedLoop();
+	 		this.params.loop && this.fixedLoop();
 	 	}
 	}
 
