@@ -118,13 +118,23 @@
 		this.lastIndex += 2;
 	}
 
-	fn.fixedLoop = function(){
+	fn.fixedNextLoop = function(){
 		var that = this;
 		var x = this.slideWidth;
 		setTimeout(function(){
 			translate3d(that.wrap,x);
 			transition(that.wrap,0);
 			that.activeIndex = 1;
+		},that.params.speed);
+	}
+
+	fn.fixedPrevLoop = function(){
+		var that = this;
+		var x = this.slideWidth*(this.lastIndex-1);
+		setTimeout(function(){
+			translate3d(that.wrap,x);
+			transition(that.wrap,0);
+			that.activeIndex = that.lastIndex-1;
 		},that.params.speed);
 	}
 
@@ -165,6 +175,7 @@
 		}
 		this.timeId = setTimeout(function(){
 			that.next();
+			//that.prev();
 			that.autoPlay();
 		},this.params.delay);
 	}
@@ -179,12 +190,22 @@
 	 	transition(this.wrap,this.params.speed);
 	 	this.setActivePagination();
 	 	if(activeIndex === this.lastIndex){
-	 		this.params.loop && this.fixedLoop();
+	 		this.params.loop && this.fixedNextLoop();
 	 	}
 	}
 
 	fn.prev = function(){
-		
+		var activeIndex = --this.activeIndex;
+		if(activeIndex < this.firstIndex){
+			this.params.autoplay && clearTimeout(this.timeId);
+	 		return;
+		}
+		translate3d(this.wrap,activeIndex*this.slideWidth);
+	 	transition(this.wrap,this.params.speed);
+	 	this.setActivePagination();
+	 	if(activeIndex === this.firstIndex){
+	 		this.params.loop && this.fixedPrevLoop();
+	 	}
 	}
 
 	function translate3d(element,x,y) {
