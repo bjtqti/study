@@ -25,7 +25,7 @@
 		delay:5000,
 		direction: 'horizontal',
 		autoplay: true,
-		bounceRatio:0.3,
+		bounceRatio:0.1,
 		pagination:true,
 		paginationClass:'slider-pagination',
 		bulletClass:'slider-bullet',
@@ -48,6 +48,30 @@
 		}
 		return source;
 	}
+	var Device = (function () {
+        var ua = navigator.userAgent;
+        var android = ua.match(/(Android);?[\s\/]+([\d.]+)?/);
+        var ipad = ua.match(/(iPad).*OS\s([\d_]+)/);
+        var ipod = ua.match(/(iPod)(.*OS\s([\d_]+))?/);
+        var iphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/);
+        return {
+            ios: ipad || iphone || ipod,
+            android: android,
+            desktop:!(ipad || iphone || ipod || android)
+        };
+    })();
+
+	function translate3d(element,x,y) {
+		x = x === undefined ? 0 : x;
+		y = y === undefined ? 0 : x;
+		element.style['-webkit-transform'] = 'translate3d(-'+x+'px,'+y+'px,0px)';
+		element.style['transform'] = 'translate3d(-'+x+'px,'+y+'px,0px)';
+	}
+	
+	function transition(element,time){
+		element.style['-webkit-transition-duration'] = time+'ms';
+		element.style['transition-duration'] = time+'ms';
+	} 
 
 	function Slider( selector, options ) {
 		options = extend(defaults,options);
@@ -71,7 +95,10 @@
 		this.sliderCount = sliderCount;
 		this.lastIndex = sliderCount - 1;
 		this.firstIndex = 0;
+		this.isAnimating = false;
+		this.axis = {x:0,y:0};
 		this.initSlides();
+		this.bindEvents();
 	}
 
 	var fn = Slider.init.prototype;
@@ -80,6 +107,7 @@
 		var width = this.wrap.clientWidth;
 		this.slideWidth = width;
 		this.wrap.style.width = width * this.sliderCount + 'px';
+		this.bounceWidth = this.params.bounceRatio * width;
 		this.activeIndex = 0;
 		this.slideStack = [];
 		for(var i = 0;i<this.sliderCount;i++){
@@ -118,23 +146,25 @@
 		this.lastIndex += 2;
 	}
 
+	fn.fixedLoop = function(activeIndex){
+		if(!this.params.loop) return;
+		translate3d(this.wrap,this.slideWidth*activeIndex);
+		transition(this.wrap,0);
+		this.activeIndex = activeIndex;
+		this.isAnimating = false;
+	}
+
 	fn.fixedNextLoop = function(){
 		var that = this;
-		var x = this.slideWidth;
 		setTimeout(function(){
-			translate3d(that.wrap,x);
-			transition(that.wrap,0);
-			that.activeIndex = 1;
+			that.fixedLoop(1)
 		},that.params.speed);
 	}
 
 	fn.fixedPrevLoop = function(){
 		var that = this;
-		var x = this.slideWidth*(this.lastIndex-1);
 		setTimeout(function(){
-			translate3d(that.wrap,x);
-			transition(that.wrap,0);
-			that.activeIndex = that.lastIndex-1;
+			that.fixedLoop(that.lastIndex-1)
 		},that.params.speed);
 	}
 
@@ -186,11 +216,12 @@
 	 		this.params.autoplay && clearTimeout(this.timeId);
 	 		return;
 	 	}
+	 	this.isAnimating = true;
 		translate3d(this.wrap,activeIndex*this.slideWidth);
 	 	transition(this.wrap,this.params.speed);
 	 	this.setActivePagination();
 	 	if(activeIndex === this.lastIndex){
-	 		this.params.loop && this.fixedNextLoop();
+	 		this.fixedNextLoop();
 	 	}
 	}
 
@@ -200,25 +231,101 @@
 			this.params.autoplay && clearTimeout(this.timeId);
 	 		return;
 		}
+		this.isAnimating = true;
 		translate3d(this.wrap,activeIndex*this.slideWidth);
 	 	transition(this.wrap,this.params.speed);
 	 	this.setActivePagination();
 	 	if(activeIndex === this.firstIndex){
-	 		this.params.loop && this.fixedPrevLoop();
+	 		this.fixedPrevLoop();
 	 	}
 	}
 
-	function translate3d(element,x,y) {
-		x = x === undefined ? 0 : x;
-		y = y === undefined ? 0 : x;
-		element.style['-webkit-transform'] = 'translate3d(-'+x+'px,'+y+'px,0px)';
-		element.style['transform'] = 'translate3d(-'+x+'px,'+y+'px,0px)';
+	fn.bindEvents  = function(){
+		if(Device.desktop){
+			this.wrap.addEventListener('mousedown',this,false);
+			this.wrap.addEventListener('mousemove',this,false);
+			this.wrap.addEventListener('mouseup',this,false);
+		}else{
+			this.wrap.addEventListener('touchstart',this,false);
+			this.wrap.addEventListener('touchmove',this,false);
+			this.wrap.addEventListener('touchend',this,false);
+		}
+		this.wrap.addEventListener('transitionend',this,false);
+		this.container.addEventListener('click',this,false);
 	}
-	
-	function transition(element,time){
-		element.style['-webkit-transition-duration'] = time+'ms';
-		element.style['transition-duration'] = time+'ms';
-	} 
+
+	fn.transitionend = function(){
+		this.isAnimating = false;
+	}
+
+	fn.start = function(pageX){
+		this.axis.x = pageX;
+		if(this.params.autoplay){
+			this.params.autoplay = false;
+			this.timeId && clearTimeout(this.timeId);
+		}
+	}
+
+	fn.move = function(pageX){
+		if(this.isAnimating) return;
+		var distance = this.axis.x - pageX;
+		translate3d(this.wrap,distance + this.slideWidth*this.activeIndex);
+		transition(this.wrap,0);
+		if(distance > 0){
+			if(distance > this.bounceWidth){
+				this.next();
+			}
+		}else{
+			if(-distance > this.bounceWidth){
+				this.prev();
+			}
+		}
+	}
+
+	fn.stop = function(){
+		if(this.isAnimating)return;
+		translate3d(this.wrap,this.slideWidth*this.activeIndex);
+		transition(this.wrap,this.params.speed);
+	}
+
+	fn.handleEvent = function(e){
+		var type = e.type;
+		switch(type){
+			case 'mousedown':
+				this.start(e.pageX);
+				break;
+			case 'mousemove':
+				if(this.axis.x === 0) return;
+				this.move(e.pageX);
+				break;
+			case 'mouseup':
+				this.axis.x = 0;
+				this.stop();
+				break;
+			case 'touchstart':
+				this.start(e.targetTouches[0].pageX);
+				break;
+			case 'touchmove':
+				this.move(e.targetTouches[0].pageX);
+				break;
+			case 'touchend':
+				this.stop();
+				break;
+			case 'transitionend':
+			case 'WebkitTransitionend':
+				this.transitionend();
+				break;
+			case 'click':
+				e.stopPropagation();
+				var evt = e.target.className.split(' ')[1];
+				if(evt==='prev'||evt==='next'){
+					this[evt]();
+				}
+				break;
+			default:
+				break;
+		}
+	}
 
 	if(!noGlobal){
 		window.Slider = Slider;

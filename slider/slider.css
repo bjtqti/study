@@ -19,6 +19,9 @@ ul,li {
 	width: 100%;
 	height: 220px;
 	overflow: hidden;
+	-webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .slider-items {
@@ -29,13 +32,11 @@ ul,li {
 .slider-item {
 	float: left;
 	text-align: center;
+	cursor: pointer;
 }
 
 .slider-item > img {
 	width: 100%;
-	-webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
     pointer-events: none;
 }
 
@@ -65,4 +66,27 @@ ul,li {
 .slider-bullet-active {
 	opacity: 1;
 	background-color: #007aff;
+}
+
+.slider-button {
+	position: absolute;
+	top: 50%;
+	width: 50px;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	margin-top: -25px;
+	z-index: 10;
+	font-size: 4rem;
+	color: gray;
+	-webkit-user-select:none;
+	user-select:none;
+}
+
+.next {
+	right: 0px;
+}
+
+.prev {
+	left: 0px;
 }
