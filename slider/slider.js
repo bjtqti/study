@@ -24,8 +24,8 @@
 		speed:500,
 		delay:5000,
 		direction: 'horizontal',
-		autoplay: true,
-		bounceRatio:0.1,
+		autoplay: false,
+		bounceRatio:0.5,
 		pagination:true,
 		loop:true,
 		buttons:false,
@@ -260,11 +260,11 @@
 		if(Device.desktop){
 			this.wrap.addEventListener('mousedown',this,false);
 			this.wrap.addEventListener('mousemove',this,false);
-			this.wrap.addEventListener('mouseup',this,false);
+			document.addEventListener('mouseup',this,false);
 		}else{
 			this.wrap.addEventListener('touchstart',this,false);
 			this.wrap.addEventListener('touchmove',this,false);
-			this.wrap.addEventListener('touchend',this,false);
+			document.addEventListener('touchend',this,false);
 		}
 		this.wrap.addEventListener('transitionend',this,false);
 		this.container.addEventListener('click',this,false);
@@ -275,7 +275,7 @@
 	}
 
 	fn.start = function(pageX){
-		this.axis.x = pageX;
+		this.axis.x = parseInt(pageX);
 		if(this.params.autoplay){
 			this.params.autoplay = false;
 			this.timeId && clearTimeout(this.timeId);
@@ -283,23 +283,32 @@
 	}
 
 	fn.move = function(pageX){
+		pageX = parseInt(pageX);
 		if(this.isAnimating) return;
+		if(this.axis.x === 0) return;
+		if(pageX > this.slideWidth || pageX < 0) {
+			return;
+		}
+		console.log(this.axis.x)
 		var distance = this.axis.x - pageX;
 		translate3d(this.wrap,distance + this.slideWidth*this.activeIndex);
 		transition(this.wrap,0);
 		if(distance > 0){
 			if(distance > this.bounceWidth){
 				this.next();
+				this.axis.x = 0;
 			}
 		}else{
 			if(-distance > this.bounceWidth){
 				this.prev();
+				this.axis.x = 0;
 			}
 		}
 	}
 
 	fn.stop = function(){
 		if(this.isAnimating)return;
+		this.axis.x = 0;
 		translate3d(this.wrap,this.slideWidth*this.activeIndex);
 		transition(this.wrap,this.params.speed);
 	}
@@ -311,11 +320,9 @@
 				this.start(e.pageX);
 				break;
 			case 'mousemove':
-				if(this.axis.x === 0) return;
 				this.move(e.pageX);
 				break;
 			case 'mouseup':
-				this.axis.x = 0;
 				this.stop();
 				break;
 			case 'touchstart':
