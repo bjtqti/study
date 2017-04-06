@@ -258,15 +258,15 @@
 
 	fn.bindEvents  = function(){
 		if(Device.desktop){
-			this.wrap.addEventListener('mousedown',this,false);
-			this.wrap.addEventListener('mousemove',this,false);
+			this.container.addEventListener('mousedown',this,false);
+			this.container.addEventListener('mousemove',this,false);
 			document.addEventListener('mouseup',this,false);
 		}else{
-			this.wrap.addEventListener('touchstart',this,false);
-			this.wrap.addEventListener('touchmove',this,false);
+			this.container.addEventListener('touchstart',this,false);
+			this.container.addEventListener('touchmove',this,false);
 			document.addEventListener('touchend',this,false);
 		}
-		this.wrap.addEventListener('transitionend',this,false);
+		this.container.addEventListener('transitionend',this,false);
 		this.container.addEventListener('click',this,false);
 	}
 
@@ -289,7 +289,6 @@
 		if(pageX > this.slideWidth || pageX < 0) {
 			return;
 		}
-		console.log(this.axis.x)
 		var distance = this.axis.x - pageX;
 		translate3d(this.wrap,distance + this.slideWidth*this.activeIndex);
 		transition(this.wrap,0);
