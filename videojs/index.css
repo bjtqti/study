@@ -1,0 +1,26 @@
+.video-js .vjs-title-bar {
+  color: red;
+  
+  /*
+    By default, do not show the title bar.
+  */
+  display: none;
+  font-size: 2em;
+  padding: .5em;
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 80px;
+  height: 40px;
+  line-height: 40px;
+}
+
+/* 
+  Only show the title bar after playback has begun (so as not to hide
+  the big play button) and only when paused or when the user is 
+  interacting with the player.
+*/
+.video-js.vjs-paused.vjs-has-started .vjs-title-bar,
+.video-js.vjs-user-active.vjs-has-started .vjs-title-bar{
+  display: block;
+}
