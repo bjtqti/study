@@ -1,0 +1,8 @@
+#selector {
+	overflow: hidden;
+}
+select {
+	width:30%;
+	height: 2rem;
+	margin-left:3%;
+}
