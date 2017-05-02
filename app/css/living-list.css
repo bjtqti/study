@@ -1,0 +1,155 @@
+/**/
+.playlist-top{
+  height: 40px; line-height: 40px;
+  display:-webkit-flex;
+  display:-webkit-box;
+  display: flex;
+  background-color: #333; color: #999;
+}
+.play-type{
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+  padding-left: 12px;
+  display:-webkit-flex;
+  display:-webkit-box;
+  display: flex;
+}
+.type-item{
+  display: inline-block;
+  width: 33.333%;
+  padding-left: 20px;
+  font-size: 15px;
+}
+.type-item.type-team{
+  background: url(../images/icon-badminton.png) no-repeat left center/15px;
+}
+.type-item.type-league{
+  background: url(../images/icon-badge.png) no-repeat left center/15px;
+}
+.type-item.type-teach{
+  background: url(../images/icon-cap.png) no-repeat left center/15px;
+}
+.play-op{
+  padding-right: 10px;
+  font-size: 12px;
+  display:-webkit-flex;
+  display:-webkit-box;
+  display: flex;
+}
+.play-op>div{
+  width: 20px;
+  height: 40px;
+  font: 0/0 a;
+  display: inline-block;
+}
+.op-location{
+  background: url(../images/icon-location.png) no-repeat center/20px;
+}
+.op-search{
+  background: url(../images/icon-magnify.png) no-repeat center/20px;
+  margin-left: 5px;
+}
+
+/**/
+.nav-content{
+  background: white;
+  margin-top: 10px;
+}
+.tab-content{
+  padding: 0;
+}
+.tab-content.active{
+  display: block;
+}
+
+/**/
+.living-item,
+.recorded-item{
+  margin-bottom: 10px;
+  box-shadow: 1px 0px 5px #222;
+}
+.pro-thumbnail{
+  position: relative;
+}
+.pro-thumbnail:before{
+  content: '';
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 80px;
+  height: 80px;
+  margin-left: -40px;
+  margin-top: -40px;
+  background:url(../images/play.png) no-repeat center/60px;
+}
+.pro-thumbnail img{
+  width: 100%;
+}
+.pro-thumbnail .pro-title{
+  position: absolute;
+  top: 0; left: 8px;
+  font-size: 15px; line-height: 30px; height: 30px;
+  color: white;
+}
+.pro-detail{
+  display:-webkit-flex;
+  display:-webkit-box;
+  display: flex;
+  overflow: hidden;
+  padding: 10px 0;
+}
+.pro-time{
+  width: 20%;
+  min-width: 100px;
+  color: #666;
+  text-align: center;
+  font-size: 12px;
+  line-height: 20px;
+  padding: 5px 12px;
+  border-right: 1px solid #ccc;
+}
+.pro-time-current{
+  font-size: 14px;
+}
+.pro-team{
+  position: relative;
+  overflow: hidden;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+  font-size: 12px;
+}
+.pro-home-team,
+.pro-visit-team{
+  width: 50%; float: left;
+  text-align: center;
+}
+.pro-score{
+  position: absolute;
+  color: #333;
+  left: 50%;
+  line-height: 30px;
+  width: 100px;
+  margin-left: -50px;
+  text-align: center;
+}
+.pro-score-current{
+  font-size: 15px;
+  font-weight: bold;
+}
+.pro-text{
+  font-size: 13px;
+  width: 25px; height: 25px; line-height: 25px;
+  margin: 0 auto 5px;
+  color: white;
+  border-radius: 4px;
+}
+.pro-home-team .pro-text{
+  background-color: #ff2226;
+}
+.pro-visit-team .pro-text{
+  background-color: #20adfd;
+}
+.pro-name{
+
+}

@@ -1,0 +1,146 @@
+/**/
+
+body{
+  background-color: #f8f8f8;
+}
+.header.upball-detail{
+  background-color: #fe4d4e;
+}
+.upball-join{  
+  background-color: #fe4d4e;
+  position: relative;
+  padding: 35px 0;
+  font-size: 12px; color: white;
+}
+.join-button{
+  width: 100px;
+  height: 100px; line-height: 100px;
+  margin: 0 auto;
+  text-align: center;
+  color: #fe4d4e;
+  background-color: white;
+  border-radius: 100%;
+  font-size: 14px;
+}
+.status{  
+  position: absolute;
+  height: 20px; line-height: 20px;
+  bottom: 10px;
+}
+.status-member{
+  left: 16px;
+}
+.status-today{
+  right: 16px; 
+}
+
+/**/
+.upball-user{
+  padding-top: 10px;
+  background-color: white;
+}
+.user-item{
+  padding: 15px;
+  position: relative;
+  border-bottom: 1px solid #e3e3e3;
+}
+.user-info{
+  font-size: 12px;
+  color: #999;
+  line-height: 30px;
+}
+.user-info img{
+  width: 30px; height: 30px;
+  border-radius: 100%;
+  margin-right: 8px;
+}
+.user-text{
+  line-height: 30px;
+  font-size: 15px;
+  margin-top: 8px;
+}
+.user-zan{
+  position: absolute;
+  right: 15px; top: 15px;
+  color: #999;
+  padding-left: 15px;
+  background: url(../images/icon-zan.png) no-repeat left center/12px;
+}
+
+/**/
+.rank{
+  margin-top: 10px;
+  padding: 18px 16px;
+  background-color: white;
+}
+.rank-text{
+  font-size: 12px; color: #999;
+  margin-bottom: 10px;
+}
+.rank-list{
+  display:-webkit-flex;
+  display:-webkit-box;
+  display: flex;
+  -webkit-box-pack: space-between;
+  justify-content: space-between;
+}
+.rank-top3{
+  display:-webkit-flex;
+  display:-webkit-box;
+  display: flex;
+  overflow: hidden;
+}
+.rank-item{
+  float: left;
+  width: 50px; height: 50px;
+  margin-right: 15px;
+  position: relative;
+}
+.rank-item img{  
+  width: 100%; height: 100%;
+  border: 1px solid #ccc;
+  padding: 1px;
+  border-radius: 100%;
+}
+.rank-item:after{
+  content: '';
+  position: absolute;
+  top: 0; left: 2px;
+  width: 18px; height: 30px;
+}
+.top1:after{  
+  background: url(../images/icon-num1.png) no-repeat center top/contain;
+}
+.top2:after{  
+  background: url(../images/icon-num2.png) no-repeat center top/contain;
+}
+.top3:after{  
+  background: url(../images/icon-num3.png) no-repeat center top/contain;
+}
+
+/**/
+.rank-me{
+  display:-webkit-flex;
+  display:-webkit-box;
+  display: flex;
+  overflow: hidden;
+}
+.me-text{
+  font-size: 15px;
+  text-align: right;
+  line-height: 20px;
+  margin-right: 5px;
+}
+.me-text>div{
+  color: #999;
+  font-size: 12px;
+}
+.me-avatar{
+  width: 50px; height: 50px; 
+}
+.me-avatar img{
+  width: 100%; height: 100%;
+  border: 1px solid #fff;
+  padding: 1px;
+  border-radius: 100%;
+}

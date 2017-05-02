@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>最合拍 - 直播录入</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <meta name="author" content="xovel">
+
+  <meta name="format-detection" content="telephone=no" />
+  <meta content="yes" name="apple-mobile-web-app-capable" />    
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+
+  <link rel="stylesheet" type="text/css" href="../css/jquery-impromptu.min.css" />
+  <link rel="stylesheet" type="text/css" href="../css/global.css">
+
+  <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.min.css">
+
+  <script src="../js/jquery-1.7.1.min.js"></script>
+  <script src="../js/jquery-impromptu.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="../css/living-add.css">
+
+</head>
+<body>
+
+<div class="header" id="top">
+  <div class="header-back">
+    
+  </div>
+  <div class="header-title">
+    直播录入
+  </div>
+  <div class="header-op">
+    
+  </div>
+</div>
+
+<div class="main" id="container">
+  <div class="living-add-form">
+    <form>
+      <div class="form-item">
+        <div class="form-label">
+          <label for="title">直播标题</label>
+        </div>
+        <div class="form-input">
+          <input type="text" name="title" id="title" placeholder="请输入比赛标题，最多80字">
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-label">
+          <label for="startTime">开始时间</label>
+        </div>
+        <div class="form-input form-time">
+          <input type="text" name="startTime" id="startTime" placeholder="请选择时间">
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-label">
+          <label for="endTime">结束时间</label>
+        </div>
+        <div class="form-input form-time">
+          <input type="text" name="endTime" id="endTime" placeholder="请选择时间">
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-label">
+          <label for="homeTeam">主队名称</label>
+        </div>
+        <div class="form-input">
+          <input type="text" name="homeTeam" id="homeTeam" placeholder="请输入主队名称">
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-label">
+          <label for="visitTeam">客队名称</label>
+        </div>
+        <div class="form-input">
+          <input type="text" name="visitTeam" id="visitTeam" placeholder="请输入客队名称">
+        </div>
+      </div>
+      <div class="form-item form-file">
+        <div class="form-label">
+          <label for="matchLogo">比赛LOGO</label>
+        </div>
+        <div class="form-input">
+          <input type="file" name="matchLogo" id="matchLogo" accept="image/*">
+          <div class="file-token">
+            <img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+          </div>
+          <span>fileselector</span>
+        </div>
+      </div>
+      <div class="form-item form-text">
+        <div class="form-label">
+          <label for="matchIntro">比赛介绍</label>
+        </div>
+        <div class="form-input">
+          <textarea name="matchIntro" id="matchIntro" placeholder="请输入比赛介绍..."></textarea>
+        </div>
+      </div>
+      <div class="form-submit">提交申请</div>
+    </form>
+  </div>
+</div>
+
+
+<div class="footer" id="bottom"></div>
+
+
+<script src="../js/public.js"></script>
+
+<script type="text/javascript" src="../js/jquery.datetimepicker.min.js"></script>
+
+<script src="../js/living-add.js"></script>
+
+</body>
+</html>
