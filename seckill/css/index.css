@@ -1,0 +1,194 @@
+body {
+    background-color: #f5f5f5;
+    font-family: "\5FAE\8F6F\96C5\9ED1", "\5b8b\4f53", Arial, Helvetica, sans-serif;
+}
+.oy-app {
+	height: 100%;
+}
+.oy-app .time-container {
+	background-color: #ffffff;
+	overflow: inherit;
+	z-index: 2;
+}
+
+.oy-app .time-container:after {
+    display: block;
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid #1f282e;
+    left: 0;
+    bottom: 0;
+}
+
+.oy-app .time-container .swiper-slide {
+	display: block;
+    width: 33.33%;
+    height: 1.25rem;
+    color: #1f282e;
+    padding-top: 0.09375rem;
+    text-align: center;
+    font-size: 0.28125rem;
+}
+
+.oy-app .time-container .swiper-slide-active {
+    position: relative;
+    color: #ef3353;
+    font-weight: bold;
+    border-bottom: 0.046875rem solid #ef3353;
+}
+
+.oy-app .time-container .swiper-slide span {
+	display: block;
+    font-size: 0.40625rem;
+    height: 0.65625rem;
+    line-height: 0.65625rem;
+}
+
+.oy-app .time-container .swiper-slide-active span {
+    font-size: 0.5rem;
+}
+
+.oy-app .time-container .swiper-slide-active:after {
+    display: block;
+    content: "";
+    position: absolute;
+    left: 50%;
+    margin-left: -0.09375rem;
+    bottom: -0.15625rem;
+    width: 0;
+    height: 0;
+    border-left: 0.1875rem solid transparent;
+    border-right: 0.1875rem solid transparent;
+    border-top: 0.15625rem solid #ef3353;
+}
+
+.oy-app .page-container {
+	position: absolute;
+	top: 1.3rem;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.oy-app .page-container .swiper-slide {
+	height: 100%;
+	overflow: auto;
+}
+
+.oy-app .page-container .header {
+	text-align: center;
+    color: #1f282e;
+    font-size: 0.375rem;
+    padding-top: 0.46875rem;
+}
+
+.oy-app .page-container .seckill-wrap {
+	padding-bottom: 0.234375rem;
+    background: #fff;
+}
+
+.oy-app .page-container .seckill-wrap ul {
+	margin: 0.1875rem auto 0;
+    text-align: center;
+    font-size: 0.34375rem;
+}
+
+.oy-app .page-container .seckill-wrap ul > li {
+	display: inline-block;
+    min-width: 0.625rem;
+    padding: 0 0.1rem;
+    height: 0.625rem;
+    text-align: center;
+    line-height: 0.625rem;
+    color: #fff;
+    background: #101012;
+    border-radius: 0.09375rem;
+}
+
+.oy-app .page-container .seckill-wrap .split {
+	background: none;
+    border: none;
+    color: #101012;
+}
+
+.oy-app .page-container .seckill-list {
+ 	 
+}
+
+.oy-app .page-container .seckill-list li {
+	background: #fff;
+    border-top: 1px solid #f5f5f5;
+    overflow: hidden;
+    position: relative;
+    padding-left: 4.51875rem;
+}
+
+.oy-app .page-container .seckill-list .img {
+    position: absolute;
+    width: 3.93125rem;
+    height: 3.109375rem;
+    left: 0.3125rem;
+    top: 0.390625rem;
+    overflow: hidden;
+    border: 1px solid #f5f5f5;
+}
+
+.oy-app .page-container .seckill-list .info {
+	padding: 0.390625rem 0.15625rem;
+}
+
+.oy-app .page-container .seckill-list .info h2 {
+	color: #1f282e;
+    font-size: 0.4375rem;
+    line-height: 0.546875rem;
+    height: 1.640625rem;
+    margin-bottom: 0.476875rem;
+    overflow: hidden;
+}
+
+.oy-app .page-container .seckill-list .info p {
+	color: #64686b;
+    font-size: 0.28125rem;
+}
+
+.oy-app .page-container .seckill-list .info p > span {
+	margin-right: 0.2rem;
+}
+
+.oy-app .page-container .seckill-list .info p>span:nth-of-type(1) {
+    display: block;
+    color: #64686b;
+    margin-bottom: 0.24375rem;
+}
+
+.oy-app .page-container .seckill-list .info p>span>b {
+    color: #ef3353;
+    font-weight: normal;
+}
+
+.oy-app .page-container .seckill-list .btn {
+    position: absolute;
+    bottom: 0.3125rem;
+    right: 0.3125rem;
+    width: 2.109375rem;
+    height: 0.703125rem;
+    font-size: 0.34375rem;
+    color: #fff;
+    line-height: 0.703125rem;
+    text-align: center;
+    border-radius: 0.078125rem;
+}
+
+.oy-app .page-container .seckill-list .buy-btn {
+	background-color: #ef3353;
+}
+
+.oy-app .page-container .seckill-list .order-btn {
+    background-color: #028ef0;
+}
+
+.oy-app .page-container .seckill-list .over-btn {
+	background-color: #929597;
+}

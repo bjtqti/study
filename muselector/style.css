@@ -1,0 +1,32 @@
+ul,li {
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	list-style: none;
+}
+
+.o-container {
+	position: relative;
+	height: 40px;
+	background-color: white;
+}
+
+.select {
+	position: absolute;
+	left: 60px;
+	top: 40px;
+}
+
+.selected {
+	position: absolute;
+	left: 380px;
+	top: 45px;
+}
+ 
+.input {
+	width: 240px;
+	height: 38px;
+	padding: 0;
+}

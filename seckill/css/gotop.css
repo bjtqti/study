@@ -1,0 +1,19 @@
+.back-to-top {
+	display: none;
+	position: fixed;
+    width: 1.2rem;
+    height: 1.2rem;
+    right: 0.3rem;
+    bottom: 2rem;
+    border-radius: 100%;
+    background: url("../images/top.png") center center;
+    background-size: 100% 100%;
+    z-index: 20;
+    opacity: 0;
+}
+
+.back-to-top.active {
+    display: block;
+    opacity: 1;
+    transition: opacity .3s ease-in;
+}
