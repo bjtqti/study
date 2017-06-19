@@ -1,0 +1,79 @@
+/* Global control/S */
+body, p, input, h1, h2, h3, h4, h5, h6, ul, li, dl, dt, dd, form,ol,div {margin: 0;padding: 0;list-style: none;vertical-align: middle;}
+body{font-family:'San Francisco','Noto SansCJK','microsoft yahei',helvetica,arial;color: #000;}
+a{text-decoration:none;color:#000;}
+img{border:none;vertical-align: bottom;}
+p a{color:red;} input{ outline: none; }
+ul,ol,li,dd,dt,dl{list-style:none;}
+/* Global control/E */
+
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+@-ms-viewport {
+  width: device-width;
+}
+
+.header{
+  width: 100%; height: 44px; position: relative; background-color: #000;
+}
+.header-back{
+  width: 44px; height: 44px; 
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: url(../images/icon-back.png) no-repeat center;
+  background-size: 10px;
+}
+.header-title{
+  text-align: center;
+  line-height: 44px;
+  font-size: 16px;
+  color: white;
+}
+.header-op{
+  width: 44px; height: 44px;
+  position: absolute; top: 0; bottom: 0; right: 0;
+  background: url(../images/icon-op.png) no-repeat center;
+  background-size: 10px;
+}
+
+/**/
+.nav-tab{
+  overflow: hidden;
+}
+.nav-tab li{
+  float: left;
+  width: 33.33333%;
+  text-align: center;
+  line-height: 40px;
+  border-bottom: 2px solid #ddd;
+}
+.nav-tab li.on{
+  color: #fd4e4e;
+  position: relative;
+}
+.nav-tab li.on:after{
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 50%; margin-left: -10%;
+  background: #fd4850;
+  border-radius: 2px;
+  width: 20%; height: 2px;
+}
+.nav-content{
+  background-color: #fafafa;
+  color: #333;
+  font-size: 14px;
+}
+.tab-content{
+  padding: 10px;
+  display: none;
+}

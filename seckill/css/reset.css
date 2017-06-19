@@ -1,0 +1,177 @@
+/* 
+html5doctor.com Reset Stylesheet
+v1.4.1 
+2010-03-01
+Author: Richard Clark - http://richclarkdesign.com
+*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, img, ins, kbd, q, samp,
+small, sub, sup, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    font-style: normal; 
+}
+h1, h2, h3, h4, h5, h6{
+    font-weight: normal;
+}
+em ,b, i,strong {
+    display: inline-block;
+    margin:0;
+    padding:0;
+    /* font-style: normal; */
+}
+body {
+    line-height:1;
+}
+
+body, div, p, span, ul, ol {
+    word-break: break-all;
+}
+
+:focus {
+	outline: 1;
+}
+
+article,aside,canvas,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section,summary { 
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+ul,li,ol{
+    list-style: none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    border:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+}
+
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+mark {
+    background-color:#ff9;
+    color:#000; 
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted #000;
+    cursor:help;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+hr {
+    display:block;
+    height:1px;
+    border:0;   
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, button, select, textarea {
+    outline: none;
+    -webkit-appearance: none;
+}
+input, select {
+    vertical-align:middle;
+}
+textarea, input, select {
+    background: none;
+    border: none;
+    border:0;
+    margin: 0;
+    padding: 0;
+}
+img {
+    -ms-interpolation-mode: bicubic;
+    /* vertical-align: middle; */
+    border: 0 none;
+    max-width: 100%;
+    height: auto;
+}
+img:not([src*="/"]) {
+    display: none;
+}
+/* *
+* = clear
+****************************************************************************************************** */
+*, *:after, *:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.clear {
+    display: block;
+    clear: both
+}
+.clear:before, .clear:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden
+}
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0
+}
+.clearfix {
+    *zoom: 1
+}
+
+.font-15 {
+    font-size: 0.46875rem;
+}

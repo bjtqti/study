@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no, address=no">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta http-equiv="Expires" content="-1">
+    	<meta http-equiv="pragram" content="no-cache">
+    	<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+		<title>省市区三级联动</title>
+		<script src="region.js"></script>
+        <script src="selector.js"></script>
+        <link rel="stylesheet" href="selector.css">
+	</head>
+	<body>
+		<div id="selector"></div>
+		<p><button id="submit">查看地址</button></p>
+		<input type="text" id="name" name="address" value="">
+		<input type="text" id="val" name="val" value="">
+		<script type="text/javascript">
+			function bootstrap(){
+			    var wrap = document.getElementById('selector');
+				var s = new Selector(wrap,{
+					data:data,
+					pid:'430000',
+					cid:'430300',
+					aid :'430381'
+				});
+				var names = document.getElementById('name');
+				var values = document.getElementById('val');
+				document.getElementById('submit').onclick=function(){
+					var rs = s.getAddress();
+					names.value=rs.province[1]+" "+rs.city[1]+" "+rs.area[1];
+					values.value=rs.province[0]+" "+rs.city[0]+" "+rs.area[0];
+					console.log(rs)
+				}
+			}
+			if(typeof window.addEventListener){
+			    window.addEventListener("DOMContentLoaded",bootstrap);
+			}else{
+			    window.attachEvent('onload',bootstrap);
+			}
+ 		</script>
+	</body>
+</html>
