@@ -19,6 +19,10 @@
 			color: red;
 			border: 1px solid red;
 		}
+		#example_video_1 {
+			width: 100%;
+			height: 500px;
+		}
 	</style>
 </head>
 <body>
@@ -36,23 +40,26 @@
 	    techOrder: ["html5","flash"],
 	    mydata: {
 		    username: 'xiaoming'
+		},
+	   	controlBar: {
+			//fullscreenToggle:false,
+			volumeMenuButton:false
 		}
-
 	},function(){
 		//这里是播放器初始化之后放置要显示的内容
 		//更高级的应用可以创建一个组件(component)
-		var textNode = document.createElement('div');
-		textNode.className = 'user-name';
-		textNode.innerHTML = this.options().mydata.username||'';
-		this.el().appendChild(textNode);
-		this.userName = textNode;
-	});
- 
-	 
-	player.on('play',function(e){
-		this.userName.style.display = 'block';
+		// var textNode = document.createElement('div');
+		// textNode.className = 'user-name';
+		// //textNode.innerHTML = this.options().mydata.username||'';
+		// this.el().appendChild(textNode);
+		// this.userName = textNode;
+		// console.log(this)
+		//this.play()
 	});
 
+	//var volumeMenuButton  = player.controlBar.getChild('volumeMenuButton').el();
+	//volumeMenuButton.style.display='none'
+ 
 	</script>
 </body>
 </html>
