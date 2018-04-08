@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="apple-mobile-web-app-title" content="">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no, address=no">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta http-equiv="Expires" content="-1">
+	<meta http-equiv="pragram" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+	<title>下划线跟随效果</title>
+	<style>
+		body,ul,li {
+			margin: 0;
+			padding: 0;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		ul {
+		  display: flex;
+		  position: absolute;
+		  width: 800px;
+		  top: 50%;
+		  left: 50%;
+		  -webkit-transform: translate(-50%, -50%);
+		          transform: translate(-50%, -50%);
+		}
+		ul li {
+		  position: relative;
+		  padding: 20px;
+		  font-size: 24px;
+		  color: #000;
+		  line-height: 1;
+		  transition: 0.2s all linear;
+		  cursor: pointer;
+		}
+		ul li::before {
+		  content: "";
+		  position: absolute;
+		  top: 0;
+		  left: 50%;
+		  width: 0;
+		  height: 100%;
+		  border-bottom: 2px solid #000;
+		  transition: 0.2s all linear;
+		}
+		ul li:hover::before {
+		  width: 100%;
+		  top: 0;
+		  left: 0;
+		  transition-delay: 0.1s;
+		  border-bottom-color: #000;
+		}
+		ul li:last-child:before {
+		  left: 100%;
+		}
+		ul li:last-child:hover:before {
+		  left: 0;
+		}
+		ul li:first-child:before {
+		  left: 0;
+		}
+		ul:hover li:before {
+		  left: 100%;
+		}
+		ul:hover li:hover:before {
+		  left: 0;
+		}
+
+		li:hover + li::before {
+		  left: 0;
+		}
+
+		li:active {
+		  background: #000;
+		  color: #fff;
+		}
+
+
+	</style>
+</head>
+<body>
+
+<ul>
+  <li>不可思议的CSS</li>
+  <li>导航栏</li>
+  <li>光标下划线跟随</li>
+  <li>PURE CSS</li>
+  <li>Coco</li>
+</ul>
+	<script>
+  
+ 
+	</script>
+</body>
+</html>
