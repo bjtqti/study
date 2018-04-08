@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>写字板</title>
+	<style>
+		#canvas {
+			display: block;
+			margin: 0 auto;
+		}
+		#controller {
+			width: 800px;
+			margin: 10px auto;
+		}
+		.box {
+			width: 80px;
+			height: 40px;
+			line-height: 40px;
+			text-align: center;
+			border-radius: 5px;
+			float: right;
+			margin-right: 20px;
+		}
+		.red {
+			background-color: red;
+		}
+		.green {
+			background-color: green;
+		}
+		.clear {
+			border:2px solid gray;
+		}
+		
+		.black {
+			color: white;
+			background-color: black;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<div id="controller">
+		<div class="box clear">清除</div>
+		<div class="box black">黑色</div>
+		<div class="box red">红色</div>
+		<div class="box green">绿色</div>
+	</div>
+	<script>
+		var canvas = document.getElementById('canvas');
+		var canvasWidth = 800;
+		var canvasHeight = 400;
+		var color = "black";
+		var context =  canvas.getContext("2d");
+		var isMouseDown = false;
+		var lastLoc = {x:0,y:0}
+ 		var position = null;
+ 		var lastTime = Date.now();
+ 		var lastLineWidth = -1;
+		canvas.width = canvasWidth;
+		canvas.height = canvasHeight;
+		 
+		function windowToCanvas(x,y){
+			position = position || canvas.getBoundingClientRect();
+			//console.log(position);
+			return {
+				x:Math.round(x-position.left),
+				y:Math.round(y-position.top)
+			}
+		}
+		canvas.onmousedown = function(e){
+			e.preventDefault();
+			isMouseDown = true;
+			//console.log('mousedown')
+			var curLoc = windowToCanvas(e.clientX,e.clientY);
+			lastLoc = curLoc;
+		}
+		canvas.onmouseup = function(e){
+			e.preventDefault();
+			isMouseDown = false;
+			console.log('mouseup')
+		}
+
+		function calcDistance(point1,point2){
+			return Math.sqrt((point1.x-point2.x)*(point1.x-point2.x)+(point1.y-point2.y)*(point1.y-point2.y))
+		}
+
+		function calcLineWidth(distance,time){
+			var v = distance / time;
+			var width;
+			if(v < 0.1){
+				width = 30;
+			}else if(v > 10){
+				width = 1
+			}else{
+				width = 30 - (v-0.1) / (10-0.1) * (30 -1)
+			}
+			if(lastLineWidth === -1){
+				return width;
+			}
+			return lastLineWidth * 2 / 3 + width*1/3;
+		}
+
+		canvas.onmousemove = function(e){
+			e.preventDefault();
+			if(isMouseDown){
+				var curLoc = windowToCanvas(e.clientX,e.clientY);
+				//draw
+				console.log('mouse move')
+				var curTime = Date.now();
+				var distance = calcDistance(curLoc,lastLoc);
+				var time =  curTime -lastTime;
+				var lineWidth = calcLineWidth(distance,time);
+				context.beginPath();
+				context.moveTo(lastLoc.x,lastLoc.y);
+				context.lineTo(curLoc.x,curLoc.y);
+				context.strokeStyle = color;
+				context.lineWidth = lineWidth;
+				context.lineCap = "round";
+				context.lineJoin = "round";
+				context.stroke();
+				lastTime = curTime;
+				lastLoc = curLoc;
+				lastLineWidth = lineWidth;
+			}
+			 
+		}
+		canvas.onmouseout = function(e){
+			e.preventDefault();
+			isMouseDown = false;
+			console.log('mouse out')
+		}
+
+		function drawGrid(){
+			context.save();
+			context.strokeStyle = 'rgb(230,11,9)';
+			context.beginPath();
+			context.moveTo(3,3);
+			context.lineTo(canvasWidth-3,3);
+			context.lineTo(canvasWidth-3,canvasHeight-3);
+			context.lineTo(3,canvasHeight-3);
+			context.closePath();
+			context.lineWidth = 6;
+			context.stroke();
+
+			context.beginPath();
+			context.moveTo(0,0);
+			context.lineTo(canvasWidth,canvasHeight);
+			context.moveTo(canvasWidth,0);
+			//context.closePath();
+			context.restore();
+		}
+
+		var controller = document.getElementById('controller');
+		var activeItem = null;
+		controller.addEventListener('click',function(e){
+			var target = e.target;
+			 
+			if(activeItem){
+				activeItem.style.border = 'none'
+			} 
+			if(target.className==='box clear'){
+				clearCanvas()
+			}else if(target.className==='box red'){
+				color = 'red';
+				target.style.border = '2px solid black'
+				activeItem = target;
+			}else if(target.className==='box green'){
+				color = 'green';
+				target.style.border = '2px solid black'
+				activeItem = target;
+			}else {
+				color = 'black';
+				target.style.border = '2px solid orange'
+				activeItem = target;
+			}
+
+		})
+		function clearCanvas(){
+			context.clearRect(0,0,canvasWidth,canvasHeight);
+			drawGrid();
+		}
+drawGrid()
+	</script>
+</body>
+</html>

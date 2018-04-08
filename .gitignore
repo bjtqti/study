@@ -1,5 +1,1 @@
-node_modules/
-npm-debug.log
-.git/
-.settings/
-.project
+.DS_Store
