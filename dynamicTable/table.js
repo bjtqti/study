@@ -1,3 +1,10 @@
+/***
+ * create by <蛙哥> 
+ * author <278500368@qq.com>
+ * Date 2015/3/8
+ */
+
+
 	function TableSort(id){
  		this.tbl = document.getElementById(id);
  		if(this.tbl && this.tbl.nodeName == 'TABLE'){
@@ -28,7 +35,8 @@
  			a.onclick = function(that){
  				return function(e){
  					//若要兼容ie系列请用e.target||e.srcElement代替this;
- 					that.sortCol(this);
+ 					var target = e.target||e.srcElement;
+ 					that.sortCol(target);
  					return false;
  				}
  			}(this);
@@ -42,10 +50,9 @@
  		var rows = this.tbl.rows;
  		var alpha = [],numeric = [];
  		var aIdx = 0,nIdx = 0;
- 		var th = el.parentNode;
- 		var cellIndex = th.cIdx;
-
- 		for(var i=1;rows[i];i++){
+ 		var td = el.parentNode;
+ 		var cellIndex = td.cIdx;
+  		for(var i=1;rows[i];i++){
  			var cell = rows[i].cells[cellIndex];
  			var content = cell.textContent ? cell.textContent : cell.innerText;
 	 		//区分文本和数字
@@ -62,17 +69,17 @@
 	 			}
 	 		}
  		}
-
+ 
  		//排序
  		var col = [],top,bottom;
- 		if(th.className.match("asc")){
+ 		if(td.className.match("asc")){
  			top = bubbleSort(alpha,-1);
  			bottom = bubbleSort(numeric,-1);
- 			th.className = "dsc";
+ 			td.className = "dsc";
  		}else{
  			top = bubbleSort(alpha,1);
  			bottom = bubbleSort(numeric,1);
- 			th.className = 'asc';
+ 			td.className = 'asc';
  		}
 
  		col = top.concat(bottom);
@@ -272,12 +279,12 @@
  	TableEdit.prototype.addTR = function(){
  		var cells = this.tbl.tHead.rows[0].cells;
  		var TR = document.createElement('tr');
- 		var ths = [];
+ 		var tds = [];
  		for(var i=0;cells[i];i++){
- 			ths.push('<th></th>');
+ 			tds.push('<th></th>');
  		}
- 		ths[--i] = '<th><button data-opt="del">del</button></th>';
- 		TR.innerHTML = ths.join('');
+ 		tds[--i] = '<th><button data-opt="del">del</button></th>';
+ 		TR.innerHTML = tds.join('');
  		this.tbl.tBodies[0].appendChild(TR);
  		TableSort.prototype.makeZebra.call(this);
  	}
@@ -316,7 +323,7 @@
  		//双击可修改单元格
  		this.tbl.tBodies[0].ondblclick=function(e){
  			var target = e.target || e.srcElement;
- 			if(target.nodeName == 'TH'){
+ 			if(target.nodeName == 'TD'){
  				var TR = target.parentNode;
  				var len = TR.cells.length-1;
  				TR.setAttribute('contenteditable',true);

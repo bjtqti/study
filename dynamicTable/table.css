@@ -6,7 +6,7 @@ table {
 	border-collapse: collapse;
 }
 
-th {
+th,td {
 	border:1px solid #98bf21;
 		padding:8px;
 		border-width: 1px;
