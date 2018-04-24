@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>纯手写的表格排序</title>
+	<style>
+		
+		table {
+			font-family: verdana,arial,sans-serif;
+			color:#333333;
+			border-width: 1px;
+			border-collapse: collapse;
+		}
+
+		th,td {
+			border:1px solid #98bf21;
+				padding:8px;
+				border-width: 1px;
+				border-style: solid;
+		}
+
+		tbody tr {
+			color:#000000;
+				background-color:#EAF2D3;
+		}
+
+		thead tr {
+			background-color:#A7C942;
+				color:#ffffff;
+		}
+
+	</style>
+</head>
+<body>
+	<table id="sales1">
+		<caption>Quarterly sales 可以排序的单元格*</caption>
+		<thead>
+			<tr>
+				<th>Companies</th>
+				<th>Q1</th>
+				<th>Q2</th>
+				<th>Q3</th>
+				<th>Q4</th>
+			</tr>
+		</thead>
+		<tbody contenteditable="true">
+			<tr>
+				<td>Company A</td>
+				<td>$621</td>
+				<td>$942</td>
+				<td>$224</td>
+				<td>$486</td>
+			</tr>
+			<tr>
+				<td>Company B</td>
+				<td>$147</td>
+				<td>$1,325</td>
+				<td>$683</td>
+				<td>$524</td>
+			</tr>
+			<tr>
+				<td>Company C</td>
+				<td>$135</td>
+				<td>$2,342</td>
+				<td>$33</td>
+				<td>$464</td>
+			</tr>
+			<tr>
+				<td>Company D</td>
+				<td>$164</td>
+				<td>$332</td>
+				<td>$331</td>
+				<td>$438</td>
+			</tr>
+			<tr>
+				<td>Company E</td>
+				<td>$199</td>
+				<td>$902</td>
+				<td>$336</td>
+				<td>$1,427</td>
+			</tr>
+		</tbody>
+	</table>
+	<i>点击第一行单元格排序</i>
+</body>
+ 	<script>
+	/***
+	 * create by <蛙哥> 
+	 * author <278500368@qq.com>
+	 * Date 2015/3/8
+	 */
+
+
+	function TableSort(id){
+ 		this.tbl = document.getElementById(id);
+ 		if(this.tbl && this.tbl.nodeName == 'TABLE'){
+ 			this.makeSortable();
+ 			this.makeZebra();
+ 		}
+ 	}
+
+ 	//生成斑马纹
+ 	TableSort.prototype.makeZebra = function(){
+ 		var tBody = this.tbl.tBodies[0].rows;
+ 		for(var i = 0;tBody[i];i++){
+ 			if(i%2){
+ 				tBody[i].style.backgroundColor = '#EAF2D3';
+ 			}else{
+ 				tBody[i].style.backgroundColor = 'white';
+ 			}
+ 		}
+ 	}
+ 	//可排序的表格
+ 	TableSort.prototype.makeSortable = function(){
+ 		var headings = this.tbl.tHead.rows[0].cells;
+ 		var that = this;
+ 		for(var i = 0;headings[i];i++){
+ 			headings[i].cIdx = i;
+ 			headings[i].onclick=function(e){
+ 				var target = e.target||e.srcElement;
+ 				that.sortCol(target)
+ 			}
+ 		}
+ 	}
+ 	//排序核心方法
+ 	TableSort.prototype.sortCol=function(el){
+ 		//获取html表格中将被排序的那列数据
+ 		var rows = this.tbl.rows;
+ 		var alpha = [],numeric = [];
+ 		var aIdx = 0,nIdx = 0;
+ 		var td = el;
+ 		var cellIndex = td.cIdx;
+  		for(var i=1;rows[i];i++){
+ 			var cell = rows[i].cells[cellIndex];
+ 			var content = cell.textContent ? cell.textContent : cell.innerText;
+	 		//区分文本和数字
+	 		var num = content.replace(/(\$|\,|\s)/g,'');
+	 		if(parseFloat(num)==num){
+	 			numeric[nIdx++] = {
+	 				value : Number(num),
+	 				row : rows[i]
+	 			}
+	 		}else{
+	 			alpha[aIdx++] = {
+	 				value : content,
+	 				row : rows[i]
+	 			}
+	 		}
+ 		}
+ 
+ 		//排序
+ 		var col = [],top,bottom;
+ 		if(td.className.match("asc")){
+ 			top = bubbleSort(alpha,-1);
+ 			bottom = bubbleSort(numeric,-1);
+ 			td.className = "dsc";
+ 		}else{
+ 			top = bubbleSort(alpha,1);
+ 			bottom = bubbleSort(numeric,1);
+ 			td.className = 'asc';
+ 		}
+
+ 		col = top.concat(bottom);
+ 		var tBody = this.tbl.tBodies[0];
+ 		//非常好的交换元素的方法
+ 		for(var i= 0;col[i];i++){
+ 			tBody.appendChild(col[i].row);
+ 		}
+  		this.makeZebra();
+ 	}
+
+    //冒泡排序
+ 	function bubbleSort(arr,dir){
+ 		var start,end;
+ 		if(dir ===1){
+ 			start = 0;
+ 			end = arr.length;
+ 		}else if(dir === -1){
+ 			start = arr.length -1;
+ 			end = -1;
+ 		}
+ 	 
+ 		var unsorted = true;
+
+ 		while(unsorted){
+ 			unsorted = false;
+ 			for(var i= start;i!=end;i=i+dir){
+ 				if(arr[i+dir] && arr[i].value > arr[i+dir].value){
+ 					//a=1,b=2;a=[b,b=a][0];==>a=2,b=1;
+ 					arr[i] = [arr[i+dir],arr[i+dir]=arr[i]][0];
+ 					unsorted = true;
+ 				}
+ 			}
+ 		}
+ 		return arr;
+ 	}
+
+ 	 
+ 	var table1 = new TableSort('sales1');
+ 	 
+ 	</script>
+</html>

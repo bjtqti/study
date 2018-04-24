@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="apple-mobile-web-app-title" content="友阿微店">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no, address=no">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta http-equiv="Expires" content="-1">
+	<meta http-equiv="pragram" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+	<link rel="stylesheet" href="animate.css">
+	<title>摇一摇</title>
+	<style>
+		.shake_box {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			width: 100px;
+			height: 300px;
+			border: 1px solid gray;
+			margin: -150px -50px;
+		}
+ 		.shake {
+ 			background-color: red;
+ 		}
+	</style>
+	
+</head>
+<body>
+<div class="shake_box animated"></div>
+<script src="jquery-3.2.1.min.js"></script>
+<script>
+	/*
+	 * Author: Alex Gibson
+	 * https://github.com/alexgibson/shake.js
+	 * License: MIT license
+	 */
+
+	(function(global, factory) {
+	    if (typeof define === 'function' && define.amd) {
+	        define(function() {
+	            return factory(global, global.document);
+	        });
+	    } else if (typeof module !== 'undefined' && module.exports) {
+	        module.exports = factory(global, global.document);
+	    } else {
+	        global.Shake = factory(global, global.document);
+	    }
+	} (typeof window !== 'undefined' ? window : this, function (window, document) {
+
+	    'use strict';
+
+	    function Shake(options) {
+	        //feature detect
+	        this.hasDeviceMotion = 'ondevicemotion' in window;
+
+	        this.options = {
+	            threshold: 15, //default velocity threshold for shake to register
+	            timeout: 1000 //default interval between events
+	        };
+
+	        if (typeof options === 'object') {
+	            for (var i in options) {
+	                if (options.hasOwnProperty(i)) {
+	                    this.options[i] = options[i];
+	                }
+	            }
+	        }
+
+	        //use date to prevent multiple shakes firing
+	        this.lastTime = new Date();
+
+	        //accelerometer values
+	        this.lastX = null;
+	        this.lastY = null;
+	        this.lastZ = null;
+
+	        //create custom event
+	        if (typeof document.CustomEvent === 'function') {
+	            this.event = new document.CustomEvent('shake', {
+	                bubbles: true,
+	                cancelable: true
+	            });
+	        } else if (typeof document.createEvent === 'function') {
+	            this.event = document.createEvent('Event');
+	            this.event.initEvent('shake', true, true);
+	        } else {
+	            return false;
+	        }
+	    }
+
+	    //reset timer values
+	    Shake.prototype.reset = function () {
+	        this.lastTime = new Date();
+	        this.lastX = null;
+	        this.lastY = null;
+	        this.lastZ = null;
+	    };
+
+	    //start listening for devicemotion
+	    Shake.prototype.start = function () {
+	        this.reset();
+	        if (this.hasDeviceMotion) {
+	            window.addEventListener('devicemotion', this, false);
+	        }
+	    };
+
+	    //stop listening for devicemotion
+	    Shake.prototype.stop = function () {
+	        if (this.hasDeviceMotion) {
+	            window.removeEventListener('devicemotion', this, false);
+	        }
+	        this.reset();
+	    };
+
+	    //calculates if shake did occur
+	    Shake.prototype.devicemotion = function (e) {
+	        var current = e.accelerationIncludingGravity;
+	        var currentTime;
+	        var timeDifference;
+	        var deltaX = 0;
+	        var deltaY = 0;
+	        var deltaZ = 0;
+	        var threshold = this.options.threshold;
+	        if ((this.lastX === null) && (this.lastY === null) && (this.lastZ === null)) {
+	            this.lastX = current.x;
+	            this.lastY = current.y;
+	            this.lastZ = current.z;
+	            return;
+	        }
+
+	        deltaX = Math.abs(this.lastX - current.x);
+	        deltaY = Math.abs(this.lastY - current.y);
+	        deltaZ = Math.abs(this.lastZ - current.z);
+
+	        if (((deltaX > threshold) && (deltaY > threshold)) || ((deltaX > threshold) && (deltaZ > threshold)) || ((deltaY > threshold) && (deltaZ > threshold))) {
+	            //calculate time in milliseconds since last shake registered
+	            currentTime = new Date();
+	            timeDifference = currentTime.getTime() - this.lastTime.getTime();
+
+	            if (timeDifference > this.options.timeout) {
+	                window.dispatchEvent(this.event);
+	                this.lastTime = new Date();
+	            }
+	        }
+
+	        this.lastX = current.x;
+	        this.lastY = current.y;
+	        this.lastZ = current.z;
+
+	    };
+
+	    //event handler
+	    Shake.prototype.handleEvent = function (e) {
+	        if (typeof (this[e.type]) === 'function') {
+	            return this[e.type](e);
+	        }
+	    };
+
+	    return Shake;
+	}));
+
+	
+	//function to call when shake occurs
+	function shakeEventDidOccur () {
+		
+	    //put your own code here etc.
+	    waveOn();
+	    shakeBox.addClass('shake');
+	    shakeAudio.play();
+	    shakeTimeout && clearTimeout(shakeTimeout);
+		shakeTimeout = setTimeout(function() {
+			shakeBox.removeClass('shake');
+			waveOff();
+			myShakeEvent.reset();
+			shakeAudio.pause()
+		}, 1000)
+	}
+
+	function waveOn(){
+		window.navigator.vibrate([400,100,400]); // 震动
+	}
+
+	function waveOff(){
+		navigator.vibrate(0)
+	}
+
+
+ 	var shakeAudio = new Audio();
+	var shakeBox = $('.shake_box');
+	var myShakeEvent = new Shake({
+	    threshold:5, // optional shake strength threshold
+	    timeout: 3000 // optional, determines the frequency of event generation
+	});
+	myShakeEvent.start();
+	shakeAudio.src='shake.mp3';
+	 
+	var shakeTimeout;
+	window.addEventListener('shake', shakeEventDidOccur, false);
+	document.body.addEventListener('touchstart', function(){
+	    shakeAudio.load();
+	    //shakeAudio.play();
+	});
+	 	 
+</script>
+</body>
+</html>

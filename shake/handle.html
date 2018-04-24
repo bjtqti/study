@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="apple-mobile-web-app-title" content="友阿微店">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no, address=no">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta http-equiv="Expires" content="-1">
+	<meta http-equiv="pragram" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+	<link rel="stylesheet" href="animate.css">
+	<title>摇一摇</title>
+	<style>
+		.shake_box {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			width: 100px;
+			height: 300px;
+			border: 1px solid gray;
+			margin: -150px -50px;
+		}
+
+		.audio {
+			width: 0;
+			height: 0;
+			text-indent: -999px;
+			overflow: hidden;
+		}
+		.audio audio {
+			width: 0;
+			height: 0;
+		}
+ 
+	</style>
+</head>
+<body>
+<div class="shake_box animated"></div>
+<div class="audio"><audio id="audio" src="shake.mp3" autoplay></audio></div>
+	<script src="jquery-3.2.1.min.js"></script>
+<script>
+	"use strict";
+	
+	var supportsVibrate = "vibrate" in navigator;
+	//先判断设备是否支持HTML5摇一摇功能
+	if (window.DeviceMotionEvent) {
+		//获取移动速度，得到device移动时相对之前某个时间的差值比
+		window.addEventListener('devicemotion', deviceMotionHandler, false);
+	} else {
+		alert('您好，你目前所用的设备好像不支持重力感应哦！');
+	}
+
+	//设置临界值,这个值可根据自己的需求进行设定，默认就3000也差不多了
+	var shakeThreshold = 3000;
+	//设置最后更新时间，用于对比
+	var lastUpdate = 0;
+	//设置位置速率
+	var curShakeX =0, curShakeY = 0,curShakeZ = 0,lastShakeX = 0,lastShakeY = 0,lastShakeZ = 0;
+	var shakeBox = $('.shake_box');
+	var shakeTimeout;
+	
+	 
+	function deviceMotionHandler(event) {
+
+		//获得重力加速
+		var acceleration = event.accelerationIncludingGravity;
+		//获得当前时间戳
+		var curTime = new Date().getTime();
+
+		if ((curTime - lastUpdate) > 100) {
+ 
+			//时间差
+			var diffTime = curTime - lastUpdate;
+			lastUpdate = curTime;
+
+
+			//x轴加速度
+			curShakeX = acceleration.x;
+			//y轴加速度
+			curShakeY = acceleration.y;
+			//z轴加速度
+			curShakeZ = acceleration.z;
+
+			var speed = Math.abs(curShakeX + curShakeY + curShakeZ - lastShakeX - lastShakeY - lastShakeZ) / diffTime * 10000;
+
+			if (speed > shakeThreshold) {
+				//TODO 相关方法，比如：
+
+				//振动效果
+				waveOn();
+				//播放音效
+				shakeAudio.play();
+				//播放动画
+				shakeBox.addClass('shake');
+				shakeTimeout && clearTimeout(shakeTimeout);
+				shakeTimeout = setTimeout(function() {
+					shakeBox.removeClass('shake');
+					waveOff();
+				}, 1000)
+
+			}
+
+			lastShakeX = curShakeX;
+			lastShakeY = curShakeY;
+			lastShakeZ = curShakeZ;
+		}
+	}
+
+
+	//预加摇一摇声音
+	var shakeAudio = document.getElementById('audio');
+	 
+
+	function waveOn(){
+		window.navigator.vibrate([400,100,400]); // 震动
+	}
+
+	function waveOff(){
+		navigator.vibrate(0)
+	}
+
+	document.body.addEventListener('touchstart', function(){
+	    shakeAudio.load();
+	});
+</script>
+</body>
+</html>
