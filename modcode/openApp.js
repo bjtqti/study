@@ -25,3 +25,40 @@ document.getElementById('openApp').onclick = function(e){
         document.body.removeChild(ifr);  
     },3000)  
 };  
+
+
+
+var log = function (msg){
+
+}
+
+var timeout,t=1000,hasApp=true;
+setTimeout(function(){
+    if(hasApp){
+        log('installed app');
+        //node.hide()
+    }else{
+        log('not installed app');
+        //node.show();
+        //downloadApp()
+    }
+},2000)
+
+function testApp(){
+    var t1 = Date.now();
+    var ifr = document.createElement('iframe');  
+    ifr.src = 'com.baidu.tieba://'; //your app scheme
+    document.body.appendChild(ifr);
+    timeout = setTimeout(function(){
+        try_to_open_app(t1)
+    },t);
+}
+
+function try_to_open_app(t1){
+    var t2 = Date.now();
+    if(!t1 || t2-t1 < t+200){
+        ////若启动应用，则js会被中断较长时间，超出此范围  
+        hasApp = false;
+    }
+}
+

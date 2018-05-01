@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="full-screen" content="yes">
+	<meta name="format-detection" content="telephone=no, address=no">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta http-equiv="Expires" content="-1">
+	<meta http-equiv="pragram" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+	<title>垂直水平居中</title>
+	<style type="text/css">
+		html {
+			height: 100%;
+			font-size: 16px;
+		}
+		body {
+			height: 100%;
+			font-size: 14px;
+			margin: 0;
+			 
+		}
+ 		
+ 		.container {
+ 			position: fixed;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			background: rgba(0, 0, 0, 0.85);
+			z-index: 3;
+ 		}
+		
+		.box {
+			display: table;
+			height: auto;
+			/*height: 50%;*/
+			/* Set your own height: percents, ems, whatever! */
+			width: 50%;
+			/* Set your own width: percents, ems, whatever! */
+			overflow: auto;
+			/* Recommended in case content is larger than the container */
+			margin: auto;
+			/* Center the item vertically & horizontally */
+			position: absolute;
+			/* Break it out of the regular flow */
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			/* Set the bounds in which to center it, relative to its parent/container */
+			background: green;
+			background: #4fa46b;
+			color: #FFF;
+			padding: 20px;
+			border: solid 5px #2e5f3e;
+ 
+		}
+
+		 
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="box">aa</div>
+	</div>
+	 
+</body>
+</html>
