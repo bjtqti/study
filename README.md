@@ -58,3 +58,18 @@ study
 
 ## zhp
 * 单页应用实例
+
+## chat
+* 用Express.js实现的聊天室
+
+## videojs
+*  video.js的插件实现案例
+
+## seckill
+* 秒杀静态页面
+
+## gotop
+* 返回顶部
+
+## Canvas
+*  用canvas实现画版
