@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	 
+		.oy-out-box {
+			position: relative;
+			width: 80%;
+			height: 10px;
+			margin: 0 auto;
+			border-radius: 5px;
+			background-color: #f5f5f5;
+		}
+
+		.oy-in-box {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 2;
+			height: 100%;
+			border-radius: 5px;
+			background-color: green;
+		}
+		.oy-in-text {
+			position: absolute;
+			z-index: 3;
+			width: 55%;
+			line-height: 10px;
+			font-size: 12px;
+			text-align: right;
+			color: #fff;
+		}
+	</style>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body>
+	<div class="oy-out-box">
+		<div id="prog-bar" class="oy-in-box"></div>
+		<div id="prog-txt" class="oy-in-text">0%</div>
+	</div>
+	<script>
+		$(document).ready(function(){
+			var innerBox = $('#prog-bar'),
+			    innerNode = $('#prog-txt'),
+			    complete = 0,
+			    speed = 500,
+			    timerId;
+
+			function progess(per){
+				//console.log(per,timerId)
+				if(per > 100){
+					clearTimeout(timerId);
+					return false;
+				}
+
+				innerBox.animate({width:per + '%'},speed,'linear');
+				innerNode.text(per+'%');
+				timerId = setTimeout(function(){
+					//ajax success callback
+					progess(per+10)
+				},speed)
+			}
+
+			progess(complete)
+		})
+	</script>
+</body>
+</html>

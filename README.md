@@ -73,3 +73,7 @@ study
 
 ## Canvas
 *  用canvas实现画版
+
+## loading
+* 忙碌光标
+* 进度条
