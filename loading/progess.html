@@ -22,14 +22,9 @@
 			height: 100%;
 			border-radius: 5px;
 			background-color: green;
-		}
-		.oy-in-text {
-			position: absolute;
-			z-index: 3;
-			width: 55%;
-			line-height: 10px;
-			font-size: 12px;
 			text-align: right;
+			font-size: 12px;
+			line-height: 10px;
 			color: #fff;
 		}
 	</style>
@@ -38,12 +33,10 @@
 <body>
 	<div class="oy-out-box">
 		<div id="prog-bar" class="oy-in-box"></div>
-		<div id="prog-txt" class="oy-in-text">0%</div>
 	</div>
 	<script>
 		$(document).ready(function(){
 			var innerBox = $('#prog-bar'),
-			    innerNode = $('#prog-txt'),
 			    complete = 0,
 			    speed = 500,
 			    timerId;
@@ -55,8 +48,9 @@
 					return false;
 				}
 
-				innerBox.animate({width:per + '%'},speed,'linear');
-				innerNode.text(per+'%');
+				innerBox.animate({width:per + '%'},speed,'linear',function(e){
+					innerBox.text(per+'%');
+				});
 				timerId = setTimeout(function(){
 					//ajax success callback
 					progess(per+10)
