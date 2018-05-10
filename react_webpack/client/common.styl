@@ -1,0 +1,32 @@
+/* function */
+pxrem($px){
+    // designed in iphone6 mode
+    return $px / 37.5 * 1rem;
+}
+
+/* mixin */
+font-dpr($size){
+    font-size: $size * 1px
+    [data-dpr="2"] & {
+        font-size: $size * 2px
+    }
+    [data-dpr="3"] & {
+        font-size: $size * 3px
+    }
+}
+
+text-overflows($row){
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+mutiple-text-overflow(){
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space:normal;
+}
+
+/** end function */

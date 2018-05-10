@@ -1,0 +1,44 @@
+@import '~normalize.css/normalize.css';
+@import '../common.styl'
+
+body {
+    font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+}
+
+
+#app {
+    width 100%;
+    font-dpr(14)
+}
+
+.flexbox {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.title {
+    width: 100%;
+    height: 20px;
+    mutiple-text-overflow(2)
+}
+
+.icon-arrow 
+    width pxrem(64)
+    height pxrem(64)
+    background url(../assets/images/img_03.png) no-repeat center center
+    background-size pxrem(48) pxrem(48)
+    transition-duration:300ms
+    &.on 
+        transform:rotate(90deg)
+.header {
+    text-align center
+    font-dpr(14)
+}
+
+.copy {
+    text-align:right;
+    line-height: 1rem;
+    padding-right: 1rem;
+    color:red;
+}
