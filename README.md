@@ -26,7 +26,8 @@ study
 
 ## react_webpack
 
-* 手工配置 react + webpack + es7 的例子
+* 手工配置 react + webpack 的例子
+* 支持HMR,ES7语法,css前缀补全
 
 ### 2048
 
