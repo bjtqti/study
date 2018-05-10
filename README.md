@@ -24,6 +24,10 @@ study
 
 * 模拟下拉选择框，慕客网素材改进版本
 
+## react_webpack
+
+* 手工配置 react + webpack + es7 的实例
+
 ### 2048
 
 * 2048网页游戏js版
