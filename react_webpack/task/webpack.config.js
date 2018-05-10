@@ -1,18 +1,18 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); 
-//const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const NODE_MODULES = path.resolve('node_modules');
-
+const outputPath = path.resolve(__dirname, '../dist');
 const config = {
 	entry: {
 	  	index:'./client/index/index.jsx'
 	},
 	output: {
-	    path: path.resolve(__dirname, '../dist'),
+	    path: outputPath,
 	    filename: 'js/[name]-[hash:8].js'
 	},
-	mode:"development",
+	mode:"production",
 	module:{
 		rules:[
 			{
@@ -43,21 +43,15 @@ const config = {
 		    }
 		]
 	},
-	devServer: {
-	  contentBase: path.join(__dirname, "../dist"),
-	  compress: true,
-	  hot:true,
-	  host:'0.0.0.0',
-	  port: 9000
-	},
 	plugins: [
-		new webpack.NamedModulesPlugin(),
-		new webpack.HotModuleReplacementPlugin(),
-	   new HtmlWebpackPlugin({
-	  	template:'./public/index.html',
-	  	//inject:'head',
-	  	minify:false
-	  })
+		new CleanWebpackPlugin(['dist'],{
+			root:path.resolve(__dirname, '..')
+		}),
+	   	new HtmlWebpackPlugin({
+	  		template:'./public/index.html',
+	  		//inject:'head',
+	  		minify:false
+	    })
 	]
 };
 

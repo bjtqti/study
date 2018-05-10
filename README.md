@@ -26,7 +26,7 @@ study
 
 ## react_webpack
 
-* 手工配置 react + webpack + es7 的实例
+* 手工配置 react + webpack + es7 的例子
 
 ### 2048
 

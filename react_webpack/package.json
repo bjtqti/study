@@ -4,6 +4,7 @@
   "description": "web-app-boilerplate",
   "repository": "git+ssh://git@github.com/bjtqti/web-app-boilerplate.git",
   "scripts": {
+    "release":"webpack --config ./task/webpack.config.js",
     "start": "webpack-dev-server --config ./task/webpack.config.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
