@@ -1,6 +1,10 @@
+// https://github.com/michael-ciniawsky/postcss-load-config
 
 module.exports = {
-  	plugins: [
-    	require('autoprefixer')({browsers: ['iOS >=8','Android > 4.2']})
-  	]
+  "plugins": {
+    //"postcss-import": {},
+    //"postcss-url": {},
+    // to edit target browsers: use "browserslist" field in package.json
+    "autoprefixer": {}
+  }
 }

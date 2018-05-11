@@ -4,7 +4,7 @@
   "description": "web-app-boilerplate",
   "repository": "git+ssh://git@github.com/bjtqti/web-app-boilerplate.git",
   "scripts": {
-    "release":"webpack --config ./task/webpack.config.js",
+    "release": "webpack --config ./task/webpack.config.js",
     "start": "webpack-dev-server --config ./task/webpack.config.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -34,8 +34,16 @@
     "style-loader": "^0.21.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.8.1",
     "webpack-cli": "^2.1.3",
     "webpack-dev-server": "^3.1.4"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 3 versions",
+    "not ie <= 8",
+    "iOS >= 8",
+    "Android > 4.2"
+  ]
 }

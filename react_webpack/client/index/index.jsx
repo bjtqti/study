@@ -1,4 +1,5 @@
 "use strict";
+
 import "./index.css"
 import React from 'react'
 import ReactDOM from "react-dom"
@@ -10,9 +11,9 @@ if (module.hot) {
 }
 
 
-	let initialState = {a:1}
- 	ReactDOM.render(
-      <Index initialState={initialState} />,
-      document.getElementById('app'))
+let initialState = {title:'react app Demo'}
+	ReactDOM.render(
+  <Index initialState={initialState} />,
+  document.getElementById('app'))
   
  

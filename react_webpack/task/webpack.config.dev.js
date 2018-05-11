@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); 
-//const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const NODE_MODULES = path.resolve('node_modules');
 
 const config = {
@@ -43,21 +43,26 @@ const config = {
 		    }
 		]
 	},
+	devtool: 'inline-source-map',
 	devServer: {
 	  contentBase: path.join(__dirname, "../dist"),
 	  compress: true,
+	  open:true,
 	  hot:true,
 	  host:'0.0.0.0',
 	  port: 9000
 	},
 	plugins: [
+		new CleanWebpackPlugin(['dist'],{
+			root:path.resolve(__dirname, '..')
+		}),
 		new webpack.NamedModulesPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
-	   new HtmlWebpackPlugin({
-	  	template:'./public/index.html',
-	  	//inject:'head',
-	  	minify:false
-	  })
+	   	new HtmlWebpackPlugin({
+		  	template:'./public/index.html',
+		  	inject: true,
+		  	minify:false
+		})
 	]
 };
 

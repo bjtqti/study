@@ -38,8 +38,8 @@ export default class Index extends Component {
   	}
 
 	render() {
-		const {date,isActive} = this.state;
-		const {title} = this.props.initialState;
+		var {date,isActive} = this.state;
+		let {title} = this.props.initialState;
 		let iconStatus = classNames('icon-arrow',{'on':isActive})
 	
 		return (
@@ -47,6 +47,7 @@ export default class Index extends Component {
 				<div onClick={this.handleClick} className={iconStatus}></div>
 				<div className="title">{title}</div>
 				<div className="header">Hello Web app !</div>
+				<div className="flexbox">考察css前缀自动补全</div>
 				<div className="copy">{date.toLocaleTimeString()}</div>
 			</Fragment>
 		)
