@@ -1,0 +1,120 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>圣杯布局/双飞翼布局</title>
+    <style>
+
+    /**清除半透明的灰色背景**/
+    * {
+        -webkit-tap-highlight-color : transparent ;  
+    }
+    /**禁止用户选择页面中的文字或者图片**/
+    .no-select {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+/**移动端如何清除输入框内阴影**/
+    .nooo {
+        -webkit-appearance: none;
+    }
+    .text {
+        /**禁止文本缩放**/
+        -webkit-text-size-adjust: 100%;
+        /**解决字体在移动端比例缩小后出现锯齿的问题**/
+        -webkit-font-smoothing: antialiased;
+    }
+    img {
+        -webkit-touch-callout: none;
+    }
+    /**设置input里面placeholder字体的大小**/
+    .input {
+        ::-webkit-input-placeholder{ font-size:10pt;}
+    }
+    .mainWrap {
+        width: 100%;
+        float: left;
+    }
+
+    .main {
+        margin: 0 120px;
+    }
+
+    .left,
+    .right {
+        float: left;
+        width: 100px;
+    }
+
+    .left {
+        margin-left: -100%;
+    }
+
+    .right {
+        margin-left: -100px;
+    }
+/**移动端去除type为number的箭头**/
+    input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
+      -webkit-appearance: none !important;
+      margin: 0; 
+  }
+
+  
+@media screen and (orientation: portrait) {
+    .main {
+        -webkit-transform:rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+        width: 100vh;
+        height: 100vh;
+        /*去掉overflow 微信显示正常，但是浏览器有问题，竖屏时强制横屏缩小*/
+        overflow: hidden;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    .main {
+        -webkit-transform:rotate(0);
+        -moz-transform: rotate(0);
+        -ms-transform: rotate(0);
+        transform: rotate(0)
+    }
+}
+
+作者：RobinsonZhang
+链接：https://juejin.im/post/5af918636fb9a07ac5603ecb
+来源：掘金
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+ 
+    </style>
+    <script>
+        /**
+            ios和andriod中无法自动播放
+            $('html').one('touchstart',function(){
+            audio.play()
+            })
+        */
+    </script>
+</head>
+
+<div class="parent" id="parent" style="background-color: lightgrey;">
+    <div class="mainWrap">
+        <div class="main" style="background-color: lightcoral;">
+            main
+        </div>
+    </div>
+    <div class="left" style="background-color: orange;">
+        left
+    </div>
+    <div class="right" style="background-color: lightsalmon;">
+        right
+    </div>
+</div>
+
+</html>
