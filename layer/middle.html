@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>未知宽高元素水平垂直居中</title>
+</head>
+<style>
+    .wrap {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        background: #92b922;
+    }
+    .test {
+        background: #de3168;
+        display: inline-block;
+        color: #fff;
+        padding: 20px;
+    }
+    .wrap:after {
+        display: inline-block;
+        content: '';
+        width: 0px;
+        height: 100%;
+        vertical-align: middle;
+    }
+    /* .vamb{
+        display: inline-block;
+        width: 0px;
+        height: 100%;
+        vertical-align: middle;
+    } */
+
+/**表格法**/
+     .parent1{
+        display: table;
+        height:300px;
+        width: 300px;
+        background-color: #FD0C70;
+    }
+    .parent1 .child{
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        color: #fff;
+        font-size: 16px;
+    }
+
+/**transformd大法**/
+.parent3{
+    position: relative;
+    height:300px;
+    width: 300px;
+    background: #FD0C70;
+}
+.parent3 .child{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: #fff;
+    transform: translate(-50%, -50%);
+}
+
+
+/**flex大法**/
+.parent4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height:300px;
+    background: #FD0C70;
+}
+.parent4 .child{
+    color:#fff;
+}
+
+ 
+
+    </style>
+    <div class="wrap">
+            <!-- <b class="vamb"></b> -->
+        <div class="test">
+            水平垂直居中了吧<br>
+            两行文字哦
+        </div>
+    </div>
+    
+<!--表格法-->
+    <div class="parent1">
+        <div class="child">hello world-1</div>
+    </div>
+   <!--transform大法-->
+    <div class="parent3">
+        <div class="child">hello world</div>
+    </div>
+ 
+</html>
+ 
