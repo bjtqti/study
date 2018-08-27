@@ -82,3 +82,6 @@ study
 ## loading
 * 忙碌光标
 * 进度条
+
+## stopwatch
+* 秒表

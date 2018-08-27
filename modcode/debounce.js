@@ -4,7 +4,7 @@ function debounce(func, wait){
     // 首先是清空定时器
     clearTimeout(timeID);
     // 延迟 wait ms后执行真正的事件处理函数
-    timeID = setTimeOut(func, wait);
+    timeID = setTimeout(func, wait);
   }
 }
 function hanlder(){

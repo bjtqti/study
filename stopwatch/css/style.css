@@ -1,0 +1,135 @@
+
+
+body {
+	font-family: Microsoft YaHei,Arial,Helvetica,sans-serif;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+}
+
+button {
+	outline: none;
+}
+
+.container {
+	width: 320px;
+	height: 500px;
+	margin: 10px auto;
+	background-color: #020527;
+	color: white;
+	overflow: hidden;
+}
+
+.title {
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 16px;
+	border-bottom: 1px solid #ddd;
+}
+
+.time {
+	margin: 30px auto 10px;
+	text-align: center;
+}
+
+.time span {
+	display: inline-block;
+	width: 100px;
+	text-align: center;
+	font-size: 68px;
+}
+
+.time span:last-child {
+	width: 80px;
+}
+
+
+.time span:nth-child(1)::after {
+	content:':';
+	font-size: 60px;
+}
+
+.time span:nth-child(2)::after {
+	content:'.';
+	font-size: 60px;
+}
+
+.menu {
+	margin: 20px auto;
+	padding: 0 20px;
+	overflow: hidden;
+}
+
+.menu button {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	text-align: center;
+	font-size: 14px;
+}
+
+.reset {
+	float: left;
+	color: #dfdfdf;
+	border: 2px double #666;
+	background-color: gray;
+}
+
+.reset.active {
+	color: black;
+	background-color: #dfdfdf;
+}
+
+.start {
+	float: right;
+	color: #9ce89c;
+	background-color: #2c522c;
+	border: 2px double #9ce89c;
+}
+
+.starting {
+	float: right;
+	color: red;
+	background-color: pink;
+	border: 2px double red;
+}
+
+.watch-list {
+	margin: 40px 10px 0;
+	height: 200px;
+	overflow: auto;
+}
+
+.watch-list li {
+	width: 100%;
+	height: 32px;
+	line-height: 32px;
+	border-top: 1px dashed #ddd;
+}
+
+.watch-list li:last-child {
+	border-bottom: 1px dashed #ddd;
+}
+
+.watch-list li span {
+	float: left;
+}
+.watch-list li b {
+	float: right;
+}
+
+.watch-list li:nth-child(1){
+	color: red;
+}
+
+.watch-list li:nth-child(2){
+	color: green;
+}
+.watch-list li:nth-child(3){
+	color: blue;
+}
+
+
