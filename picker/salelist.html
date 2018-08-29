@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	    <meta http-equiv="pragma" content="no-cache">
+	    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	    <meta name="apple-mobile-web-app-capable" content="yes">
+	    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+	    <meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+	    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+	    <meta name="x5-orientation" content="portrait">
+	    <meta name="x5-fullscreen" content="true">
+		<title>累计销售额</title>
+		<link rel="stylesheet" href="https://at.alicdn.com/t/font_204824_9cokz4cy8qf.css">
+		<link rel="stylesheet" href="http://libs.cdnjs.net/Swiper/3.3.1/css/swiper.min.css">
+		<link rel="stylesheet" href="css/salelist.css">
+		<script src="http://libs.cdnjs.net/jquery/2.2.4/jquery.min.js"></script>
+		<script src="http://libs.cdnjs.net/Swiper/3.3.1/js/swiper.min.js"></script>
+		<script src="js/salelist.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<header class="header">
+				<div class="title">累计销售额（元）</div>
+				<div class="total">227580.85</div>
+				<div class="month" id="select-month">2018.6 <i class="iconfont icon-xia"></i></div>
+				<div class="sale-m">销售额:￥12.80</div>
+			</header>
+			<ul class="sale-list">
+				<li>
+					<div class="flex space-around">
+						<div class="img-box"><img src="http://image.hnmall.com/erp/20180205/1517817727.jpg" alt=""></div>
+						<div class="sale-info">
+							<p>
+								<span class="red">朱乐</span>购买了您分享的<span class="red">1</span>个商品
+							</p>
+							<p class="gray">2018-01-23 12：24</p>
+						</div>
+						<div class="status">
+							<p class="red">365</p>
+							<p class="gray">待发货</p>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="flex space-around">
+						<div class="img-box"><img src="http://image.hnmall.com/erp/20180205/1517817727.jpg" alt=""></div>
+						<div class="sale-info">
+							<p>
+								<span class="red">朱乐</span>购买了您分享的<span class="red">1</span>个商品
+							</p>
+							<p class="gray">2018-01-23 12：24</p>
+						</div>
+						<div class="status">
+							<p class="red">365</p>
+							<p class="gray">已关闭</p>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<div id="mask-layer" class="mask hide"></div>
+			<div id="date-picker" class="date-picker">
+				<div class="flex space-between button-row">
+					<button data-evt="cancel" class="cancel">取消</button>
+					<button data-evt="sure" class="sure red">确定</button>
+				</div>
+                <div class="flex space-around swiper-picker">
+                	<div id="year-swiper" class="swiper-container"></div>
+                	<div id="month-swiper" class="swiper-container"></div>
+                </div>
+                <div id="viewport" class="flex space-around viewport">
+                	<div class="year"></div>
+                	<div class="month"></div>
+                </div>
+            </div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,265 @@
+html,body {
+	height: 100%;
+}
+
+body,ul,p,button {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-size: 12px;
+	background-color: #f5f6f8;
+	font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
+}
+
+ul {
+	list-style-type: none;
+}
+
+button {
+	outline: none;
+	user-select: none;
+}
+
+.flex {
+	display: -webkit-flex;
+	display: flex;
+}
+
+.space-around {
+	-webkit-justify-content: space-around;
+	justify-content: space-around;
+}
+
+.space-between {
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+}
+
+.align-center {
+	-webkit-align-items:center;
+	align-items: center;
+}
+
+
+.red {
+	color: #e42c4c;
+}
+
+.gray {
+	color: gray;
+}
+
+#app {
+	position: relative;
+	max-width: 640px;
+	min-width: 320px;
+    margin: 0 auto;
+    min-height: 100%;
+}
+
+.header {
+	height: 180px;
+	background-color: #ff6545;
+	color: white;
+	overflow: hidden;
+}
+
+.header .title {
+	padding: 10px;
+	text-indent: 10px;
+	font-size: 16px;
+}
+
+.header .total {
+	font-size: 30px;
+	padding: 10px 20px;
+	text-indent: 20px;
+}
+
+.header .sale-m {
+	padding-top: 10px;
+	padding-left: 20px;
+	font-size: 14px;
+}
+
+.header .month {
+	padding-left: 20px;
+	font-size: 16px;
+}
+.header .icon-xia {
+	position: relative;
+	top: 2px;
+	display: inline-block;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+}
+  
+
+.sale-list {
+	width: 100%;
+	background-color: white;
+}
+
+.sale-list li {
+	padding: 10px 0;
+	border-bottom: 1px solid #ddd;
+}
+
+.sale-list .status {
+	width: 80px;
+	text-align: center;
+	border-left: 1px solid #ddd;
+}
+
+.sale-list .status .red {
+	font-size: 16px;
+}
+
+.sale-list .sale-info {
+	-webkit-flex-grow: 1;
+	flex-grow: 1;
+	color: #333;
+}
+.sale-list .sale-info p:nth-child(1) {
+	line-height: 25px;
+	font-size: 14px;
+}
+
+.sale-list .img-box {
+	width: 50px;
+	height: 50px;
+	margin: 0 15px;
+}
+
+.img-box img {
+	max-width: 100%;
+}
+
+.date-picker {
+	position: fixed;
+	bottom: 0;
+	top: 50%;
+	z-index: 3;
+	width: 100%;
+	height: 50%;
+	max-width: 640px;
+	background-color: white;
+	overflow: hidden;
+	 
+	transition: transform .5s;
+	transform: translate3d(0,100%,0);
+}
+
+.date-picker.active {
+	 
+    transform: translate3d(0,0,0);
+}
+
+.date-picker .tip-box {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    margin-top: -20px;
+    pointer-events: none;
+}
+
+.date-picker .tip-box > div {
+	width: 50%;
+	text-align: right;
+}
+
+.date-picker .swiper-container {
+    width: 40%;
+    text-align: center;
+    user-select: none;
+}
+
+.date-picker .button-row {
+	width: 100%;
+	height: 40px;
+	background-color: #dfdfdf;
+}
+
+.date-picker .button-row button {
+	display: block;
+	width: 80px;
+	height: 100%;
+	line-height: 40px;
+	font-size: 15px;
+	border: none;
+}
+
+.swiper-picker {
+	position: absolute;
+	top: 40px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+}
+
+.swiper-slide {
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 16px;
+	color: #999;
+}
+
+.swiper-slide.swiper-slide-active {
+	font-weight: bold;
+	color: #333;
+	font-size: 20px;
+}
+
+.viewport {
+	pointer-events: none;
+	position: absolute;
+	top: 50%;
+	z-index: 3;
+	height: 40px;
+	line-height: 40px;
+	width: 100%;
+}
+
+.viewport .month,
+.viewport .year {
+	width: 40%;
+	margin: 0 auto;
+	text-align: center;
+	border-top: 2px solid red;
+	border-bottom: 2px solid red;
+	font-weight: bold;
+	color: #333;
+	font-size: 20px;
+	box-sizing: border-box;
+}
+
+.hide {
+	display: none;
+}
+
+.mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	background-color: rgba(0,0,0,.5);
+}
+
+@media screen and (-webkit-device-pixel-ratio: 2){
+
+	.header .half + .half {
+		border-left: .5px solid white;
+	}
+	.sale-list li {
+		border-bottom: .5px solid #ddd;
+	}
+}

@@ -1,0 +1,129 @@
+body,ul,p {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-size: 12px;
+	background-color: #f5f6f8;
+	font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
+}
+
+ul {
+	list-style-type: none;
+}
+
+.flex {
+	display: -webkit-flex;
+	display: flex;
+}
+
+.space-around {
+	-webkit-justify-content: space-around;
+	justify-content: space-around;
+}
+
+.red {
+	color: #e42c4c;
+}
+
+.gray {
+	color: gray;
+}
+
+#app {
+	max-width: 640px;
+	min-width: 320px;
+    margin: 0 auto;
+}
+
+.header {
+	background-color: #ff6545;
+	color: white;
+	overflow: hidden;
+}
+
+.header .title {
+	font-size: 16px;
+	padding: 10px;
+}
+
+.header .total {
+	font-size: 30px;
+	padding-left: 20px;
+}
+
+.header .big {
+	font-size: 18px;
+}
+
+.header .half {
+	width: 33.33%;
+}
+
+.header .income {
+	margin:20px 0 10px;
+	text-align: center;
+}
+
+.header .month {
+	height: 25px;
+	font-size: 14px;
+	color: #dfdfdf;
+}
+ 
+.sale-list {
+	width: 100%;
+	margin-bottom: 50px;
+	background-color: white;
+}
+
+.sale-list li {
+	padding: 10px 0;
+	border-bottom: 1px solid #ddd;
+}
+
+.sale-list .status {
+	width: 120px;
+	text-align: center;
+	border-left: 1px solid #ddd;
+}
+
+.sale-list .status .orange {
+	color: #fb8624;
+}
+
+.sale-list .status p:nth-child(1) {
+	font-size: 16px;
+}
+
+.sale-list .sale-info {
+	-webkit-flex-grow: 1;
+	flex-grow: 1;
+	color: #333;
+}
+.sale-list .sale-info p {
+	text-indent: 20px;
+	font-size: 14px;
+}
+
+.fixed-bar {
+	position: fixed;
+	bottom: 0;
+	max-width: 640px;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	color: white;
+	background-color: #ff6545;
+	font-size: 16px;
+}
+ 
+
+@media screen and (-webkit-device-pixel-ratio: 2){
+
+	.sale-list li {
+		border-bottom: .5px solid #ddd;
+	}
+}
