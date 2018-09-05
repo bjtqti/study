@@ -2,25 +2,30 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-	<title>用Javascript开发简单的秒表/计时器</title>
-	<link rel="stylesheet" href="./css/style.css">
-	<script src="./js/main.js"></script>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<title>如何用Javascript开发简单的秒表</title>
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 	<div class="container">
 		<header class="title">秒表</header>
 		<section class="time">
-			<span>00</span><span>00</span><span>00</span>
+			<span>00</span>
+			<span>00</span>
+			<span>00</span>
 		</section>
-		<div class="menu">
-			<button class="reset">计次</button>
-			<button class="start">启动</button>
+		<div class="control">
+			<div class="reset">
+				<button>复位</button>
+			</div>
+			<div class="start">
+				<button>启动</button>
+			</div>
 		</div>
 		<ul class="watch-list">
-			<li></li>
-			<li></li>
-			<li></li>
+			<li>计次3<i>00:00:44</i></li>
+			<li>计次2<i>00:00:44</i></li>
+			<li>计次1<i>00:00:44</i></li>
 		</ul>
 	</div>
 </body>
