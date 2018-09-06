@@ -135,15 +135,15 @@ button {
 .watch-list li {
 	height: 40px;
 	line-height: 40px;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #333131;
+}
+
+.watch-list li:nth-child(1){
+	border-top: 1px solid #333131;
 }
 
 .watch-list li i {
 	float: right;
-}
-
-.watch-list li:nth-last-child(3){
-	border-top: 1px solid #ddd;
 }
 
 .watch-list li:nth-last-child(2){

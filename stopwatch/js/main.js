@@ -34,36 +34,32 @@ Stopwatch.prototype = {
 		this.record = container.querySelector('.watch-list');
 		this.display = container.querySelector('.time');
 		this.renderList();
-		this.bindEvent();
-	},
-
-
-	bindEvent:function(){
-		var control = this.container.querySelectorAll('button');
+		container.addEventListener('click',this,false);
+		var control = container.querySelectorAll('button');
 		this.startButton = control[1];
 		this.resetButton = control[0];
-		var watch = this;
-		this.startButton.addEventListener('click',function(){
-			if(watch.status==='STOP'){
-				watch.start();
-			}else{
-				watch.stop();
-			}
-		},false);
-		this.resetButton.addEventListener('click',function(){
-			if(watch.status==='START'){
-				watch.count()
-			}else{
-				watch.reset();
-			}
-		},false);
+	},
+
+	handleEvent:function(e){
+		//console.log(e);
+		var evt = e.target.dataset.e;
+		var status = this.status;
+		//console.log(evt)
+		switch(evt){
+			case 'start':
+				status ==='STOP' ? this.start() : this.stop();
+				break;
+			case 'reset':
+				status === 'START' ? this.count(): this.reset();
+				break;
+		}
 	},
 
 	/**
 	 * 开始
 	 */
 	start:function(){
-		console.log('start...')
+		//console.log('start...')
 		if(this.status === 'START'){
 			return false;
 		}
@@ -76,9 +72,7 @@ Stopwatch.prototype = {
 		this.time = 0;
 		this.timerID = setInterval(function(){
 			watch.time++;
-			var data = watch.update();
-			watch.recordList[0] = data;
-			watch.renderList()
+			watch.update();
 		},10)
 	},
 
@@ -115,52 +109,68 @@ Stopwatch.prototype = {
 	 * 计次
 	 */
 	count:function(){
-		var data = this.format();
-		this.recordList.push(data);
+		this.recordList.push(this.time);
+		this.renderList();
 		this.time = 0;
 	},
 
 	/**
-	 * 更新数据
+	 * 更新数据展示
 	 */
 	update:function(){
-		var data = this.format();
+		var time = this.formatData();
 		var elemetns = this.display.children;
+		var firstRow = this.record.children[0];
+		var index = this.recordList.length+1;
 		for(var i = 0;i<3;i++){
-			elemetns[i].innerText = data[i];
+			elemetns[i].innerText = time[i];
 		}
-		return data;
+		firstRow.innerHTML = '计次'+index+'<i>'+time[0]+':'+time[1]+'.'+time[2]+'</i>';
 	},
 
 	/**
 	 * 数据格式化
+	 * @param Int time 秒数
 	 */
-	format:function(){
-		var msecond = this.time % 100;
-		var second = parseInt(this.time / 100);
-		var minute = parseInt(second / 60 )
-		var arr = [minute,second,msecond];
+	formatData:function(time){
+		time = time || this.time;
+		var msecond = time % 100;
+		var second = parseInt(time / 100);
+		var minute = parseInt(time / 6000 );
+		var arr = [minute,second%60,msecond];
 		for(var i=0;i<3;i++){
 			arr[i] = arr[i] < 10 ? '0'+arr[i] : arr[i]+''
 		}
 		return arr;
 	},
+
 	/**
 	 * 显示记录
 	 */
 	renderList:function(){
-		var record = this.record;
-		var list = this.recordList;
-		var li = '',i=0,length = list.length;
-		for(;i<length;i++){
-			var time = list[i][0]+':'+list[i][1]+'.'+list[i][2]
-			var html = '记次'+(length-i)+'<i>'+time+'</i>';
-			li += '<li>'+html+'</li>';
+		var list = this.recordList,
+			li = '',
+			time = [],
+			index = 0;
+			length = list.length;
+
+		if(this.status==='START'){
+			time = this.formatData();
+			li = '<li>计次'+(length+1)+'<i>'+time[0]+':'+time[1]+'.'+time[2]+'</i></li>';
+			index++;
 		}
-		for(i;i<3;i++){
+		while(length-->0){
+			time = this.formatData(list[length]);
+			li += '<li>计次'+(1+length)+'<i>'+time[0]+':'+time[1]+'.'+time[2]+'</i></li>';
+			index++;
+		}
+
+		while(index<3){
 			li += '<li></li>';
+			index++;
 		}
-		record.innerHTML = li;
+
+		this.record.innerHTML = li;
 	},
 
 	/**
@@ -173,11 +183,24 @@ Stopwatch.prototype = {
 			<span>00</span><span>00</span><span>00</span>\
 		</section>\
 		<div class="control">\
-			<div class="reset"><button>计次</button></div>\
-			<div class="start"><button>启动</button></div>\
+			<div class="reset"><button data-e="reset">计次</button></div>\
+			<div class="start"><button data-e="start">启动</button></div>\
 		</div>\
 		<ul class="watch-list"></ul>';
 		return html;
+	},
+
+	/**
+	 * 找出前N名
+	 * @param int n = 3
+	 */
+	getTopRow:function(n){
+		n = n || 3;
+		var arr = this.recordList.slice();
+		arr.sort(function(a,b){
+			return b-a;
+		});
+		return arr;
 	}
 }
 
