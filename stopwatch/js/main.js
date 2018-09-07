@@ -153,7 +153,7 @@ Stopwatch.prototype = {
 			time = [],
 			index = 0;
 			length = list.length;
-		
+		var row = this.getTopRow();
 		if(this.status==='START'){
 			time = this.formatData();
 			li = '<li>计次'+(length+1)+'<i>'+time[0]+':'+time[1]+'.'+time[2]+'</i></li>';
@@ -161,7 +161,14 @@ Stopwatch.prototype = {
 		}
 		while(length-->0){
 			time = this.formatData(list[length]);
-			li += '<li>计次'+(1+length)+'<i>'+time[0]+':'+time[1]+'.'+time[2]+'</i></li>';
+			var name = '';
+			for(var k=0;k<row.length;k++){
+				if(row[k]===list[length]){
+					name = ' class="top_'+(k+1)+'"';
+					break;
+				}
+			}
+			li += '<li'+name+'>计次'+(1+length)+'<i>'+time[0]+':'+time[1]+'.'+time[2]+'</i></li>';
 			index++;
 		}
 
@@ -191,16 +198,16 @@ Stopwatch.prototype = {
 	},
 
 	/**
-	 * 找出前N名
+	 * 秒表记录排序
 	 * @param int n = 3
 	 */
 	getTopRow:function(n){
-		n = n || 3;
 		var arr = this.recordList.slice();
+		n = n || 3;
 		arr.sort(function(a,b){
-			return b-a;
+			return b - a
 		});
-		return arr;
+		return arr.slice(0,n);
 	}
 }
 

@@ -147,11 +147,11 @@ button {
 	float: right;
 }
 
-.watch-list li:nth-last-child(2){
+.top_2{
 	color: #72bc59;
 }
 
-.watch-list li:nth-last-child(1){
+.top_1{
 	color: #fd455f;
 }
 
