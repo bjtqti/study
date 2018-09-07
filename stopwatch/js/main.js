@@ -7,11 +7,13 @@
 
 function Stopwatch(id){
 	var container;
-	if(({}).toString.call(id)==='[object HTMLElement]'){
+	
+	if(typeof id !== 'string' && id.nodeType===1){
 		container = id;
 	}else{
 		container = document.getElementById(id);
 	}
+	container.className = 'container';
 	this.container = container;
 	this.init();
 }
@@ -60,13 +62,11 @@ Stopwatch.prototype = {
 	 */
 	start:function(){
 		//console.log('start...')
-		if(this.status === 'START'){
-			return false;
-		}
 		var watch = this;
 		this.status = 'START';
 		this.startButton.parentNode.className='start active';
 		this.resetButton.parentNode.className='reset active';
+		this.isActiveReset = true;
 		this.startButton.innerHTML='停止';
 		this.resetButton.innerHTML='计次';
 		this.time = 0;
@@ -80,10 +80,7 @@ Stopwatch.prototype = {
 	 * 停止
 	 */
 	stop:function(){
-		// console.log('stop...')
-		if(this.status === 'STOP'){
-			return false;
-		}
+		//console.log('stop...')
 		this.status = 'STOP';
 		this.startButton.parentNode.className='start';
 		this.startButton.innerHTML='开始';
@@ -95,14 +92,17 @@ Stopwatch.prototype = {
 	 * 复位
 	 */
 	reset:function(){
-		// console.log('reset...')
+		if(!this.isActiveReset){
+			return false;
+		}
+		//console.log('reset')
 		this.time = 0;
 		this.recordList = [];
 		this.resetButton.innerHTML = '计次';
 		this.resetButton.parentNode.className='reset';
-		this.timerID && clearInterval(this.timerID);
 		this.update();
-		this.renderList()
+		this.renderList();
+		this.isActiveReset = false;
 	},
 
 	/**
@@ -135,9 +135,9 @@ Stopwatch.prototype = {
 	formatData:function(time){
 		time = time || this.time;
 		var msecond = time % 100;
-		var second = parseInt(time / 100);
-		var minute = parseInt(time / 6000 );
-		var arr = [minute,second%60,msecond];
+		var second = parseInt(time / 100)%60;
+		var minute = parseInt(time /6000);
+		var arr = [minute,second,msecond];
 		for(var i=0;i<3;i++){
 			arr[i] = arr[i] < 10 ? '0'+arr[i] : arr[i]+''
 		}
@@ -153,7 +153,7 @@ Stopwatch.prototype = {
 			time = [],
 			index = 0;
 			length = list.length;
-
+		
 		if(this.status==='START'){
 			time = this.formatData();
 			li = '<li>计次'+(length+1)+'<i>'+time[0]+':'+time[1]+'.'+time[2]+'</i></li>';

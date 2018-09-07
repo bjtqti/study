@@ -8,11 +8,10 @@
 	<script src="./js/main.js"></script>
 </head>
 <body>
-	<div id="stopwatch" class="container">
-
-	</div>
+	<div id="stopwatch"></div>
 	<script>
-		var watch = new Stopwatch('stopwatch');
+		var m = document.getElementById('stopwatch')
+		var watch = new Stopwatch(m);
 	</script>
 </body>
 </html>
