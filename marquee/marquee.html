@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>js实现文字超过显示宽度每间隔1s自动向左滚动显示</title>
+    <style type="text/css">
+         
+
+        .broad-coast {
+            display: flex;
+            justify-content: center;
+        }
+        .icon-cost {
+            width: 40px;
+            height: 40px;
+            background: url(./v_3.png) no-repeat center center;
+            background-size: 20px 20px;
+        }
+        .broad{
+            position: relative;
+            width: 300px;
+            font-size: 0.85rem; 
+            color: #333; 
+            white-space: nowrap; 
+            overflow: hidden;
+        }
+        .inner{ width:1000px;height:40px;line-height:40px;overflow:hidden;}
+        .inner .txt{ display:inline-block;}
+         
+    </style>
+</head>
+<body>
+    <div id="marquee" class="broad-coast">
+        <div class="icon-cost"></div>
+        <div id="broad" class="broad">
+            <div class="inner">
+                <span class="txt">文字如果超出了宽度自动向左滚动文字如果超出了宽度自动向左滚动。</span>
+            </div>
+        </div>
+    </div>
+ 
+<script>
+    /**
+     * 文字跑马灯
+     * @params options <Object> 
+     * id: 跑马灯所在的dom树最外层节点
+     * broadName 包围圈样式名
+     * speed 速度值 默认50 
+     * @author 蛙哥 <278500368@qq.com>
+     */
+    function Marquee(options){
+        if(!options.id){
+            alert('缺少id')
+            return false;
+        }
+        var wrapper = this.wrapper = document.getElementById(options.id);
+        this.extend(options);
+        this.broad = wrapper.querySelector(options.broadName);
+        this.inner = this.broad.querySelector(options.innerName);
+        this.text = this.inner.querySelector(options.textName);
+        this.textWidth = this.text.offsetWidth;
+        this.broadWidth = this.broad.width;
+        this.speed = options.speed;
+        this.init();
+    }
+    /**
+     * 初始化
+     */
+    Marquee.prototype.init = function(){
+        var that = this;
+        if(this.broadWidth > this.textWidth) {
+            return false;
+        }
+        this.inner.innerHTML += this.inner.innerHTML;
+        setTimeout(function(){
+            that.run()
+        },2000)
+    }
+
+    /**
+     * 执行跑马灯
+     */
+    Marquee.prototype.run = function(){
+        var that = this;
+        if(this.textWidth > this.broad.scrollLeft){
+            this.broad.scrollLeft++;
+            setTimeout(function(){
+                that.run();
+            },this.speed);
+        }else{
+            setTimeout(function(){
+                that.reset();
+            },this.speed);
+        }
+    }
+
+    /**
+     * 复位
+     */
+    Marquee.prototype.reset = function(){
+        this.broad.scrollLeft=0;
+        this.run();
+    }
+
+    /**
+     * 设置默认参数
+     */
+    Marquee.prototype.extend = function(options) {
+        var defaultConfig = {
+            broadName:'.broad',
+            innerName:'.inner',
+            textName:'.txt',
+            speed:50
+        }
+        for(var key in defaultConfig){
+            if(!options.hasOwnProperty(key)){
+                options[key]=defaultConfig[key]
+            }
+        }
+        return options;
+    }
+     
+    var m = new Marquee({
+        id:'marquee'
+    })
+    
+
+</script>
+</body>
+</html>

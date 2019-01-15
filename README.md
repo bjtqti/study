@@ -85,3 +85,6 @@ study
 
 ## stopwatch
 * 秒表
+
+## marquee 
+* 文字跑马灯效果
