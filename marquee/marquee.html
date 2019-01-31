@@ -23,10 +23,13 @@
             width: 300px;
             font-size: 0.85rem; 
             color: #333; 
-            white-space: nowrap; 
             overflow: hidden;
         }
-        .inner{ width:1000px;height:40px;line-height:40px;overflow:hidden;}
+        .wrap {
+            display: flex;
+            flex-wrap: nowrap;
+        }
+        .inner{ flex-shrink: 0;height:40px;line-height:40px;overflow:hidden;}
         .inner .txt{ display:inline-block;}
          
     </style>
@@ -35,8 +38,10 @@
     <div id="marquee" class="broad-coast">
         <div class="icon-cost"></div>
         <div class="broad">
-            <div class="inner">
-                <span class="txt">文字如果超出了宽度自动向左滚动文字如果超出了宽度自动向左滚动。</span>
+            <div class="wrap">
+                <div class="inner">
+                    <span class="txt">文字如果超出了宽度自动向左滚动文字如果超出了宽度自动向左滚动。</span>
+                </div>
             </div>
         </div>
     </div>
