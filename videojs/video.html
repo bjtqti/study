@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<title>video</title>
+  	<link href="https://vjs.zencdn.net/7.3.0/video-js.min.css" rel="stylesheet">
+	<script src="https://vjs.zencdn.net/7.3.0/video.min.js"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/videojs-flash@2/dist/videojs-flash.min.js"></script>
+  	 
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+		.video-js {
+			width: 100%;
+		}
+	</style>
+</head>
+
+<body>
+  	<video id="my-player" class="video-js" poster="https://vjs.zencdn.net/v/oceans.png">
+  		<source src="https://vjs.zencdn.net/v/oceans.mp4" type='video/mp4'>
+  	</video>
+	<script>
+		window.HELP_IMPROVE_VIDEOJS = false;
+		videojs.options.flash.swf = 'http://vjs.zencdn.net/4.9/video-js.swf'
+		//配置参数
+		var options = {
+			playsinline: false,
+			autoplay: true,
+			controls: true,
+			preload:"auto",
+			techOrder: ["html5","flash"]
+		};
+
+		var player = videojs('my-player',options);
+		 
+		player.on('ready', function() {
+			console.log('video player is ready !')
+		  //this.addClass('my-example');
+		});
+
+	</script>	
+  
+</body>
+</html>
